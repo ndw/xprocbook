@@ -6,7 +6,7 @@
           xml:id="cxf.head">
 <refnamediv>
 <refname><step>cxf:head</step></refname>
-<refpurpose>Returns the first few lines of file [[ ALTERNATE ]]</refpurpose>
+<refpurpose>Returns the first few lines of text file</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -21,9 +21,9 @@
 <refsection>
 <title>Description</title>
 
-<para>Returns the first <option>count</option> lines of the file specified
-by <option>href</option>. The step fails if the file specified does not exist,
-is not a file, or cannot be read.</para>
+<para>Returns the first <option>count</option> lines of the file named
+in <option>href</option>. If <option>count</option> is negative, the
+step returns all <emphasis>except</emphasis> those first lines.</para>
 
 <para>The step returns a <tag>c:result</tag> element containing one
 <tag>c:line</tag> for each line. Lines are identified as described in
@@ -55,14 +55,15 @@ error.</para>
 <row>
 <entry><error code="FU01"/></entry>
 <entry>Occurs
-if the file represented by <option>href</option> does not exist or
+if the file named in <option>href</option> does not exist or
 cannot be read.</entry>
 </row>
 <row>
 <entry><error code="FU02"/></entry>
 <entry>Occurs
-if the file represented by <option>href</option> does not appear to
-be a text file.</entry>
+if the file named in <option>href</option> does not appear to
+be a text file. The exact conditions that constitute “does not appear to be”
+are implementation-defined.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -72,12 +73,45 @@ be a text file.</entry>
 <refsection>
 <title>Examples</title>
 
+<para>Suppose that <filename>sonnet116.txt</filename> contains the
+following lines:</para>
+
+<programlisting
+><xi:include href="examples/sonnet116.txt" parse="text"
+/></programlisting>
+
+<para>The the following pipelines produce the results shown below them:</para>
+
 <programlisting
 ><xi:include href="examples/head-1.xpl" parse="text"
 /></programlisting>
 
 <programlisting
 ><xi:include href="results/head-1.xml" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="examples/head-2.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/head-2.xml" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="examples/head-3.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/head-3.xml" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="examples/head-4.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/head-4.xml" parse="text"
 /></programlisting>
 
 </refsection>

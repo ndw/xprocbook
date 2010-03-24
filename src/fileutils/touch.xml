@@ -21,8 +21,8 @@
 <refsection>
 <title>Description</title>
 
-<para>The <step>cxf:touch</step> step “touches” the file specified in
-the <option>href</option> option. The filll will be created if it does
+<para>The <step>cxf:touch</step> step “touches” the file named in
+<option>href</option>. The file will be created if it does
 not exist.</para>
 
 <para>If <option>timestamp</option> is specified, the modification time of
@@ -32,14 +32,35 @@ date and time will be used.</para>
 <para>The step returns a <tag>c:result</tag> element containing the
 absolute URI of the touched file.</para>
 
-<para>If the <option>fail-on-error</option> option is
-<literal>true</literal>, then the step will fail if the file does not
-exist and cannot be created or if its modification time cannot be changed.</para>
+<para>If an error occurs, the step fails if
+<option>fail-on-error</option> is <literal>true</literal>; otherwise,
+the step returns a <tag>c:error</tag> element which may contain
+additional, implementation-defined information about the nature of the
+error.</para>
 
-<para>If the <option>fail-on-error</option> option is
-<literal>false</literal>, the step returns a <tag>c:error</tag>
-element which may contain additional, implementation-defined
-information about the nature of the error.</para>
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="FU01"/></entry>
+<entry>Occurs
+if the file named in <option>href</option> does not exist or
+if its timestamp cannot be changed.</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
 
 </refsection>
 

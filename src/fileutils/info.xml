@@ -12,6 +12,7 @@
 <p:declare-step type="cxf:info">
   <p:output port="result" sequence="true"/>
   <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
 </p:declare-step>
 </refsynopsisdiv>
 
@@ -19,12 +20,14 @@
 <title>Description</title>
 
 <para>The <step>info</step> step returns information about the file or
-directory identified by the <att>href</att> attribute. The step
+directory named in <option>href</option>.</para>
+
+<para>The step
 returns a <tag>c:directory</tag> for directories, a
 <tag>c:file</tag> for ordinary files, or a <tag>c:other</tag> for other
 kinds of filesystem objects. Implementations may also
 return more specific types, for example <tag>c:device</tag>, so anything
-other than <tag>c:directory</tag> or <tag>c:file</tag> should be
+other than <tag>c:directory</tag> or <tag>c:file</tag> must be
 interpreted as “other”.
 If the document doesn't exist, an empty sequence is returned.</para>
 
@@ -78,6 +81,37 @@ be in a namespace.</para>
 
 <para>If the <att>href</att> attribute specified is not a <literal>file:</literal>
 URI, then the result is implementation-defined.</para>
+
+<para>If an error occurs, the step fails if
+<option>fail-on-error</option> is <literal>true</literal>; otherwise,
+the step returns a <tag>c:error</tag> element which may contain
+additional, implementation-defined information about the nature of the
+error.</para>
+
+</refsection>
+
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="FU01"/></entry>
+<entry>Occurs
+if the file named in <option>href</option> cannot be read.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
 
 </refsection>
 

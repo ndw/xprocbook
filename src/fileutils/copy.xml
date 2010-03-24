@@ -5,7 +5,7 @@
           xml:id="cxf.copy">
 <refnamediv>
 <refname><step>cxf:copy</step></refname>
-<refpurpose>Copies a file [[ ALTERNATE ]]</refpurpose>
+<refpurpose>Copies a file</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -20,9 +20,12 @@
 <refsection>
 <title>Description</title>
 
-<para>The <step>cxf:copy</step> attempts to copy the file named in
-<option>href</option> option to the new name specified in
-<option>target</option> option.</para>
+<para>The <step>cxf:copy</step> copies the file named in
+<option>href</option> to the new name specified in
+<option>target</option>.
+If the <option>target</option> is a directory, the
+step attempts to move the file into that directory, preserving its
+base name.</para>
 
 <para>If the copy is successful, the step returns a
 <tag>c:result</tag> element containing the absolute URI of the target.
@@ -52,13 +55,12 @@ error.</para>
 <row>
 <entry><error code="FU01"/></entry>
 <entry>Occurs
-if the file represented by <option>href</option> does not exist or
+if the file named in <option>href</option> does not exist or
 cannot be copied to the specified target.</entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
-
 </refsection>
 
 <refsection>

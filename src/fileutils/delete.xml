@@ -5,7 +5,7 @@
           xml:id="cxf.delete">
 <refnamediv>
 <refname><step>cxf:delete</step></refname>
-<refpurpose>Deletes a file [[ ALTERNATE ]]</refpurpose>
+<refpurpose>Deletes a file</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -21,15 +21,15 @@
 <title>Description</title>
 
 <para>The <step>cxf:delete</step> step attempts to delete the file or
-directory specified in the <option>href</option> option.</para>
+directory named in <option>href</option>.</para>
 
 <para>If the file or directory is successfully deleted, the step
 returns a <tag>c:result</tag> element containing the absolute URI of
 the deleted file.
 </para>
 
-<para>If the <option>href</option> specifies a directory, it can only
-be deleted if the <option>recursive</option> option is
+<para>If <option>href</option> specifies a directory, it can only be
+deleted if the <option>recursive</option> option is
 <literal>true</literal> or if the directory is empty.</para>
 
 <para>If an error occurs, the step fails if
@@ -55,8 +55,8 @@ error.</para>
 <row>
 <entry><error code="FU01"/></entry>
 <entry>Occurs
-if the file represented by <option>href</option> does not exist or
-cannot be deleted to the specified target.</entry>
+if the file named in <option>href</option> does not exist or
+cannot be deleted.</entry>
 </row>
 <row>
 <entry><error code="FU02"/></entry>

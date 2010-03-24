@@ -14,6 +14,10 @@
   <xsl:call-template name="t:inline-monoseq"/>
 </xsl:template>
 
+<xsl:template match="db:port">
+  <xsl:call-template name="t:inline-monoseq"/>
+</xsl:template>
+
 <!--
 <xsl:template match="db:refentry">
   <hr />

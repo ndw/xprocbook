@@ -1,0 +1,125 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Standard XProc Steps</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css"/></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>Standard XProc Steps</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#p.string-replace"><tt class="step">p:string-replace</tt></a></span><span class="refpurpose"> - Replaces matched nodes with the result of evaluating an XPath expression</span></dt></dl></div><div class="refentry" id="p.string-replace"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:string-replace</tt></span> — Replaces matched nodes with the result of evaluating an XPath expression.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:string-replace</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">match</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">XSLTMatchPattern</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">replace</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">XPathExpression</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:string-replace</tt> step replaces matched nodes
+with the result of evaluating an XPath expression. In other words, it
+allows you to identify a node (or nodes) in the document, perform a
+computation on that node, and then update the document to contain the
+result of that computation instead of the original node.</p>
+
+<p>More technically, the <tt class="step">p:string-replace</tt> step
+replaces nodes in the document provided on the <tt class="port">source</tt>
+port that match the pattern specified in the <tt class="option">match</tt>
+option with the string result of evaluating the XPath expression
+specified in the <tt class="option">replace</tt> option.</p>
+
+<p>For each node in the document provided on the
+<tt class="port">source</tt> port:</p>
+
+<div class="itemizedlist"><ul><li><p>If the match pattern specified in the <tt class="option">match</tt> option
+matches the node, then the XPath expression provided in the
+<tt class="option">replace</tt> option is evaluated with the matched node
+as the context.</p><p>If the node is an attribute node then the string value of the
+expression replaces the attribute <em>value</em>, if the
+node is any other kind of node, then the string value of the
+expression replaces the entire node (not just the content of the
+node).</p></li><li><p>If the match pattern does not match the node, then the string replace
+operation is performed on each of the node's attributes (if it is an element)
+and its children. The resulting, transformed node is copied to the output.
+</p></li></ul></div>
+
+<p>One of the least convenient parts of the
+<tt class="step">p:string-replace</tt> step is the <tt class="option">replace</tt>
+option. What you must always bear in mind is that the value of the
+<tt class="option">replace</tt> option is treated as an XPath expression
+<em>by the step</em>.</p>
+
+<p>Often, this is what you want. Unfortunately, in one of the most
+common cases, where you'd like to replace an attribute value with some
+computed value, the obvious approach does not do what you'd
+expect.</p>
+
+<p>Consider this pipeline:</p>
+
+<div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="new-class" select="'new-value'"/&gt;
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class"&gt;
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace" select="$new-class"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
+</pre></div>
+
+<p>On the surface, this pipeline appears to replace the value of
+the <tt class="tag-attribute">class</tt> attribute with the value passed to the pipeline
+in the <tt class="option">new-class</tt> option. The string replace step is
+effectively the same as this one:
+</p>
+
+<div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class" replace="new-value"&gt;
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+</pre></div>
+
+<p>Here we can see that the value of the <tt class="option">replace</tt> option
+is a bare name. Recall that <tt class="step">p:string-replace</tt> treates the value
+of <tt class="option">replace</tt> <em>as an XPath expression</em>.
+A bare name in XPath selects child elements with that name. So, as written,
+what this string replace step does is replace the value of the <tt class="tag-attribute">class</tt>
+attribute with the string value of its <tt class="tag-element">new-value</tt> element children.</p>
+
+<p>Of course, attributes don't have element children, so the result of
+evaluating that XPath expression is always the empty string and that's the
+value that will be used for the <tt class="tag-attribute">class</tt> attribute.</p>
+
+<p>The step that we need to evaluate effectively is this one:</p>
+
+<div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class" replace="'new-value'"&gt;
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+</pre></div>
+
+<p>That can be achieved in the following way:</p>
+
+<div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="new-class" select="'new-value'"/&gt;
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class"&gt;
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                   select="concat(&amp;quot;'&amp;quot;,$new-class,&amp;quot;'&amp;quot;)"/&gt;
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
+</pre></div>
+
+<p>Which is undeniably pretty ugly.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div></div></body></html>

@@ -5,6 +5,6 @@
 
   <p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/>
 
-  <cxf:head count="3" href="sonnet116.txt"/>
+  <cxf:tail count="5" href="sonnet116.txt"/>
 
 </p:declare-step>

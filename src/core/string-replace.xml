@@ -1,39 +1,131 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.string-replace">
-<title>p:string-replace</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.string-replace">
+<refnamediv>
+<refname><step>p:string-replace</step></refname>
+<refpurpose>Replaces matched nodes with the result of evaluating an XPath expression</refpurpose>
+</refnamediv>
 
-<para>The <tag>p:string-replace</tag> step matches nodes in the
-document provided on the <port>source</port> port and replaces them
-with the string result of evaluating an XPath expression.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:string-replace">
    <p:input port="source"/>
    <p:output port="result"/>
-   <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
-   <p:option name="replace" required="true" e:type="XPathExpression"/>
+   <p:option name="match" required="true" cx:type="XSLTMatchPattern"/>
+   <p:option name="replace" required="true" cx:type="XPathExpression"/>
 </p:declare-step>
+</refsynopsisdiv>
 
-<para>The value of the <option>match</option> option <rfc2119>must</rfc2119> be an
-XSLTMatchPattern.</para>
+<refsection>
+<title>Description</title>
 
-<para>The value of the <option>replace</option> option <rfc2119>must</rfc2119> be an
-XPathExpression.</para>
+<para>The <step>p:string-replace</step> step replaces matched nodes
+with the result of evaluating an XPath expression. In other words, it
+allows you to identify a node (or nodes) in the document, perform a
+computation on that node, and then update the document to contain the
+result of that computation instead of the original node.</para>
 
-<para>The matched nodes are specified with the match pattern in the
-<option>match</option> option.
-For each matching node, the XPath
-expression provided by the <option>replace</option> option is
-evaluated with the matching node as the XPath context node.
-The string value of the result is used in the output.
-Nodes that do not match are copied without change.</para>
+<para>More technically, the <step>p:string-replace</step> step
+replaces nodes in the document provided on the <port>source</port>
+port that match the pattern specified in the <option>match</option>
+option with the string result of evaluating the XPath expression
+specified in the <option>replace</option> option.</para>
 
-<para>If the expression given in the <option>match</option> option
-matches an <emphasis>attribute</emphasis>, the string value of the
-<option>replace</option>
-expression is used as the new value of the attribute in the output.
-If the attribute is named “<tag class="attribute">xml:base</tag>”, the base URI
-of the element <rfc2119>must</rfc2119> also be amended accordingly.</para>
+<para>For each node in the document provided on the
+<port>source</port> port:</para>
 
-<para>If the expression matches any other kind of node, the entire
-node (and <emphasis>not</emphasis> just its contents) is replaced by
-the string value of the <option>replace</option> expression.</para>
-</section>
+<itemizedlist>
+<listitem>
+<para>If the match pattern specified in the <option>match</option> option
+matches the node, then the XPath expression provided in the
+<option>replace</option> option is evaluated with the matched node
+as the context.</para>
+<para>If the node is an attribute node then the string value of the
+expression replaces the attribute <emphasis>value</emphasis>, if the
+node is any other kind of node, then the string value of the
+expression replaces the entire node (not just the content of the
+node).</para>
+</listitem>
+<listitem>
+<para>If the match pattern does not match the node, then the string replace
+operation is performed on each of the node's attributes (if it is an element)
+and its children. The resulting, transformed node is copied to the output.
+</para>
+</listitem>
+</itemizedlist>
+
+<para>One of the least convenient parts of the
+<step>p:string-replace</step> step is the <option>replace</option>
+option. What you must always bear in mind is that the value of the
+<option>replace</option> option is treated as an XPath expression
+<emphasis>by the step</emphasis>.</para>
+
+<para>Often, this is what you want. Unfortunately, in one of the most
+common cases, where you'd like to replace an attribute value with some
+computed value, the obvious approach does not do what you'd
+expect.</para>
+
+<para>Consider this pipeline:</para>
+
+<programlisting
+><xi:include href="examples/string-replace-ex1.xpl" parse="text"
+/></programlisting>
+
+<para>On the surface, this pipeline appears to replace the value of
+the <att>class</att> attribute with the value passed to the pipeline
+in the <option>new-class</option> option. The string replace step is
+effectively the same as this one:
+</para>
+
+<programlisting><![CDATA[  <p:string-replace match="p/@class" replace="new-value">
+    <p:input port="source">
+      <p:inline><p class="old-value">Some text.</p></p:inline>
+    </p:input>
+  </p:string-replace>]]></programlisting>
+
+<para>Here we can see that the value of the <option>replace</option> option
+is a bare name. Recall that <step>p:string-replace</step> treats the value
+of <option>replace</option> <emphasis>as an XPath expression</emphasis>.
+A bare name in XPath selects child elements with that name. So, as written,
+what this string replace step does is replace the value of the <att>class</att>
+attribute with the string value of its <tag>new-value</tag> element children.</para>
+
+<para>Of course, attributes don't have element children, so the result of
+evaluating that XPath expression is always the empty string and that's the
+value that will be used for the <att>class</att> attribute.</para>
+
+<para>The step that we need to evaluate effectively is this one:</para>
+
+<programlisting><![CDATA[  <p:string-replace match="p/@class" replace="'new-value'">
+    <p:input port="source">
+      <p:inline><p class="old-value">Some text.</p></p:inline>
+    </p:input>
+  </p:string-replace>]]></programlisting>
+
+<para>That can be achieved in the following way:</para>
+
+<programlisting
+><xi:include href="examples/string-replace-ex2.xpl" parse="text"
+/></programlisting>
+
+<para>Which is undeniably pretty ugly.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/string-replace-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/string-replace-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>
