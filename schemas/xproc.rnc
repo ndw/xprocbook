@@ -1,0 +1,100 @@
+# This schema is a customization for the XProc book
+#
+# ======================================================================
+
+namespace ctrl = "http://nwalsh.com/xmlns/schema-control/"
+namespace rng  = "http://relaxng.org/ns/structure/1.0"
+namespace s = "http://www.ascc.net/xml/schematron"
+namespace db = "http://docbook.org/ns/docbook"
+namespace html = "http://www.w3.org/1999/xhtml"
+namespace p = "http://www.w3.org/ns/xproc"
+namespace e ="http://www.w3.org/1999/XSL/Spec/ElementSyntax"
+default namespace = "http://docbook.org/ns/docbook"
+
+include "/home/ndw/docbook.org/xml/5.0/rng/docbookxi.rnc" {
+   db._any = element * - (db:* | html:* | p:*) {
+      (db._any.attribute | text | db._any)*
+   }
+}
+
+db.all.blocks |= p.declare-step
+
+p.declare-step =
+   element p:declare-step {
+      attribute (* - xml:id) { text }*,
+      _any_xproc_syntax*
+   }
+
+_any_xproc_syntax =
+   element p:* {
+      attribute (* - xml:id) { text }*,
+      _any_xproc_syntax*
+   }
+
+# ======================================================================
+
+db.port.role.attribute = attribute role { text }
+db.port.attlist =
+   db.port.role.attribute?
+ & db.common.attributes
+ & db.common.linking.attributes
+
+db.port =
+   element port {
+      db.port.attlist, (db.programming.inlines | db._text)*
+   }
+
+db.markup.inlines |= db.port
+
+# ======================================================================
+
+db.inline.step.role.attribute = attribute role { text }
+db.inline.step.attlist =
+   db.inline.step.role.attribute?
+ & db.common.attributes
+ & db.common.linking.attributes
+
+db.inline.step =
+   element step {
+      db.inline.step.attlist, (db.programming.inlines | db._text)*
+   }
+
+db.markup.inlines |= db.inline.step
+
+# ======================================================================
+
+db.error =
+   element db:error {
+      attribute class { "static" | "dynamic" }?,
+      attribute code { text },
+      db.common.attributes,
+      db.all.inlines*
+   }
+
+db.error.inlines |= db.error
+
+# ======================================================================
+
+db.impl =
+   element db:impl {
+      db.common.attributes,
+      db.all.inlines*
+   }
+
+db.technical.inlines |= db.impl
+
+# ======================================================================
+
+db.att.role.attribute = attribute role { text }
+db.att.attlist =
+   db.att.role.attribute?
+ & db.common.attributes
+ & db.common.linking.attributes
+
+db.att =
+   element att {
+      db.att.attlist, (db.programming.inlines | db._text)*
+   }
+
+db.markup.inlines |= db.att
+

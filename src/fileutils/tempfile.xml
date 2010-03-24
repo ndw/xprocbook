@@ -1,0 +1,71 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.tempfile">
+<refnamediv>
+<refname><step>cxf:tempfile</step></refname>
+<refpurpose>Creates a temporary file</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:tempfile">
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="prefix" cx:type="xsd:string"/>
+  <p:option name="suffix" cx:type="xsd:string"/>
+  <p:option name="delete-on-exit" cx:type="xsd:boolean"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxf:tempfile</step> step returns a <tag>c:result</tag>
+element containing the absolute URI of a temporary file. The temporary
+file is guaranteed not to already exist when <step>cxf:tempfile</step>
+is called.</para>
+
+<para>The file is created in the directory specified by the
+<option>href</option> option. The step fails if <option>href</option>
+does not specify a directory or if the directory does not exist.</para>
+
+<para>If <option>prefix</option> is specified, the file's name will begin
+with that prefix. If <option>suffix</option> is specified, the file's name
+will end with that suffix.</para>
+
+<para>The step returns a <tag>c:result</tag> element containing the
+absolute URI of the temporary file.</para>
+
+<para>If the <option>delete-on-exit</option> option is
+<literal>true</literal>, then the temporary file will automatically be
+deleted when the processor terminates.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>true</literal>, then the step will fail if the temporary
+file cannot be created.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>false</literal>, the step returns a <tag>c:error</tag>
+element which may contain additional, implementation-defined
+information about the nature of the error.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/tempfile-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/tempfile-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

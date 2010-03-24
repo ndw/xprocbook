@@ -1,0 +1,38 @@
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.parameters">
+<title>p:parameters</title>
+
+<para>The <code>p:parameters</code> step exposes a set of parameters
+as a <tag>c:param-set</tag> document.</para>
+
+<p:declare-step type="p:parameters">
+   <p:input port="parameters" kind="parameter" primary="false"/>
+   <p:output port="result" primary="false"/>
+</p:declare-step>
+
+<para>Each parameter passed to the step is converted into a
+<tag>c:param</tag> element. The step resolves duplicate parameters in
+the normal way (see <link linkend="parameter-inputs"/>) so at most one
+parameter with any given name will appear in the result.
+The resulting <tag>c:param</tag> elements are wrapped in a 
+<tag>c:param-set</tag> and the parameter set document is written
+to the <port>result</port> port.
+<impl>The
+order in which <tag>c:param</tag> elements occur in the <tag>c:param-set</tag> is
+<glossterm>implementation-dependent</glossterm>.</impl></para>
+
+<para>For consistency and user convenience, if any of the parameters
+have names that are in a namespace, the
+<tag class="attribute">namespace</tag> attribute on the
+<tag>c:param</tag> element <rfc2119>must</rfc2119> be used. Each
+<tag class="attribute">name</tag> <rfc2119>must</rfc2119> be an NCName.</para>
+
+<para>The base URI of the output document is the URI of the pipeline document
+that contains the step.</para>
+ 
+<note>
+<para>Since the <port>parameters</port> port is <emphasis>not</emphasis>
+primary, any explicit <tag>p:with-param</tag> settings <rfc2119>must</rfc2119> include a
+<tag class="attribute">port</tag> attribute, per the last paragraph of <xref linkend="p.with-param"/>.</para>
+</note>
+
+</section>

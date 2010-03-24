@@ -1,0 +1,56 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.mkdir">
+<refnamediv>
+<refname><step>cxf:mkdir</step></refname>
+<refpurpose>Creates a directory</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:mkdir">
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxf:mkdir</step> step creates a directory with the
+name spacified in the <option>href</option> option. If the name
+includes more than one directory component, all of the intermediate
+components are created. The path separator is implementation-defined.
+</para>
+
+<para>The step returns a <tag>c:result</tag> element containing the
+absolute URI of the directory created.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>true</literal>, then the step will fail if the directory
+represented by <option>href</option> cannot be created.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>false</literal>, the step returns a <tag>c:error</tag>
+element which may contain additional, implementation-defined
+information about the nature of the error.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/mkdir-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/mkdir-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

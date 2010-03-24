@@ -1,0 +1,86 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.head">
+<refnamediv>
+<refname><step>cxf:head</step></refname>
+<refpurpose>Returns the first few lines of file [[ ALTERNATE ]]</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:head">
+  <p:output port="result"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="count" required="true" cx:type="xsd:int"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>Returns the first <option>count</option> lines of the file specified
+by <option>href</option>. The step fails if the file specified does not exist,
+is not a file, or cannot be read.</para>
+
+<para>The step returns a <tag>c:result</tag> element containing one
+<tag>c:line</tag> for each line. Lines are identified as described in
+<biblioref linkend="xml10"/>,
+<link xlink:href="http://www.w3.org/TR/xml/#sec-line-ends">2.11 End-of-Line
+Handling</link>.</para>
+
+<para>If an error occurs, the step fails if
+<option>fail-on-error</option> is <literal>true</literal>; otherwise,
+the step returns a <tag>c:error</tag> element which may contain
+additional, implementation-defined information about the nature of the
+error.</para>
+
+</refsection>
+
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="FU01"/></entry>
+<entry>Occurs
+if the file represented by <option>href</option> does not exist or
+cannot be read.</entry>
+</row>
+<row>
+<entry><error code="FU02"/></entry>
+<entry>Occurs
+if the file represented by <option>href</option> does not appear to
+be a text file.</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/head-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/head-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>
+

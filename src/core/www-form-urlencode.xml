@@ -1,0 +1,40 @@
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.www-form-urlencode">
+<title>p:www-form-urlencode</title>
+
+<para>The <tag>p:www-form-urlencode</tag> step encodes a set of parameter
+values as a <literal>x-www-form-urlencoded</literal> string and
+injects it into the <port>source</port> document.</para>
+
+<p:declare-step type="p:www-form-urlencode">
+  <p:input port="source" primary="true"/>
+  <p:output port="result"/>
+  <p:input port="parameters" kind="parameter"/>
+  <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
+</p:declare-step>
+
+<para>The value of the <option>match</option> option must be an
+XSLTMatchPattern.</para>
+
+<para>The set of parameters is encoded as a single 
+<literal>x-www-form-urlencoded</literal> string of name/value pairs.
+When parameters are encoded into name/value pairs,
+<emphasis>only</emphasis> the local name of each parameter is used.
+The namespace name is ignored and no prefix or colon appears in the name.
+</para>
+
+<para>The parameters are encoded in document order. That is, the first
+parameter appears first in the resulting string, the second parameter
+second, etc. reading from left to right.</para>
+
+<para>The matched nodes are specified with the match pattern in the
+<option>match</option> option. For each matching node, the encoded
+string is used in the output. Nodes that do not
+match are copied without change.</para>
+
+<para>If the expression given in the <option>match</option> option 
+matches an <emphasis>attribute</emphasis>, the encoded
+string is used as the new value of the attribute in the output.
+If the expression matches any other kind of node, the entire
+node (and <emphasis>not</emphasis> just its contents) is replaced by
+the encoded string.</para>
+</section>

@@ -1,0 +1,48 @@
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.store">
+<title>p:store</title>
+
+<para>The <tag>p:store</tag> step stores a serialized version of its
+input to a URI. This step outputs a reference to the location of the
+stored document.</para>
+
+<p:declare-step type="p:store">
+  <p:input port="source"/>
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" e:type="xsd:anyURI"/>
+  <p:option name="byte-order-mark" e:type="xsd:boolean"/>
+  <p:option name="cdata-section-elements" select="''" e:type="ListOfQNames"/>
+  <p:option name="doctype-public" e:type="xsd:string"/>
+  <p:option name="doctype-system" e:type="xsd:anyURI"/>
+  <p:option name="encoding" e:type="xsd:string"/>
+  <p:option name="escape-uri-attributes" select="'false'" e:type="xsd:boolean"/>
+  <p:option name="include-content-type" select="'true'" e:type="xsd:boolean"/>
+  <p:option name="indent" select="'false'" e:type="xsd:boolean"/>
+  <p:option name="media-type" e:type="xsd:string"/>
+  <p:option name="method" select="'xml'" e:type="xsd:QName"/>
+  <p:option name="normalization-form" select="'none'" e:type="NormalizationForm"/>
+  <p:option name="omit-xml-declaration" select="'true'" e:type="xsd:boolean"/>
+  <p:option name="standalone" select="'omit'" e:type="true|false|omit"/>
+  <p:option name="undeclare-prefixes" e:type="xsd:boolean"/>
+  <p:option name="version" select="'1.0'" e:type="xsd:string"/>
+</p:declare-step>
+
+<para>The value of the <option>href</option> option
+<rfc2119>must</rfc2119> be an <type>anyURI</type>. If it is relative,
+it is made absolute against the base URI of the element on which it is
+specified (<tag>p:with-option</tag> or <tag>p:store</tag> in the case
+of a <link linkend="option-shortcut">syntactic shortcut</link>
+value).</para>
+
+<para>The step attempts to store the XML document to the specified
+URI. <error code="C0050">It is a <glossterm>dynamic error</glossterm>
+if the URI scheme is not supported or the step cannot store to the
+specified location.</error></para>
+
+<para>The output of this step is a document containing a single
+<tag>c:result</tag> element whose content is the absolute URI of the
+document stored by the step.</para>
+
+<para>The standard serialization options are provided to control the
+serialization of the XML content when it is stored. These options are
+as specified in <link linkend="serialization-options"/>.</para>
+</section>

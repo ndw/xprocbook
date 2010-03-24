@@ -1,0 +1,60 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.touch">
+<refnamediv>
+<refname><step>cxf:touch</step></refname>
+<refpurpose>Update the modification time of a file</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:touch">
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="timestamp" cx:type="xs:dateTime"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxf:touch</step> step “touches” the file specified in
+the <option>href</option> option. The filll will be created if it does
+not exist.</para>
+
+<para>If <option>timestamp</option> is specified, the modification time of
+the file will be updated to the specified time. If unspecified, the current
+date and time will be used.</para>
+
+<para>The step returns a <tag>c:result</tag> element containing the
+absolute URI of the touched file.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>true</literal>, then the step will fail if the file does not
+exist and cannot be created or if its modification time cannot be changed.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>false</literal>, the step returns a <tag>c:error</tag>
+element which may contain additional, implementation-defined
+information about the nature of the error.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/touch-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/touch-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>
+

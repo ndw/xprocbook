@@ -1,0 +1,20 @@
+<reference xmlns="http://docbook.org/ns/docbook"
+           xmlns:cx="http://xmlcalabash.com/ns/extensions"
+           xmlns:xi="http://www.w3.org/2001/XInclude"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:p="http://www.w3.org/ns/xproc"
+           xml:id="fileutils">
+<title>File Utilities</title>
+
+<xi:include href="copy.xml"/>
+<xi:include href="delete.xml"/>
+<xi:include href="head.xml"/>
+<xi:include href="info.xml"/>
+<xi:include href="mkdir.xml"/>
+<xi:include href="move.xml"/>
+<xi:include href="tail.xml"/>
+<xi:include href="tempfile.xml"/>
+<xi:include href="touch.xml"/>
+
+</reference>
+

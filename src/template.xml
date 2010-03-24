@@ -1,0 +1,34 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="???">
+<refnamediv>
+<refname><step></step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

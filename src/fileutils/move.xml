@@ -1,0 +1,67 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.move">
+<refnamediv>
+<refname><step>cxf:move</step></refname>
+<refpurpose>Moves (renames) a file or directory</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:move">
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="target" required="true" cx:type="xsd:boolean"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxf:move</step> step attempts to move (rename) the
+file specified in the <option>href</option> option to the new name
+specified in the <option>target</option> option.</para>
+
+<para>If the <option>target</option> is a directory, the
+step attempts to move the file into that directory, preserving its
+base name.</para>
+
+<para>If the move is successful, the step returns a
+<tag>c:result</tag> element containing the absolute URI of the
+new name of the file. The original file is effectively removed.
+</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>true</literal>, then the step will fail if a file with the
+name specified in the <option>target</option> option already exists,
+or if the file specified in <option>href</option> does not exist or
+cannot be moved.</para>
+
+<para>If the <option>fail-on-error</option> option is
+<literal>false</literal>, the step returns a <tag>c:error</tag>
+element which may contain additional, implementation-defined
+information about the nature of the error.</para>
+
+<para>If the <option>href</option> option specifies a directory, device,
+other special kind of object, the results are
+implementation-defined.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/move-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/move-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

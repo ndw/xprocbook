@@ -1,0 +1,48 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.tail">
+<refnamediv>
+<refname><step>cxf:tail</step></refname>
+<refpurpose>Returns the last few lines of file</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:tail">
+  <p:output port="result"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="count" required="true" cx:type="xsd:int"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>Returns the last <option>count</option> lines of the file specified
+by <option>href</option>. The step fails if the file specified does not exist,
+is not a file, or cannot be read.</para>
+
+<para>The step returns a <tag>c:result</tag> element containing one
+<tag>c:line</tag> for each line. Lines are identified as described in
+<biblioref linkend="xml10"/>,
+<link xlink:href="http://www.w3.org/TR/xml/#sec-line-ends">2.11 End-of-Line
+Handling</link>.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/tail-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/tail-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

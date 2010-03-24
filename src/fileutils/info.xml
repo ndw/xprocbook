@@ -1,0 +1,93 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.info">
+<refnamediv>
+<refname><step>cxf:info</step></refname>
+<refpurpose>Returns information about a file or directory</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:info">
+  <p:output port="result" sequence="true"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>info</step> step returns information about the file or
+directory identified by the <att>href</att> attribute. The step
+returns a <tag>c:directory</tag> for directories, a
+<tag>c:file</tag> for ordinary files, or a <tag>c:other</tag> for other
+kinds of filesystem objects. Implementations may also
+return more specific types, for example <tag>c:device</tag>, so anything
+other than <tag>c:directory</tag> or <tag>c:file</tag> should be
+interpreted as “other”.
+If the document doesn't exist, an empty sequence is returned.</para>
+
+<para>The document element of the result, if there is one, will have
+the following attributes:</para>
+
+<informaltable>
+<tgroup cols="3">
+<thead>
+<row>
+<entry>Attribute</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry>readable</entry>
+<entry><type>xs:boolean</type></entry>
+<entry>“<literal>true</literal>” if the object is readable.</entry>
+</row>
+<row>
+<entry>writable</entry>
+<entry><type>xs:boolean</type></entry>
+<entry>“<literal>true</literal>” if the object file is writable.</entry>
+</row>
+<row>
+<entry>hidden</entry>
+<entry><type>xs:boolean</type></entry>
+<entry>“<literal>true</literal>” if the object is hidden.</entry>
+</row>
+<row>
+<entry>last-modified</entry>
+<entry><type>xs:dateTime</type></entry>
+<entry>The last modification time of the object expressed in UTC.</entry>
+</row>
+<row>
+<entry>size</entry>
+<entry><type>xs:integer</type></entry>
+<entry>The size of the object in bytes.</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para>If the value of a particular attribute is unknown or inapplicable
+for the particular kind of object, or in the case
+of boolean attributes, if it's false, then the attribute is not present.
+Additional implementation-defined attributes may be present, but they must
+be in a namespace.</para>
+
+<para>If the <att>href</att> attribute specified is not a <literal>file:</literal>
+URI, then the result is implementation-defined.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting><xi:include href="examples/info-1.xpl" parse="text"/></programlisting>
+
+<programlisting><xi:include href="results/info-1.xml" parse="text"/></programlisting>
+
+</refsection>
+
+</refentry>

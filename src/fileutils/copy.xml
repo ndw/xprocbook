@@ -1,0 +1,78 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxf.copy">
+<refnamediv>
+<refname><step>cxf:copy</step></refname>
+<refpurpose>Copies a file [[ ALTERNATE ]]</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxf:copy">
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="target" required="true" cx:type="xsd:boolean"/>
+  <p:option name="fail-on-error" select="'true'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxf:copy</step> attempts to copy the file named in
+<option>href</option> option to the new name specified in
+<option>target</option> option.</para>
+
+<para>If the copy is successful, the step returns a
+<tag>c:result</tag> element containing the absolute URI of the target.
+</para>
+
+<para>If an error occurs, the step fails if
+<option>fail-on-error</option> is <literal>true</literal>; otherwise,
+the step returns a <tag>c:error</tag> element which may contain
+additional, implementation-defined information about the nature of the
+error.</para>
+
+</refsection>
+
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="FU01"/></entry>
+<entry>Occurs
+if the file represented by <option>href</option> does not exist or
+cannot be copied to the specified target.</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/copy-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/copy-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>
+

@@ -1,0 +1,51 @@
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.load">
+<title>p:load</title>
+
+<para>The <code>p:load</code> step has no inputs but produces as its
+result an XML resource specified by an IRI.</para>
+
+<p:declare-step type="p:load">
+  <p:output port="result"/>
+  <p:option name="href" required="true" e:type="xsd:anyURI"/>
+  <p:option name="dtd-validate" select="'false'" e:type="xsd:boolean"/>
+</p:declare-step>
+
+<para>The value of the <option>href</option> option
+<rfc2119>must</rfc2119> be an <type>anyURI</type>. It is interpreted
+as an IRI reference. If it is relative, it is made absolute against
+the base URI of the element on which it is specified
+(<tag>p:with-option</tag> or <tag>p:load</tag> in the case of a <link linkend="option-shortcut">syntactic shortcut</link> value).</para>
+
+<para>The value of the <option>dtd-validate</option> option
+<rfc2119>must</rfc2119> be a boolean.</para>
+
+<para>The <tag>p:load</tag> step is the same as <tag>p:document</tag>
+with two additions:</para>
+
+<orderedlist>
+<listitem>
+<para>The URI to be accessed can be constructed dynamically by the
+pipeline.</para>
+</listitem>
+<listitem>
+<para>The <tag>p:load</tag> step has an option to invoke DTD validation.
+</para>
+</listitem>
+</orderedlist>
+
+<para>When <option>dtd-validate</option> is <literal>false</literal>,
+<tag>p:load</tag> processing is the same as <tag>p:document</tag>
+processing on the computed <option>href</option> value.</para>
+
+<para>When <option>dtd-validate</option> is <literal>true</literal>,
+<tag>p:load</tag> processing is the same as <tag>p:document</tag>
+processing on the computed <option>href</option> value but
+<rfc2119>must</rfc2119> use a validating parser. <error code="C0027">It is a <glossterm>dynamic error</glossterm> if the
+document is not valid or the step doesn't support DTD
+validation.</error>
+</para>
+
+<para>The retrieved document is produced on the <port>result</port>
+port. The base URI of the result is the (absolute) IRI used to
+retrieve it.</para>
+</section>
