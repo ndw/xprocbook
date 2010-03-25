@@ -1,0 +1,46 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxo.cwd">
+<refnamediv>
+<refname><step>cxo:cwd</step></refname>
+<refpurpose>Returns the current working directory of the processor</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxo:cwd">
+  <p:output port="result" sequence="true"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxo:cwd</step> step returns a single <tag>c:result</tag>
+containing the current working directory. On systems which have no
+concept of a working directory, this step returns the empty sequence.
+</para>
+
+<para>(This step is exactly duplicates the <att>cwd</att> attribute on
+the <tag>c:result</tag> from <step>cxo:info</step>; it's just for
+convenience.)</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/cwd-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/cwd-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

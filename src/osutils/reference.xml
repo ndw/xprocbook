@@ -4,10 +4,10 @@
            xmlns:xlink="http://www.w3.org/1999/xlink"
            xmlns:p="http://www.w3.org/ns/xproc"
            xml:id="fileutils">
-<title>Standard XProc Steps</title>
+<title>Operating System Utilities</title>
 
-<xi:include href="add-xml-base.xml"/>
-<xi:include href="string-replace.xml"/>
+<xi:include href="info.xml"/>
+<xi:include href="cwd.xml"/>
+<xi:include href="env.xml"/>
 
 </reference>
-

@@ -1,0 +1,97 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="cxo.info">
+<refnamediv>
+<refname><step>cxo:info</step></refname>
+<refpurpose>Returns information about the operating system</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="cxo:info">
+  <p:output port="result"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>cxo:info</step> step returns information about the
+operating system on which the processor is running. It returns a
+<tag>c:result</tag> element with attributes describing properties of
+the system. It <emphasis>should</emphasis> include the following
+properties:</para>
+
+<variablelist>
+<varlistentry>
+<term><att>file-separator</att></term>
+<listitem>
+<para>The file separator; usually “/” on Unix, “\” on Windows.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>path-separator</att></term>
+<listitem>
+<para>The path separator; usually “:” on Unix, “;” on Windows.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>os-architecture</att></term>
+<listitem>
+<para>The operating system architecture, for example “i386”.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>os-name</att></term>
+<listitem>
+<para>The name of the operating system, for example “Mac OS X”.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>os-version</att></term>
+<listitem>
+<para>The version of the operating system, for example “10.5.6”.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>cwd</att></term>
+<listitem>
+<para>The current working directory.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>user-name</att></term>
+<listitem>
+<para>The login name of the effective user, for example “ndw”.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>user-home</att></term>
+<listitem>
+<para>The home diretory of the effective user, for example “/home/ndw”.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>The exact set of properties returned is
+implementation-dependent.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/info-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/info-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

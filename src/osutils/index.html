@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Operating System Utilities</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css"/></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>Operating System Utilities</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#cxo.info"><tt class="step">cxo:info</tt></a></span><span class="refpurpose"> - Returns information about the operating system</span></dt><dt><span class="refentrytitle"><a href="#cxo.cwd"><tt class="step">cxo:cwd</tt></a></span><span class="refpurpose"> - Returns the current working directory of the processor</span></dt><dt><span class="refentrytitle"><a href="#cxo.env"><tt class="step">cxo:env</tt></a></span><span class="refpurpose"> - Returns information about the environment</span></dt></dl></div><div class="refentry" id="cxo.info"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxo:info</tt></span> — Returns information about the operating system.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxo:info</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">cxo:info</tt> step returns information about the
+operating system on which the processor is running. It returns a
+<tt class="tag-element">c:result</tt> element with attributes describing properties of
+the system. It <em>should</em> include the following
+properties:</p>
+
+<div class="variablelist"><dl><dt id="cxo.info.3.3.1.1"><tt class="tag-attribute">file-separator</tt></dt><dd><p>The file separator; usually “/” on Unix, “\” on Windows.</p></dd><dt id="cxo.info.3.3.2.1"><tt class="tag-attribute">path-separator</tt></dt><dd><p>The path separator; usually “:” on Unix, “;” on Windows.</p></dd><dt id="cxo.info.3.3.3.1"><tt class="tag-attribute">os-architecture</tt></dt><dd><p>The operating system architecture, for example “i386”.</p></dd><dt id="cxo.info.3.3.4.1"><tt class="tag-attribute">os-name</tt></dt><dd><p>The name of the operating system, for example “Mac OS X”.</p></dd><dt id="cxo.info.3.3.5.1"><tt class="tag-attribute">os-version</tt></dt><dd><p>The version of the operating system, for example “10.5.6”.</p></dd><dt id="cxo.info.3.3.6.1"><tt class="tag-attribute">cwd</tt></dt><dd><p>The current working directory.</p></dd><dt id="cxo.info.3.3.7.1"><tt class="tag-attribute">user-name</tt></dt><dd><p>The login name of the effective user, for example “ndw”.</p></dd><dt id="cxo.info.3.3.8.1"><tt class="tag-attribute">user-home</tt></dt><dd><p>The home diretory of the effective user, for example “/home/ndw”.</p></dd></dl></div>
+
+<p>The exact set of properties returned is
+implementation-dependent.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="cxo.cwd"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxo:cwd</tt></span> — Returns the current working directory of the processor.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxo:cwd</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">cxo:cwd</tt> step returns a single <tt class="tag-element">c:result</tt>
+containing the current working directory. On systems which have no
+concept of a working directory, this step returns the empty sequence.
+</p>
+
+<p>(This step is exactly duplicates the <tt class="tag-attribute">cwd</tt> attribute on
+the <tt class="tag-element">c:result</tt> from <tt class="step">cxo:info</tt>; it's just for
+convenience.)</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="cxo.env"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxo:env</tt></span> — Returns information about the environment.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxo:env</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">cxo:env</tt> step returns information about the
+operating system environment. It returns a <tt class="code">c:result</tt>
+containing zero or more <tt class="tag-element">c:env</tt> elements. Each
+<tt class="tag-element">c:env</tt> has <tt class="tag-attribute">name</tt> and <tt class="tag-attribute">value</tt>
+attributes containing the name and value of an environment
+variable.</p>
+
+<p>On systems which nave no concept of an environment, this step
+returns an empty <tt class="tag-element">c:result</tt>.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div></div></body></html>

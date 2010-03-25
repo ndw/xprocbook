@@ -1,4 +1,60 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Standard XProc Steps</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css"/></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>Standard XProc Steps</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#p.string-replace"><tt class="step">p:string-replace</tt></a></span><span class="refpurpose"> - Replaces matched nodes with the result of evaluating an XPath expression</span></dt></dl></div><div class="refentry" id="p.string-replace"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:string-replace</tt></span> — Replaces matched nodes with the result of evaluating an XPath expression.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:string-replace</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">match</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">XSLTMatchPattern</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">replace</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">XPathExpression</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Standard XProc Steps</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css"/></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>Standard XProc Steps</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#p.add-xml-base"><tt class="step">p:add-xml-base</tt></a></span><span class="refpurpose"> - Adds explicit xml:base attributes</span></dt><dt><span class="refentrytitle"><a href="#p.string-replace"><tt class="step">p:string-replace</tt></a></span><span class="refpurpose"> - Replaces matched nodes with the result of evaluating an XPath expression</span></dt></dl></div><div class="refentry" id="p.add-xml-base"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:add-xml-base</tt></span> — Adds explicit <tt class="tag-attribute">xml:base</tt> attributes.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:add-xml-base</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">all</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">relative</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>                   </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:add-xml-base</tt> step exposes the base URIs in the
+document via
+explicit <tt class="tag-attribute">xml:base</tt> attributes. The input document from the
+<tt class="port">source</tt> port is copied to the <tt class="port">result</tt> port
+with <tt class="tag-attribute">xml:base</tt> attributes added to, or corrected on, each
+element as specified by the options on this step.</p>
+
+<p>XML provides documents, elements, and processing instructions with
+an intrinsic “base URI” property. As documents flow through an XProc
+pipeline this property is generally preserved. However, there are
+operations that cannot preserve the intrinsic base URI; examples include
+storing the document to disk or sending it to a remote web service
+via <tt class="step">p:http-request</tt>.</p>
+
+<p>The <span class="formatting-error">???</span> specification provides for
+an explicit syntax to represent the base URI: the <tt class="tag-attribute">xml:base</tt>
+attribute.</p>
+
+<p>This step makes any base URIs in the document explicit using
+<tt class="tag-attribute">xml:base</tt>. Specifically:</p>
+
+<div class="itemizedlist"><ul><li><p>An <tt class="tag-attribute">xml:base</tt> attribute is added to the document element.
+</p></li><li><p>For other elements, if either the <tt class="option">all</tt> option
+is true or the base URI of the element is different than its parent,
+an <tt class="tag-attribute">xml:base</tt> attribute is added to the element.
+</p></li></ul></div>
+
+<p>If the <tt class="option">relative</tt> option is <tt class="literal">true</tt>,
+then the value of the <tt class="tag-attribute">xml:base</tt> attribute is an appropriate
+relative URI, otherwise it's an absolute URI.</p>
+
+<div class="note admonition"><h3>Note</h3><p>If the <tt class="option">all</tt> option is <tt class="literal">false</tt>, then
+<tt class="step">p:add-xml-base</tt> attributes will actually <em>remove</em>
+redundant <tt class="tag-attribute">xml:base</tt> attributes. In other words, you can think of
+the process as removing all <tt class="tag-attribute">xml:base</tt> attributes and then only
+adding the ones that are necessary per the options specified to the
+step.</p></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0058"/><code>err:C0058</code></td><td style="">Occurs
+if the <tt class="option">all</tt> and <tt class="option">relative</tt> options are
+<em>both</em> <tt class="literal">true</tt>.
+</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.string-replace"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:string-replace</tt></span> — Replaces matched nodes with the result of evaluating an XPath expression.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:string-replace</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">match</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">XSLTMatchPattern</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">replace</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">XPathExpression</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">p:string-replace</tt> step replaces matched nodes
@@ -72,7 +128,7 @@ effectively the same as this one:
 </pre></div>
 
 <p>Here we can see that the value of the <tt class="option">replace</tt> option
-is a bare name. Recall that <tt class="step">p:string-replace</tt> treates the value
+is a bare name. Recall that <tt class="step">p:string-replace</tt> treats the value
 of <tt class="option">replace</tt> <em>as an XPath expression</em>.
 A bare name in XPath selects child elements with that name. So, as written,
 what this string replace step does is replace the value of the <tt class="tag-attribute">class</tt>

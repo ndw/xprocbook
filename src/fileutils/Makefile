@@ -1,9 +1,9 @@
 all: examples index.html
 
-index.html: pipe.xpl \
+index.html: reference.xml \
             copy.xml delete.xml head.xml info.xml mkdir.xml move.xml \
-            reference.xml schemas.xml tail.xml tempfile.xml touch.xml
-	calabash -oresult=$@ pipe.xpl
+            tail.xml tempfile.xml touch.xml
+	calabash -isource=reference.xml -oresult=$@ ../../xpl/format.xpl
 
 examples:
 	make -C results
