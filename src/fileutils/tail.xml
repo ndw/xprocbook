@@ -59,7 +59,7 @@ if the file named in <option>href</option> does not exist or
 cannot be read.</entry>
 </row>
 <row>
-<entry><error code="FU02"/></entry>
+<entry><error code="FU03"/></entry>
 <entry>Occurs
 if the file named in <option>href</option> does not appear to
 be a text file. The exact conditions that constitute “does not appear to be”

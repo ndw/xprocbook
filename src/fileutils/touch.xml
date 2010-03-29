@@ -37,6 +37,7 @@ absolute URI of the touched file.</para>
 the step returns a <tag>c:error</tag> element which may contain
 additional, implementation-defined information about the nature of the
 error.</para>
+</refsection>
 
 <refsection>
 <title>Errors</title>
@@ -60,8 +61,6 @@ if its timestamp cannot be changed.</entry>
 </tbody>
 </tgroup>
 </informaltable>
-</refsection>
-
 </refsection>
 
 <refsection>
