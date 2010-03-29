@@ -1,0 +1,37 @@
+<book xmlns="http://docbook.org/ns/docbook"
+      xmlns:cx="http://xmlcalabash.com/ns/extensions"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:p="http://www.w3.org/ns/xproc">
+<info>
+<title>Exploring XProc</title>
+<author>
+  <personname>
+    <firstname>Norman</firstname>
+    <surname>Walsh</surname>
+  </personname>
+</author>
+<copyright><year>2010</year><holder>Norman Walsh</holder></copyright>
+</info>
+
+<part xml:id="parti">
+<title>Introduction</title>
+<xi:include href="ch01.xml"/>
+<xi:include href="ch02.xml"/>
+</part>
+
+<part xml:id="partii">
+<title>Reference</title>
+
+<xi:include href="core/reference.xml"/>
+<xi:include href="fileutils/reference.xml"/>
+<xi:include href="osutils/reference.xml"/>
+<xi:include href="utils/reference.xml"/>
+</part>
+
+<part xml:id="partiii">
+<title>Extending XML Calabash</title>
+
+<xi:include href="xc01.xml"/>
+</part>
+</book>

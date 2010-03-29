@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="ex.recursive-directory-list">
+<refnamediv>
+<refname><step>ex:recursive-directory-list</step></refname>
+<refpurpose>Performs <step>p:directory-list</step> recursively</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="exrecursive-directory-list">
+  <p:output port="result"/>
+  <p:option name="path" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="include-filter" cx:type="RegularExpression"/>
+  <p:option name="exclude-filter" cx:type="RegularExpression"/>
+  <p:option name="depth" select="-1" cx:type="xsd:integer"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>ex:recursive-directory-list</step> step lists the
+contents of the specified directory on the filesystem. Unlike the standard
+<step>p:directory-list</step> step, <step>ex:recursive-directory-list</step>
+expands all subdirectories recursively.</para>
+
+<para>The <option>path</option>, <option>include-filter</option>, and
+<option>exclude-filter</option> options are the same as the
+<step>p:directory-list</step> options of the same name.</para>
+
+<para>The <option>depth</option> option limits the recursive depth of the
+process. A value of “-1” specifies an unbounded depth.</para>
+
+</refsection>
+
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0012"/></entry>
+<entry>Occurs
+if the step cannot read the specified directory due to access restrictions
+or if the environment doesn't support the notion of a hierarchical directory
+structure.
+</entry>
+</row>
+<row>
+<entry><error code="C0017"/></entry>
+<entry>Occurs
+if the absolute <option>path</option> does not specify a directory.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/recursive-directory-list-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/recursive-directory-list-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+<refsection>
+<title>Implementation</title>
+
+<para>The <step>ex:recursive-directory-list</step> step can be implemented
+directly in XProc:</para>
+
+<programlisting
+><xi:include href="../xpl/recursive-directory-list.xpl" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

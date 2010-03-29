@@ -1,0 +1,20 @@
+<chapter xmlns="http://docbook.org/ns/docbook"
+         xmlns:cx="http://xmlcalabash.com/ns/extensions"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:p="http://www.w3.org/ns/xproc"
+         version="5.0-xproc" xml:id="pipelines">
+<info>
+<title>XProc Pipelines</title>
+</info>
+
+<para>In this chapter, we'll survey the main syntactic elements of
+an XProc pipeline.</para>
+
+<para>Steps have “ports” into which pipes are connected. A pipe
+connects the output port of one step to the input port of another. The
+type, name, and number of ports on each type of step is fixed and
+immutable.</para>
+
+
+</chapter>

@@ -1,0 +1,282 @@
+<chapter xmlns="http://docbook.org/ns/docbook"
+         xmlns:cx="http://xmlcalabash.com/ns/extensions"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:p="http://www.w3.org/ns/xproc"
+         version="5.0-xproc" xml:id="introduction">
+<info>
+<title>Introduction</title>
+</info>
+
+<para>In this chapter, we'll fill in some background about pipelines
+and get you up to speed on the concepts before we dive into the actual
+features of XProc. We're going to assume that you're familiar with
+XML: you're comfortable the vocabulary of tags and attributes, parsing
+and validation, and that you've used an XML application or two: XSLT,
+for example.</para>
+
+<section xml:id="whatis">
+<title>What's a pipeline?</title>
+
+<para>At a high level of abstraction, a pipeline is what you get
+whenever the output of one process feeds into the input of another.
+They're a common feature of Unix command lines, for example:</para>
+
+<screen>cat ch01.xml | grep "&lt;para" | wc -l</screen>
+
+<para>What that says is:</para>
+
+<orderedlist>
+<listitem>
+<para>Run the <command>cat</command> command over
+<filename>ch01.xml</filename>. That will display the contents of the file.
+</para>
+</listitem>
+<listitem>
+<para>The “|” symbol means that instead of displaying those lines in
+the shell window, that output will become the input to the
+<command>grep</command> command. What <command>grep</command> will do
+is display all the lines that contain “<literal>&lt;para</literal>”
+and discard all the rest.</para>
+</listitem>
+<listitem>
+<para>Finally, with another “|”, the output of <command>grep</command> will
+become the input to <command>wc</command>. The <command>wc</command> command
+counts the words in a file, but we gave it the <option>-l</option> option, so
+it will count the lines instead.</para>
+</listitem>
+</orderedlist>
+
+<para>What this pipeline does is print the number of paragraphs in the
+document:</para>
+
+<screen>??FIXME:??</screen>
+
+<para>By using a pipeline we've taken three useful utilities and
+composed them together to create a pipeline that will count the
+approximate number of paragraphs we've used in all the XML documents
+in the current directory. I say approximately because those are all line-based
+commands and XML isn't really line based. Our XML editor might have saved
+our XML files with great big long lines so that there's more than one
+“<literal>&lt;para>…&lt;/para></literal>” per line which would throw off
+the counts.</para>
+
+<para>Part of the power of Unix comes from the fact that it provides a
+large and useful vocabulary of focused commands and a mechnanism for easily
+composing them. By the same token, the XML technology stack provides a
+large and useful vocabulary of “commands”: parsing, validation,
+transformation, XInclude, XML Base, escaping and unescaping markup,
+document comparison, etc. What's historically been missing is a standard,
+easy to use composition mechnaism.</para>
+
+<para>Which isn't meant to suggest that XProc invented the notion of
+XML pipelines. Far from it, in fact. For as long as there have been
+APIs for processing XML, there have been mechanisms for constructing
+pipelines. One of the explicit goals of the XProc development exercise
+was to invent as little as possible: the committee attempted to survey
+the landscape of existing pipeline technologies and standardize the
+common core. The key features that XProc introduces are
+standardization and ease of use.</para>
+
+<para>Through standardization we hope to foster the development of
+interoperable pipelines. The pipelines that you run in your web
+framework should also run on my command line and the pipelines that
+run on my command line should also run in your XML editor.</para>
+
+<para>The ease of use goal is met, we hope, by providing an XML
+vocabulary for describing pipelines. That's what XProc really is. We
+hope that an analogy with XSLT is apt. Before XSLT, it was obviously
+possible for programmers to transform XML documents. What XSLT
+provided was an XML-based model that opened transformation up to a
+much wider audience. Many people who are able to write XSLT transformations
+would not feel comfortable writing a transformation application in a
+standard programming language.</para>
+
+<para>Before XProc, it was obviously possible for programmers to build
+XML pipelines. What XProc provides is an XML-based model that we hope
+will make it possible for a much wider audience to take advantage of
+the benefits of focused tools, loosely connected through pipelines.
+The fact that many projects developed their own vocabularies for exactly
+this purpose makes us optimistic that having a standard mechanism will
+be widely successful.</para>
+
+<para>So what does an XML pipeline look like? Here's an XProc pipeline
+that counts the number of paragraphs in a document:</para>
+
+<programlisting
+><xi:include href="examples/countparas.xpl" parse="text"
+/></programlisting>
+
+<para>What this pipeline does is produce a single XML document that
+contains the number of DocBook <tag>para</tag> elements in the
+document:</para>
+
+<screen>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step">??FIXME:??&lt;/c:result></screen>
+
+<para>It's not completely isomorphic to the Unix command line example because
+the abstractions are just a little bit different. Where the command line tools
+work with lines, XProc uses documents, where the command line tools use
+regular expressions, XProc uses XPath.</para>
+
+<para>We'll cover all the
+details in subsequent chapters, but here's a short summary of how this
+pipeline works:</para>
+
+<orderedlist>
+<listitem>
+<para>There's nothing equivalent to the <command>cat</command> command because
+the pipeline expects the processor to pass it the document(s) to process.
+</para>
+</listitem>
+<listitem>
+<para>Where <command>grep</command> used a regular expression to find
+lines that contain “<literal>&lt;para</literal>”,
+the XProc pipeline uses an XPath expression to select precisely the
+DocBook paragraph elements. (The <tag>p:identity</tag> step copies its
+to its output, unchanged; by selecting all the paragraphs on input, we
+get every paragraph in a separate document on output.)
+</para>
+</listitem>
+<listitem>
+<para>The <tag>p:count</tag> step just counts the documents that come to it,
+producing as output a single <tag>c:result</tag> element containing the
+number of documents it saw.
+</para>
+</listitem>
+</orderedlist>
+</section>
+
+<section xml:id="procmodel">
+<title>Processing Model</title>
+
+<para>There are many different ways to model pipelines. The examples
+above are completely linear pipelines where each step requires a very
+small amount of context. These pipelines are simple and fast, but can
+only support the kinds of processes that require no branching and very
+little context.</para>
+
+<para>This model can be expanded and generalized to what we might call
+the “flowing water” pipeline model. These are conceptually just like
+the oil, water, and natural gas pipelines we are familiar with in the
+real world. In an oil pipeline, there are processing stations of
+various sorts (reservoirs, filters, valves, distillation plants, etc.)
+connected together by physical pipelines. Crude oil flows in at one
+end and moves from station to station through pipes. Each stations
+performs some process and directs the resulting output through one or
+more pipes to the next process. In an XML pipeline, the processing
+stations are XML processes and the pipelines are the pathways down
+which XML documents may “flow”.</para>
+
+<para>Another model is based on events and state transitions. In this
+model there are no fixed pathways between processes. Rather, each document
+has an associated state and each step in the process applies some action
+and optionally moves the document to another state. Event driven pipelines
+may process a document many times, moving it through a complex network of
+states until some step concludes that the work is done. They are flexible
+and powerful, but can be tricky to understand.</para>
+
+<para>XProc pipelines follow the “flowing water” model. This model was
+selected because it's sufficiently powerful to address many real use
+cases and also conceptually quite easy to explain and
+understand.</para>
+
+</section>
+
+<section xml:id="streaming">
+<title>Streaming</title>
+
+<para>The discussion of a processing model raises the question of
+streaming. Streaming is difficult to define succinctly. For our
+purposes it's sufficient to say that a streaming process differs from
+a non-streaming one if it can process an arbitrarily large document,
+or arbitrarily many documens, without running out of memory.</para>
+
+<para>Some steps are more naturally streamable than others. A step
+that deletes all elements that have a <att>revisionflag</att>
+attribute with the value “<literal>deleted</literal>”, is conceptually easy
+to stream. A step that adds an attribute to the document element
+if the document contains an odd number of elements with no attributes
+appears impossible to stream.</para>
+
+<para>XProc tries very hard to be neutral about streaming. There's no
+requirement that an implementation be able to stream, but the language
+attempts to avoid imposing semantics that would prevent it from
+streaming.</para>
+
+</section>
+
+<section xml:id="anatomy">
+<title>Anatomy of a pipeline</title>
+
+<para>Generally speaking, an XProc pipeline document has a document
+element of <tag>p:pipeline</tag> (or possibly
+<tag>p:declare-step</tag>) and contains one or more steps. The steps
+are connected, either implicitly or explicitly, and documents flow
+between steps along those connections. The name of each step
+identifies its type which determines what kind of processing it
+performs.</para>
+
+<para>[[NICE GRAPHICAL REPRESENTATION OF A STEP HERE]]</para>
+
+<para>We'll consider the anatomy of pipelines in more detail in
+<xref linkend="pipelines"/>.</para>
+</section>
+
+<section xml:id="running">
+<title>Running XProc Pipelines</title>
+
+<para>In order to run an XProc pipeline, you need an XProc processor.
+At the time of this writing, there are two complete implementations:
+<link xlink:href="http://xmlcalabash.com/">XML Calabash</link>, written
+by the author, and
+<link xlink:href="https://community.emc.com/community/edn/xmltech">Calumet</link>,
+written by <personname><firstname>Vojtech</firstname>
+<surname>Toman</surname></personname> of EMC.
+By the time you read this, there may be more, see
+<link xlink:href="http://xproc.org/implementations/"/> for an up-to-date
+list.</para>
+
+<para>All pipelines that conform to
+<link xlink:href="http://www.w3.org/TR/xproc/">XProc: An XML Pipeline Language</link>
+should produce the same results if run by any conformant processor.
+Not surprisingly, we're going to use
+<link xlink:href="http://xmlcalabash.com/">XML Calabash</link> for most of our
+examples in this book.</para>
+
+</section>
+
+<section xml:id="interop">
+<title>Interoperability</title>
+
+<para>All pipelines that conform to
+<link xlink:href="http://www.w3.org/TR/xproc/">XProc: An XML Pipeline Language</link>
+should produce the same results if run by any conformant processor—if the processor
+supports all the steps used.</para>
+
+<para>Steps come in three flavors: required steps, optional steps, and extension
+steps. The required and optional steps are described in the
+<link xlink:href="http://www.w3.org/TR/xproc/">XProc specification</link>.
+As you could probably guess, all processors are required to support the
+required steps but may or may not choose to support (all of) the optional
+steps. Any step not described in the specification is an extension step.
+</para>
+
+<para>Extension steps come in a few flavors as well. Every pipeline has the
+potential to be used as a step in another pipeline. Extension steps implemented
+as XProc pipelines are, naturally, every bit as interoperable as the steps
+they contain.</para>
+
+<para>Implementations may also support the creation of extension steps
+directly using whatever APIs their underlying programming language supports.
+In <xref linkend="xcalabash"/>, we'll examine how you can write your own
+XML Calabash extensions in Java. Such steps are only going to work in the
+implementation for which they were written.</para>
+
+<para>There's one last wrinkle in this story. The
+<link xlink:href="http://exproc.org/"/> website is attempting to collect
+a set of community-supported extension steps. With luck, the vocabulary
+of extensions defined at EXProc.org will also be portable across different
+implementations.</para>
+</section>
+
+</chapter>

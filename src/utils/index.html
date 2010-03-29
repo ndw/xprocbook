@@ -1,0 +1,380 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>General Utilities</title><style type="text/css">div.epigraph          { margin-left: 0.5in;
+                        margin-right: 0.5in;
+                      }
+
+div.attribution       { margin-left: 50%;
+                      }
+
+div.admonition        { margin-left: 5px;
+                      }
+
+span.admon-graphic    { padding-right: 5px;
+                        vertical-align: middle;
+                      }
+
+div.admon-title-text  { font-size: x-large;
+                        font-weight: bold;
+                      }
+
+div.admon-text        { padding-top: 0px;
+                        margin-top: 0px;
+                      }
+
+div.admon-text &gt; p:first-child { padding-top: 0px;
+                                 margin-top: 0px;
+                               }
+
+div.section           { margin-left: 0.25in;
+                      }
+div.section-titlepage { margin-left: -0.25in;
+                      }
+
+span.linenumber       { padding-right: 10px;
+                        border-right: 1px solid black;
+                      }
+
+span.linenumber-separator {
+                        padding-right: 5px;
+                      }
+
+div.address           { white-space: pre }
+div.literallayout     { white-space: pre }
+span.linenumber       { white-space: pre;
+                        font-family: monospace;
+                      }
+span.linenumber-separator { white-space: pre; }
+
+div.footnote p { margin-top: 0px;
+                 padding-top: 1px;
+                 margin-bottom: 0px;
+                 padding-bottom: 1px;
+               }
+
+div.title { font-weight: bold; }
+
+div.float-right    { float: right; }
+div.float-left     { float: left; }
+
+div.figure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.figure         { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informalfigure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informalfigure { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.table-wrapper  { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.table          { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informaltable-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informaltable  { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.equation-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.example-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+div.figure-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.caption        { margin-left: 5%;
+                     margin-right: 5%;
+                     font-family: sans-serif;
+                   }
+
+div.longdesc-link  { position: absolute;
+                     right: 10px;
+                     font-size: small;
+                   }
+
+.revision-added    { background-color: #FFFF99; }
+
+.revision-deleted  { text-decoration: line-through;
+                     background-color: #FF9999;
+                   }
+.revision-changed  { background-color: #99FF99; }
+
+.revision-inherited { border-left-style: solid;
+                      border-left-width: 1px;
+                      border-left-color: #303030;
+                      padding-left: 10px;
+                    }
+
+div.synopfragment  { margin-bottom: 1em;
+                   }
+
+div.cmdsynopsis    { margin-bottom: 1em;
+                   }
+
+body.draft         { background-image: url("http://docbook.sf.net/release/images/draft.png");
+                   }
+
+em.strikethrough   { text-decoration: line-through;
+                     font-style: normal;
+                   }
+
+em.underline       { text-decoration: underline;
+                     font-style: normal;
+                   }
+
+em                 { font-style: italic; }
+
+em em              { font-style: normal; }
+
+em em em           { font-style: italic; }
+
+em em em em        { font-style: normal; }
+
+em em em em em     { font-style: italic; }
+
+div.remark         { padding: 10px;
+                     border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+
+div.sidebar        { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+div.sidebar
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.sidebar-content { padding: 10px;
+                    }
+
+div.annotation     { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-top: 1ex;
+                     margin-bottom: 1ex;
+                   }
+
+div.annotation
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.annotation-content { padding: 10px;
+                    }
+</style><style type="text/css">p.element-syntax                    { padding: 4px; }
+p.element-syntax-declare-step       { border: solid thin; background-color: #ffeeff }
+p.element-syntax-error-vocabulary   { border: solid thin; background-color: #ffffee }
+p.element-syntax-language-construct { border: solid thin; background-color: #ffeeff }
+p.element-syntax-language-example   { border: solid thin; background-color: #ffeeff }
+p.element-syntax-other-step         { border: solid thin; background-color: #ffeeff }
+p.element-syntax-step-vocabulary    { border: solid thin; background-color: #ffffee }
+
+thead tr th {
+  background-color: #333333;
+  color: white;
+}
+
+h1,h2,h3,h4,h5,h6,
+.toc p {
+  font-family: sans-serif;
+}
+
+.programlisting, .screen {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: solid thin #ccddcc;
+  background-color: #eeffee;
+}
+
+.programlisting pre, .screen pre {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+span.linenumber {
+  background-color: #ccddcc;
+}
+
+/*
+span.linenumber-separator {
+  background-color: #ccddcc;
+  border-right: solid 1px #777777;
+  margin-right: 4px;
+}
+*/
+</style></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>General Utilities</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#ex.recursive-directory-list"><tt class="step">ex:recursive-directory-list</tt></a></span><span class="refpurpose"> - Performs p:directory-list recursively</span></dt></dl></div><div class="refentry" id="ex.recursive-directory-list"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">ex:recursive-directory-list</tt></span> — Performs <tt class="step">p:directory-list</tt> recursively.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">exrecursive-directory-list</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">path</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">include-filter</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">exclude-filter</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">depth</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">-1</code><code>"</code><code>/&gt;</code><code>                          </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">ex:recursive-directory-list</tt> step lists the
+contents of the specified directory on the filesystem. Unlike the standard
+<tt class="step">p:directory-list</tt> step, <tt class="step">ex:recursive-directory-list</tt>
+expands all subdirectories recursively.</p>
+
+<p>The <tt class="option">path</tt>, <tt class="option">include-filter</tt>, and
+<tt class="option">exclude-filter</tt> options are the same as the
+<tt class="step">p:directory-list</tt> options of the same name.</p>
+
+<p>The <tt class="option">depth</tt> option limits the recursive depth of the
+process. A value of “-1” specifies an unbounded depth.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0012"/><code>err:C0012</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if the step cannot read the specified directory due to access restrictions
+or if the environment doesn't support the notion of a hierarchical directory
+structure.
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0017"/><code>err:C0017</code></td><td style="">Occurs
+if the absolute <tt class="option">path</tt> does not specify a directory.
+</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Implementation</h3></div>
+
+
+<p>The <tt class="step">ex:recursive-directory-list</tt> step can be implemented
+directly in XProc:</p>
+
+<div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>		xmlns:c="http://www.w3.org/ns/xproc-step"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>		xmlns:cx="http://xmlcalabash.com/ns/extensions"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                type="cx:recursive-directory-list"
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>                version="1.0"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="path" required="true"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="include-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="exclude-filter"/&gt;
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>  &lt;p:option name="depth" select="-1"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:choose&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:when test="p:value-available('include-filter')
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                  and p:value-available('exclude-filter')"&gt;
+<span class="linenumber"> 15</span><span class="linenumber-separator"> </span>      &lt;p:directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="path" select="$path"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="include-filter" select="$include-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="exclude-filter" select="$exclude-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;/p:directory-list&gt;
+<span class="linenumber"> 20</span><span class="linenumber-separator"> </span>    &lt;/p:when&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:when test="p:value-available('include-filter')"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="path" select="$path"/&gt;
+<span class="linenumber"> 25</span><span class="linenumber-separator"> </span>        &lt;p:with-option name="include-filter" select="$include-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;/p:directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:when&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:when test="p:value-available('exclude-filter')"&gt;
+<span class="linenumber"> 30</span><span class="linenumber-separator"> </span>      &lt;p:directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="path" select="$path"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="exclude-filter" select="$exclude-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;/p:directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:when&gt;
+<span class="linenumber"> 35</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:otherwise&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:with-option name="path" select="$path"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;/p:directory-list&gt;
+<span class="linenumber"> 40</span><span class="linenumber-separator"> </span>    &lt;/p:otherwise&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:choose&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:viewport match="/c:directory/c:directory"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:variable name="name" select="/*/@name"/&gt;
+<span class="linenumber"> 45</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:choose&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:when test="$depth != 0"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;p:choose&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>          &lt;p:when test="p:value-available('include-filter')
+<span class="linenumber"> 50</span><span class="linenumber-separator"> </span>                        and p:value-available('exclude-filter')"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;cx:recursive-directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="path" select="concat($path,'/',$name)"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="include-filter" select="$include-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="exclude-filter" select="$exclude-filter"/&gt;
+<span class="linenumber"> 55</span><span class="linenumber-separator"> </span>              &lt;p:with-option name="depth" select="$depth - 1"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;/cx:recursive-directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>          &lt;/p:when&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>          &lt;p:when test="p:value-available('include-filter')"&gt;
+<span class="linenumber"> 60</span><span class="linenumber-separator"> </span>            &lt;cx:recursive-directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="path" select="concat($path,'/',$name)"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="include-filter" select="$include-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="depth" select="$depth - 1"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;/cx:recursive-directory-list&gt;
+<span class="linenumber"> 65</span><span class="linenumber-separator"> </span>          &lt;/p:when&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>          &lt;p:when test="p:value-available('exclude-filter')"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;cx:recursive-directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="path" select="concat($path,'/',$name)"/&gt;
+<span class="linenumber"> 70</span><span class="linenumber-separator"> </span>              &lt;p:with-option name="exclude-filter" select="$exclude-filter"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="depth" select="$depth - 1"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;/cx:recursive-directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>          &lt;/p:when&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 75</span><span class="linenumber-separator"> </span>          &lt;p:otherwise&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;cx:recursive-directory-list&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="path" select="concat($path,'/',$name)"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              &lt;p:with-option name="depth" select="$depth - 1"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>            &lt;/cx:recursive-directory-list&gt;
+<span class="linenumber"> 80</span><span class="linenumber-separator"> </span>          &lt;/p:otherwise&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        &lt;/p:choose&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;/p:when&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:otherwise&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>	&lt;p:identity/&gt;
+<span class="linenumber"> 85</span><span class="linenumber-separator"> </span>      &lt;/p:otherwise&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:choose&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:viewport&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
+</pre></div>
+
+</div></div></div></body></html>
