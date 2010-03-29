@@ -1,18 +1,34 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.xsl-formatter">
-<title>p:xsl-formatter</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.xsl-formatter">
+<refnamediv>
+<refname><step>p:xsl-formatter</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:xsl-formatter">
+  <p:input port="source"/>
+  <p:input port="parameters" kind="parameter"/>
+  <p:output port="result" primary="false"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="content-type" cx:type="xsd:string"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <tag>p:xsl-formatter</tag> step receives an <biblioref linkend="xsl11"/> document and renders the content. The result of
 rendering is stored to the URI provided via the <option>href</option>
 option. A reference to that result is produced on the output
 port.</para>
 
-<p:declare-step type="p:xsl-formatter">
-  <p:input port="source"/>
-  <p:input port="parameters" kind="parameter"/>
-  <p:output port="result" primary="false"/>
-  <p:option name="href" required="true" e:type="xsd:anyURI"/>
-  <p:option name="content-type" e:type="xsd:string"/>
-</p:declare-step>
  
 <para>The value of the <option>href</option> option
 <rfc2119>must</rfc2119> be an <type>anyURI</type>. If it is relative,
@@ -41,4 +57,24 @@ the XSL implementation used and are
 <para>The output of this step is a document containing a single
 <tag>c:result</tag> element whose content is the absolute URI of the
 document stored by the step.</para>
-</section>
+</refsection>
+
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/xsl-formatter-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/xsl-formatter-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

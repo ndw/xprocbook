@@ -1,16 +1,32 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.replace">
-<title>p:replace</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.replace">
+<refnamediv>
+<refname><step>p:replace</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:replace">
+   <p:input port="source" primary="true"/>
+   <p:input port="replacement"/>
+   <p:output port="result"/>
+   <p:option name="match" required="true" cx:type="XSLTMatchPattern"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <code>p:replace</code> step replaces matching nodes in
 its primary input with the document element of the
 <code>replacement</code> port's document.</para>
 
-<p:declare-step type="p:replace">
-   <p:input port="source" primary="true"/>
-   <p:input port="replacement"/>
-   <p:output port="result"/>
-   <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
-</p:declare-step>
  
 <para>The value of the <option>match</option> option
 <rfc2119>must</rfc2119> be an XSLTMatchPattern. <error code="C0023">It
@@ -25,4 +41,45 @@ of the <port>replacement</port> document. Only non-nested matches are
 replaced. That is, once a node is replaced, its descendants cannot
 be matched.</para>
 
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0023"/></entry>
+<entry>Occurs
+It
+is a <glossterm>dynamic error</glossterm> if that pattern matches
+anything other than element, text, processing-instruction, or comment
+nodes. 
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/replace-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/replace-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

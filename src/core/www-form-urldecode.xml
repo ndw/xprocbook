@@ -1,13 +1,29 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.www-form-urldecode">
-<title>p:www-form-urldecode</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.www-form-urldecode">
+<refnamediv>
+<refname><step>p:www-form-urldecode</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:www-form-urldecode">
+  <p:output port="result"/>
+  <p:option name="value" required="true" cx:type="xsd:string"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <tag>p:www-form-urldecode</tag> step decodes a
 <literal>x-www-form-urlencoded</literal> string into a set of parameters.</para>
 
-<p:declare-step type="p:www-form-urldecode">
-  <p:output port="result"/>
-  <p:option name="value" required="true" e:type="xsd:string"/>
-</p:declare-step>
 
 <para>The <option>value</option> option is interpreted as a string of
 parameter values encoded using the 
@@ -37,4 +53,53 @@ parameter set is passed to another step on its <glossterm>parameter
 input port</glossterm>.</para>
 
 
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0037"/></entry>
+<entry>Occurs
+It is a
+<glossterm>dynamic error</glossterm> if the <option>value</option> provided
+is not a properly 
+<literal>x-www-form-urlencoded</literal> value.
+</entry>
+</row>
+<row>
+<entry><error code="C0061"/></entry>
+<entry>Occurs
+It is a
+<glossterm>dynamic error</glossterm> if the name of any encoded parameter
+name is not a valid <type>xs:NCName</type>.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/www-form-urldecode-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/www-form-urldecode-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

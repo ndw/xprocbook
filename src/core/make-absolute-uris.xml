@@ -1,16 +1,32 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.make-absolute-uris">
-<title>p:make-absolute-uris</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.make-absolute-uris">
+<refnamediv>
+<refname><step>p:make-absolute-uris</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:make-absolute-uris">
+  <p:input port="source"/>
+  <p:output port="result"/>
+  <p:option name="match" required="true" cx:type="XSLTMatchPattern"/>
+  <p:option name="base-uri" cx:type="xsd:anyURI"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <code>p:make-absolute-uris</code> step makes an element or
 attribute's value in the source document an absolute IRI value in the
 result document.</para>
 
-<p:declare-step type="p:make-absolute-uris">
-  <p:input port="source"/>
-  <p:output port="result"/>
-  <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
-  <p:option name="base-uri" e:type="xsd:anyURI"/>
-</p:declare-step>
 
 <para>The value of the <option>match</option> option <rfc2119>must</rfc2119> be an
 XSLTMatchPattern.
@@ -45,4 +61,44 @@ not valid, or if it is absent and the input document has no base URI,
 the results are <glossterm>implementation-dependent</glossterm>.</impl>
 </para>
 
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0023"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm> if
+the pattern matches anything other than element or attribute
+nodes.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/make-absolute-uris-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/make-absolute-uris-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

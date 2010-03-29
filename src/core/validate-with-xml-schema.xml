@@ -1,19 +1,35 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.validate-with-xml-schema">
-<title>p:validate-with-xml-schema</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.validate-with-xml-schema">
+<refnamediv>
+<refname><step>p:validate-with-xml-schema</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:validate-with-xml-schema">
+  <p:input port="source" primary="true"/>
+  <p:input port="schema" sequence="true"/>
+  <p:output port="result"/>
+  <p:option name="use-location-hints" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="try-namespaces" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="assert-valid" select="'true'" cx:type="xsd:boolean"/>
+  <p:option name="mode" select="'strict'" cx:type="strict|lax"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <tag>p:validate-with-xml-schema</tag> step applies
 <biblioref linkend="xmlschema-1"/>
 validity assessment to the <port>source</port> input.</para>
 
-<p:declare-step type="p:validate-with-xml-schema">
-  <p:input port="source" primary="true"/>
-  <p:input port="schema" sequence="true"/>
-  <p:output port="result"/>
-  <p:option name="use-location-hints" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="try-namespaces" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="assert-valid" select="'true'" e:type="xsd:boolean"/>
-  <p:option name="mode" select="'strict'" e:type="strict|lax"/>
-</p:declare-step>
  
 <para>The values of the <option>use-location-hints</option>,
 <option>try-namespaces</option>, and 
@@ -92,4 +108,51 @@ Post-Schema-Validation-Infoset (PSVI) (<biblioref linkend="xmlschema-1"/>) annot
 supports such annotations. If not, the input document is reproduced
 with any defaulting of attributes and elements performed as specified
 by the XML Schema recommendation.</para>
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0053"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm>
+if the <option>assert-valid</option> option is <literal>true</literal>
+and the input document is not valid.
+</entry>
+</row>
+<row>
+<entry><error code="C0055"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm>
+if the implementation does not support the specified mode.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/validate-with-xml-schema-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/validate-with-xml-schema-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

@@ -1,14 +1,30 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.load">
-<title>p:load</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.load">
+<refnamediv>
+<refname><step>p:load</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:load">
+  <p:output port="result"/>
+  <p:option name="href" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="dtd-validate" select="'false'" cx:type="xsd:boolean"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <code>p:load</code> step has no inputs but produces as its
 result an XML resource specified by an IRI.</para>
 
-<p:declare-step type="p:load">
-  <p:output port="result"/>
-  <p:option name="href" required="true" e:type="xsd:anyURI"/>
-  <p:option name="dtd-validate" select="'false'" e:type="xsd:boolean"/>
-</p:declare-step>
 
 <para>The value of the <option>href</option> option
 <rfc2119>must</rfc2119> be an <type>anyURI</type>. It is interpreted
@@ -48,4 +64,44 @@ validation.</error>
 <para>The retrieved document is produced on the <port>result</port>
 port. The base URI of the result is the (absolute) IRI used to
 retrieve it.</para>
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0027"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm> if the
+document is not valid or the step doesn't support DTD
+validation.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/load-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/load-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

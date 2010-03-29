@@ -1,16 +1,50 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.identity">
-<title>p:identity</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.identity">
+<refnamediv>
+<refname><step>p:identity</step></refname>
+<refpurpose>Passes its input through unchanged</refpurpose>
+</refnamediv>
 
-<para>The <code>p:identity</code> step makes a verbatim copy of its input
-available on its output.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:identity">
   <p:input port="source" sequence="true"/>
   <p:output port="result" sequence="true"/>
 </p:declare-step>
+</refsynopsisdiv>
 
-<para>If the implementation supports passing PSVI annotations between
-steps, the <tag>p:identity</tag> step <rfc2119>must</rfc2119> preserve
-any annotations that appear in the input.</para>
+<refsection>
+<title>Description</title>
 
-</section>
+<para>The <code>p:identity</code> step makes a verbatim copy of its
+input available on its output. By itself, this may not seem very useful,
+but it is, at least in two common situations.</para>
+
+<para>The first is when you want to extract some portion of a document flowing
+through a pipeline. Using a <att>select</att> attribute on the input to
+<step>p:identity</step> extracts those parts and copies them through
+unchanged.</para>
+
+<para>The second is in <step>p:choose</step> steps, where you may want
+one or more of the branches of the choice to “do nothing”.</para>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/identity-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/identity-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

@@ -1,27 +1,79 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.compare">
-<title>p:compare</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.compare">
+<refnamediv>
+<refname><step>p:compare</step></refname>
+<refpurpose>Compares two documents for equality</refpurpose>
+</refnamediv>
 
-<para>The <code>p:compare</code> step compares two documents for
-equality.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:compare">
    <p:input port="source" primary="true"/>
    <p:input port="alternate"/>
-   <p:output port="result" primary="false" e:type="xsd:boolean"/>
-   <p:option name="fail-if-not-equal" select="'false'" e:type="xsd:boolean"/>
+   <p:output port="result" primary="false" cx:type="xsd:boolean"/>
+   <p:option name="fail-if-not-equal" select="'false'" cx:type="xsd:boolean"/>
 </p:declare-step>
- 
- <para>The value of the <option>fail-if-not-equal</option> option <rfc2119>must</rfc2119> be a boolean.</para>
- 
- <para>This step takes single documents on each of two ports and compares them
-using the <function>fn:deep-equal</function> (as defined in
-<biblioref linkend="xpath-functions"/>).  <error code="C0019">It is a
-<glossterm>dynamic error</glossterm> if the documents are not equal, and the value
-of the <option>fail-if-not-equal</option> option is
-<literal>true</literal>.</error>  If the documents are equal, or if the value
-of the <option>fail-if-not-equal</option> option is
-<literal>false</literal>, a <tag>c:result</tag>
-document is produced with contents <literal>true</literal> if the documents
-are equal, otherwise <literal>false</literal>.</para>
+</refsynopsisdiv>
 
-</section>
+<refsection>
+<title>Description</title>
+
+<para>The <code>p:compare</code> step compares two documents for
+equality. Two documents are considered equal if they are equal
+according to the semantics of the <function>deep-equal</function>
+function (see <biblioref linkend="xqt-fando"/>).</para>
+
+<para>The step returns a <tag>c:result</tag> element that contains either
+<literal>true</literal> or <literal>false</literal> indicating whether
+or not the documents were equal.</para>
+
+<para>If the <option>fail-if-not-equal</option> option is
+<literal>true</literal>, the step fails if the documents are not
+equal.</para>
+
+</refsection>
+
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0019"/></entry>
+<entry>Occurs
+if the documents are not equal, and the value
+of the <option>fail-if-not-equal</option> option is
+<literal>true</literal>.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/compare-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/compare-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

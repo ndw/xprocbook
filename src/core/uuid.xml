@@ -1,16 +1,32 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.uuid">
-<title>p:uuid</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.uuid">
+<refnamediv>
+<refname><step>p:uuid</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:uuid">
+  <p:input port="source" primary="true"/>
+  <p:output port="result"/>
+  <p:option name="match" required="true" cx:type="XSLTMatchPattern"/>
+  <p:option name="version" cx:type="xsd:integer"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <tag>p:uuid</tag> step generates a
 <biblioref linkend="bib.uuid"/> and injects it into
 the <port>source</port> document.</para>
 
-<p:declare-step type="p:uuid">
-  <p:input port="source" primary="true"/>
-  <p:output port="result"/>
-  <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
-  <p:option name="version" e:type="xsd:integer"/>
-</p:declare-step>
 
 <para>The value of the <option>match</option> option must be an
 XSLTMatchPattern. The value of the <option>version</option> option
@@ -44,4 +60,44 @@ value of the attribute in the output. If the attribute is named “<tag class="a
 <para>If the expression matches any
 other kind of node, the entire node (and <emphasis>not</emphasis> just
 its contents) is replaced by the UUID.</para>
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0060"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic
+error</glossterm> if the processor does not support the specified
+<option>version</option> of the UUID algorithm.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/uuid-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/uuid-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

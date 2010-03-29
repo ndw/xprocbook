@@ -1,16 +1,32 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.namespace-rename">
-<title>p:namespace-rename</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.namespace-rename">
+<refnamediv>
+<refname><step>p:namespace-rename</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+ <p:declare-step type="p:namespace-rename">
+   <p:input port="source"/>
+   <p:output port="result"/>
+   <p:option name="from" cx:type="xsd:anyURI"/>
+   <p:option name="to" cx:type="xsd:anyURI"/>
+   <p:option name="apply-to" select="'all'" cx:type="all|elements|attributes"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <code>p:namespace-rename</code> step renames any namespace declaration or
 use of a namespace in a document to a new IRI value.</para>
  
- <p:declare-step type="p:namespace-rename">
-   <p:input port="source"/>
-   <p:output port="result"/>
-   <p:option name="from" e:type="xsd:anyURI"/>
-   <p:option name="to" e:type="xsd:anyURI"/>
-   <p:option name="apply-to" select="'all'" e:type="all|elements|attributes"/>
-</p:declare-step>
  
 <para>The value of the <option>from</option> option
 <rfc2119>must</rfc2119> be an <type>anyURI</type>. It
@@ -108,4 +124,46 @@ specifies no namespace, since many attributes are in no namespace.</para>
 <option>to</option> option.  Prefixed names in content, for example QNames and
 XPath expressions, may end up with no appropriate namespace binding.</para></note>
 
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0014"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm>
+if the XML namespace (<uri>http://www.w3.org/XML/1998/namespace</uri>)
+or the XMLNS namespace (<uri>http://www.w3.org/2000/xmlns/</uri>) is
+the value of either the <option>from</option> option or the
+<option>to</option> option.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/namespace-rename-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/namespace-rename-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

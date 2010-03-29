@@ -1,16 +1,32 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.xquery">
-<title>p:xquery</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.xquery">
+<refnamediv>
+<refname><step>p:xquery</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
 
-<para>The <tag>p:xquery</tag> step applies an
-<biblioref linkend="xquery10"/> query to the sequence of documents
-provided on the <port>source</port> port.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:xquery">
   <p:input port="source" sequence="true" primary="true"/>
   <p:input port="query"/>
   <p:input port="parameters" kind="parameter"/>
   <p:output port="result" sequence="true"/>
 </p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+
+<para>The <tag>p:xquery</tag> step applies an
+<biblioref linkend="xquery10"/> query to the sequence of documents
+provided on the <port>source</port> port.</para>
+
 
 <para>If a sequence of documents is provided on the
 <port>source</port> port, the first document is used as the
@@ -210,5 +226,44 @@ validation before using XQuery:</para>
 
 <programlisting>&lt;count&gt;{count(.//p)}&lt;/count&gt;</programlisting>
 
-</section>
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0057"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic
+error</glossterm> if the sequence that results from evaluating the XQuery contains
+items other than documents and elements.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/xquery-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/xquery-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

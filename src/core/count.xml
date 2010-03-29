@@ -1,18 +1,29 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.count">
-<title>p:count</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.count">
+<refnamediv>
+<refname><step>p:count</step></refname>
+<refpurpose>Counts the number of documents that appear in a sequence</refpurpose>
+</refnamediv>
 
-<para>The <code>p:count</code> step counts the number of documents in
-the <code>source</code> input sequence and returns a single document
-on <code>result</code> containing that number. The generated document
-contains a single <tag>c:result</tag> element whose contents is the
-string representation of the number of documents in the
-sequence.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:count">
    <p:input port="source" sequence="true"/>
    <p:output port="result"/>
-   <p:option name="limit" select="0" e:type="xsd:integer"/>
+   <p:option name="limit" select="0" cx:type="xsd:integer"/>
 </p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+<para>The <step>p:count</step> step counts the number of documents on
+the <port>source</port> port. It returns a single <tag>c:result</tag>
+element containing the number.</para>
 
 <para>If the <tag class="attribute">limit</tag> option is specified
 and is greater than zero, the <tag>p:count</tag> step will count at most
@@ -20,4 +31,20 @@ that many documents. This provides a convenient mechanism to discover,
 for example, if a sequence consists of more than 1 document, without
 requiring every single document to be buffered before processing can
 continue.</para>
-</section>
+
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/count-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/count-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

@@ -1,22 +1,38 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.hash">
-<title>p:hash</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.hash">
+<refnamediv>
+<refname><step>p:hash</step></refname>
+<refpurpose>Computes a cryptographic hash and inserts it into a document</refpurpose>
+</refnamediv>
 
-<para>The <tag>p:hash</tag> step generates a hash, or digital “fingerprint”,
-for some value and injects it into the <port>source</port> document.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:hash">
   <p:input port="source" primary="true"/>
   <p:output port="result"/>
   <p:input port="parameters" kind="parameter"/>
-  <p:option name="value" required="true" e:type="xsd:string"/>
-  <p:option name="algorithm" required="true" e:type="xsd:QName"/>
-  <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
-  <p:option name="version" e:type="xsd:string"/>
+  <p:option name="value" required="true" cx:type="xsd:string"/>
+  <p:option name="algorithm" required="true" cx:type="xsd:QName"/>
+  <p:option name="match" required="true" cx:type="XSLTMatchPattern"/>
+  <p:option name="version" cx:type="xsd:string"/>
 </p:declare-step>
+</refsynopsisdiv>
 
-<para>The value of the <option>algorithm</option> option must be a QName.
-If it does not have a prefix, then it must be one of the following values:
-“crc”, “md”, or “sha”.</para>
+<refsection>
+<title>Description</title>
+
+<para>The <tag>p:hash</tag> step generates a hash, or digital “fingerprint”,
+for some value and inserts it into the <port>source</port> document at
+specified location(s).</para>
+
+<para>The <option>algorithm</option> identifies the kind of hash to
+generate. Standard values are
+“<literal>crc</literal>”, “<literal>md</literal>”, and “<literal>sha</literal>”.
+Implementations may support additional values as well.</para>
 
 <para>If a <tag class="attribute">version</tag> is not specified, the
 default version is algorithm-defined. For “<literal>crc</literal>” it
@@ -24,40 +40,55 @@ is 32, for “<literal>md</literal>” it is 5, for “<literal>sha</literal>”
 it is 1.</para>
 
 <para>A hash is constructed from the string specified in the
-<option>value</option> option using the specified algorithm and version.
-Implementations <rfc2119>must</rfc2119> support 
-<biblioref linkend="bib.crc"/>,
-<biblioref linkend="rfc1321"/>, and <biblioref linkend="bib.sha"/>
-hashes. <impl>It is
-<glossterm>implementation-defined</glossterm> what other algorithms are
-supported.</impl>
-The resulting hash <rfc2119>should</rfc2119> be returned as a string of
+<option>value</option> option using the specified algorithm and
+version. The resulting hash is usually returned as a string of
 hexadecimal characters.
 </para>
- 
-<para>The value of the <option>match</option> option must be an
-XSLTMatchPattern.</para>
 
-<para>The hash of the specified value is computed using the algorithm and
-parameters specified. <error code="C0036">It is a
-<glossterm>dynamic error</glossterm> if the requested hash algorithm is not
+<para>Each matching node in the source document is replaced by the
+computed hash (if more than one node matches, the
+<emphasis>same</emphasis> hash value is used as the replacement
+each time). If the matched node is an attribute, then the computed hash
+is used as the new attribute value, in all other cases, the entire node
+is replaced.</para>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0036"/></entry>
+<entry>Occurs
+if the requested hash algorithm is not
 one that the processor understands or if the value or parameters are
-not appropriate for that algorithm.</error></para>
- 
-<para>The matched nodes are specified with the match pattern in the
-<option>match</option> option. For each matching node, the string
-value of the computed hash is used in the output (if more than one node
-matches, the <emphasis>same</emphasis> hash value is used in each match).
-Nodes that do not
-match are copied without change.</para>
+not appropriate for that algorithm.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
 
-<para>If the expression given in the <option>match</option> option
-matches an <emphasis>attribute</emphasis>, the hash is used as the new
-value of the attribute in the output.
-If the attribute is named “<tag class="attribute">xml:base</tag>”, the base URI
-of the element <rfc2119>must</rfc2119> also be amended accordingly.</para>
+<refsection>
+<title>Examples</title>
 
-<para>If the expression matches any
-other kind of node, the entire node (and <emphasis>not</emphasis> just
-its contents) is replaced by the hash.</para>
-</section>
+<programlisting
+><xi:include href="examples/hash-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/hash-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

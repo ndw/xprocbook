@@ -1,456 +1,475 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.http-request">
-<title>p:http-request</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.http-request">
+<refnamediv>
+<refname><step>p:http-request</step></refname>
+<refpurpose>Interact with other systems over HTTP</refpurpose>
+</refnamediv>
 
-<para>The <code>p:http-request</code> step provides for interaction
-with resources over HTTP or related protocols.
-The input
-document provided on the <port>source</port> port specifies a request
-by a single <tag>c:request</tag> element. This element specifies
-the method, resource, and other request properties as well as possibly
-including an entity body (content) for the request.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:http-request">
   <p:input port="source"/>
   <p:output port="result"/>
-  <p:option name="byte-order-mark" e:type="xsd:boolean"/>
-  <p:option name="cdata-section-elements" select="''" e:type="ListOfQNames"/>
-  <p:option name="doctype-public" e:type="xsd:string"/>
-  <p:option name="doctype-system" e:type="xsd:anyURI"/>
-  <p:option name="encoding" e:type="xsd:string"/>
-  <p:option name="escape-uri-attributes" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="include-content-type" select="'true'" e:type="xsd:boolean"/>
-  <p:option name="indent" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="media-type" e:type="xsd:string"/>
-  <p:option name="method" select="'xml'" e:type="xsd:QName"/>
-  <p:option name="normalization-form" select="'none'" e:type="NormalizationForm"/>
-  <p:option name="omit-xml-declaration" select="'true'" e:type="xsd:boolean"/>
-  <p:option name="standalone" select="'omit'" e:type="true|false|omit"/>
-  <p:option name="undeclare-prefixes" e:type="xsd:boolean"/>
-  <p:option name="version" select="'1.0'" e:type="xsd:string"/>
+  <p:option name="byte-order-mark" cx:type="xsd:boolean"/>
+  <p:option name="cdata-section-elements" select="''" cx:type="ListOfQNames"/>
+  <p:option name="doctype-public" cx:type="xsd:string"/>
+  <p:option name="doctype-system" cx:type="xsd:anyURI"/>
+  <p:option name="encoding" cx:type="xsd:string"/>
+  <p:option name="escape-uri-attributes" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="include-content-type" select="'true'" cx:type="xsd:boolean"/>
+  <p:option name="indent" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="media-type" cx:type="xsd:string"/>
+  <p:option name="method" select="'xml'" cx:type="xsd:QName"/>
+  <p:option name="normalization-form" select="'none'" cx:type="NormalizationForm"/>
+  <p:option name="omit-xml-declaration" select="'true'" cx:type="xsd:boolean"/>
+  <p:option name="standalone" select="'omit'" cx:type="true|false|omit"/>
+  <p:option name="undeclare-prefixes" cx:type="xsd:boolean"/>
+  <p:option name="version" select="'1.0'" cx:type="xsd:string"/>
 </p:declare-step>
+</refsynopsisdiv>
 
-<para>The standard serialization options are provided to control the
-serialization of any XML content which is sent as part of the request.
-The effect of these options is as specified in <link linkend="serialization-options"/>. See <link linkend="c.request_body"/> for a discussion of when serialization
-occurs in constructing a request.</para>
+<refsection>
+<title>Description</title>
 
-<para><error code="C0040">It is a <glossterm>dynamic error</glossterm>
-if the document element of the document that arrives on the
-<port>source</port> port is not <tag>c:request</tag>.</error></para>
- 
-<section xml:id="cv.request">
-<title>Specifying a request</title>
+<para>The <code>p:http-request</code> step allows you to interact with
+other systems over HTTP. You describe the interaction that you want to have
+with the system in the form of a <tag>c:request</tag> document sent to the
+<port>source</port> input port. The response that comes back from the
+system is returned in the <port>result</port> port. The step provides
+a lot of flexibility in how the response is presented.</para>
 
-<para>An HTTP request is represented by a <tag>c:request</tag> element.</para>
+<para>This step is actually quite complicated because it attempts to
+provide a uniform interface to all of the possible HTTP methods, with
+and without authentication, and to handle sending and receiving both
+single and multipart message bodies that may or may not be
+XML.</para>
 
-<e:rng-pattern name="VocabHttpRequest"/>
+<para>Don't let the all of the possible complexity persuade you into thinking
+that it has to be complex. Here's a simple example that retrieves the
+XProc specification from the W3C website:</para>
 
-<para><error code="C0006">It is a <glossterm>dynamic error</glossterm> if the
-<tag class="attribute">method</tag> is not specified on a <tag>c:request</tag>.
-</error>
-<error code="C0005">It is a <glossterm>dynamic error</glossterm> if the
-request contains a <tag>c:body</tag> or <tag>c:multipart</tag> but the
-<tag class="attribute">method</tag> does not allow for an entity body being sent with the request.</error></para>
+<programlisting><![CDATA[  <p:http-request>
+    <p:input port="source">
+      <p:inline>
+        <c:request method="GET"
+                   href="http://www.w3.org/TR/xproc/langspec.xml"/>
+      </p:inline>
+    </p:input>
+  </p:http-request>]]></programlisting>
 
-<para><error code="C0004">It is a <glossterm>dynamic error</glossterm> if the
-<code>status-only</code> attribute has the value <literal>true</literal> and
-the <code>detailed</code> attribute does not have the value <literal>true</literal>.</error></para>
+<para>If most of your web interactions are simple HTTP “GET” requests, it
+may be useful to write a wrapper that provides direct support for those
+simple cases. In the examples below, you'll find a <step>cx:http-get</step>
+pipeline that simplifies the above example to a single line:</para>
 
-<para>The <code>method</code> attribute specifies the method to be
-used against the IRI specified by the <code>href</code> attribute,
-e.g. <code>GET</code> or <code>POST</code> (the value is not case-sensitive).
-If the <code>href</code>
-attribute is not absolute, it will be resolved against the base URI of
-the element on which it is occurs.</para>
+<programlisting>&lt;cx:http-get href="http://www.w3.org/TR/xproc/langspec.xml"/></programlisting>
 
-<note><para>In the case of simple “GET” requests, implementors are encouraged
-to support as many protocols as practical. In particular, pipeline authors may
-attempt to use <tag>p:http-request</tag> to load documents with computed
-URIs using the <literal>file:</literal> scheme.</para></note>
+<para>Now let's look at the step in all it's generality. Everything begins
+with the request. A <tag>c:request</tag> element has the following form:</para>
 
-<para>If the <code>username</code> attribute is specified, the
-<code>username</code>, <code>password</code>,
-<code>auth-method</code>, and <code>send-authorization</code>
-attributes are used to handle authentication according to the selected
-authentication method.</para>
+<programlisting>&lt;c:request
+  method = NCName
+  href? = anyURI
+  username? = string
+  password? = string
+  auth-method? = string
+  send-authorization? = boolean
+  override-content-type? = string
+  detailed? = boolean
+  status-only? = boolean>
+    (c:header*, (c:body | c:multipart)?)
+&lt;/c:request></programlisting>
 
-<para>For the purposes of avoiding an authentication challenge, if the
-<code>send-authorization</code> attribute has the value
-<literal>true</literal> and the authentication method specified by the
-<code>auth-method</code> supports generation of an
-<code>Authorization</code> header without a challenge, then an
-<code>Authorization</code> header is generated and sent on the first
-request. If the <code>send-authorization</code> attribute is absent or
-has the value
-<literal>false</literal>, then the first request is sent without an
-<code>Authorization</code> header.</para>
+<para>The <att>method</att> attribute must be one of the HTTP methods
+(one of the methods supported by the system with which you're
+interacting). The <att>href</att> attribute identifies the URI that you want to
+interact with. The <att>username</att>, <att>password</att>,
+<att>auth-method</att>, and <att>send-authorization</att> attributes
+control authentication, see <xref linkend="http-auth"/>, below. The
+<att>override-content-type</att> attribute allows you to change the
+interpretation of the result; the <att>detailed</att> and
+<att>status-only</att> attributes control how much detail is exposed
+in the result, see <xref linkend="c.request_response"/>, also below.</para>
 
-<para>If the initial response to the request is an
-authentication challenge, the <code>auth-method</code>,
-<code>username</code>, <code>password</code> and any relevant data from
-the challenge are used to generate an
-<code>Authorization</code> header and the request is sent again. If
-that authorization fails, the request is not retried.</para>
-
-<para>Appropriate values for the <code>auth-method</code> attribute
-are “Basic” or “Digest” but other values are allowed. 
-If the authentication method is “Basic” or “Digest”, authentication
-is handled as per <biblioref linkend="rfc2617"/>.
-<impl>The
-interpretation of <code>auth-method</code> values on
-<tag>c:request</tag> other than “Basic” or “Digest” is
-<glossterm>implementation-defined</glossterm>.</impl></para>
-
-<para><error code="C0003">It
-is a <glossterm>dynamic error</glossterm> if a <option>username</option>
-or <option>password</option> is specified without specifying an
-<option>auth-method</option>, if
-the requested
-<option>auth-method</option> isn't supported, or the authentication
-challenge contains an authentication method that isn't
-supported.</error> All implementations are required to support "Basic"
-and "Digest" authentication per <biblioref linkend="rfc2617"/>.</para>
-  
-  <para>The <code>c:header</code> element specifies a
-header name and value, either for inclusion in a request, or as received in a response.</para>
-  
-<e:rng-pattern name="VocabHeader" xml:id="cv.header"/>
-
-<para>The request is formulated from the attribute values on the
-<tag>c:request</tag> element and its
-<tag>c:header</tag> and <tag>c:multipart</tag> or <tag>c:body</tag> children,
-if present, and transmitted to the host (and port, if present) specified by the
-<code>href</code> attribute.  The details of how the request entity body, if any, is
-constructed are given in <xref linkend="c.response_body"/>.</para>
-
-<para>When the request is formulated, the step and/or protocol
-implementation may add headers as necessary to either complete the
-request or as appropriate for the content specified (e.g. transfer
-encodings). A user of this step is guaranteed that their requested
-headers and content will be sent with the exception of any conflicts
-with protocol-related headers.</para>
-
-<para>The <tag>p:http-request</tag> step allows users to specify
-independently values that are not always independent. For example,
-some combinations of <tag>c:header</tag> values
-(e.g., <literal>Content-Type</literal>)
-may be inconsistent
-with values that the step and/or protocol implementation must set. In
-a few cases, the step provides more than one mechanism to specify what
-is actually a single value (e.g., the boundary string in multipart
-messages).
-<error code="C0020">It is a
-<glossterm>dynamic error</glossterm> if the the user specifies a value
-or values that are inconsistent with each other or with the requirements
-of the step or protocol.</error>
+<para>The content of the <tag>c:request</tag> consists of any number
+of <tag>c:header</tag> elements, followed optionally by a
+<tag>c:body</tag> or a <tag>c:multipart</tag>.
 </para>
-</section>
 
-<section xml:id="c.request_body">
-<title>Request Entity body conversion</title>
+<para>A <tag>c:header</tag> element allows you to send additional HTTP
+headers with the request:</para>
 
-<para>The <code>c:multipart</code> element specifies a multi-part
-body, per <biblioref linkend="rfc1521"/>, either for inclusion in a
-request or as received in a response.</para>
+<programlisting>&lt;c:header
+  name = string
+  value = string /></programlisting>
 
-<e:rng-pattern name="VocabMultipart" xml:id="cv.multipart"/>
+<para>The <att>name</att> and <att>value</att> attributes specify the name
+and value of the header, respectively. As we'll see below, the
+<tag>c:header</tag> element is also used to present the headers that
+the server sends back.</para>
 
-<para>In the context of a request, the media type of the <tag>c:multipart</tag>
-<rfc2119>must</rfc2119> be a multipart media type (i.e. have a main type of 'multipart'). If the <code>content-type</code> attribute is not specified, a value of "multipart/mixed" will be assumed.</para>
+<para>If you're doing an HTTP “GET”, then you don't send any content to the
+server, but for HTTP “POST” or “PUT” requests (among others), data is sent
+to the server using a <tag>c:body</tag> or <tag>c:multipart</tag>
+elements.</para>
 
-<para>The <code>boundary</code> attribute is required and is used to
-provide a multipart boundary marker. The implementation must use this
-boundary marker and must prefix the value with the string
-“<literal>--</literal>” when formulating the multipart message. <error code="C0002">It is a <glossterm>dynamic error</glossterm> if the value
-starts with the string “<literal>--</literal>”.</error></para>
+<para>The HTTP request is formulated from the elements in the request
+and transmitted to the host specified by the <code>href</code>
+attribute.</para>
 
-<para>If the boundary is also specified as a parameter in the
-<option>content-type</option> option, then the parameter value specified
-and the <option>boundary</option> value specified <rfc2119>must</rfc2119>
-be the same. If the boundary is specified in both the <option>boundary</option>
-option and the <option>content-type</option> option then the two values
-<rfc2119>must</rfc2119> be the same.</para>
+<refsection xml:id="c.request_body">
+<title>Formulating the request</title>
 
-<para>The <tag>c:body</tag> element holds the body or body part of the message.  Each of the attributes holds controls some aspect of the encoding the request body or decoding the body element's content when the request is formulated.  These are specified as follows:</para>
+<para>The <tag>c:body</tag> element holds the body (or in the case of
+a <link linkend="multipart-requests">multipart message</link>, each of the
+body parts) of the message:</para>
 
-<e:rng-pattern name="VocabBody" xml:id="cv.body"/>
+<programlisting>&lt;c:body
+  content-type = string
+  encoding? = string
+  id? = string
+  description? = string>
+    <emphasis>any content</emphasis>
+&lt;/c:body></programlisting>
 
 <para>The <code>content-type</code> attribute specifies the media type
-of the body or body part, that is, the value of its
-<code>Content-Type</code> header. If the media type is not an XML type
-or text, the content must already be base64-encoded.</para>
+of the body or body part, for example, “<literal>application/xml</literal>”
+“<literal>text/plain</literal>”, or “<literal>image/png</literal>”. In
+HTTP terms, this is the value used for the
+<literal xlink:href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</literal>
+header. The <att>encoding</att> is used for images and other non-text types, see
+<xref linkend="binary-types"/>, below.</para>
 
-<para>The <code>encoding</code> attribute controls the decoding of the
-element content for formulating the body. A value of
-<literal>base64</literal> indicates the element's content is a base64
-encoded string whose byte stream should be sent as the message body.
-<impl>An implementation may support encodings other than
-<literal>base64</literal> but these encodings and their names are
-<glossterm>implementation-defined</glossterm>.</impl>
-<error code="C0052">It is a <glossterm>dynamic
-error</glossterm> if the encoding specified is not supported by the
-implementation.</error></para>
+<para>In some applications, usually multipart requests, it may be useful or
+necessary to specify a
+<literal xlink:href="http://www.apps.ietf.org/rfc/rfC1521.html#sec-6.1">Content-ID</literal>
+or
+<literal xlink:href="http://www.apps.ietf.org/rfc/rfc1521.html#sec-6.2">Content-Description</literal> in the request. You can specify these values with the
+<att>id</att> and <att>description</att> attributes, respectively.</para>
 
-<note>
-<para>The <tag>p:http-request</tag> step provides only a single set of
-serialization options for XML media types. There's no direct support
-for sending a multipart message with two XML parts encoded
-differently.</para>
-</note>
-  
-<para>The <code>id</code> attribute specifies the value of the
-<code>Content-ID</code> header for the body or body part.</para>
-  
-<para>The <code>description</code> attribute specifies the value of
-the <code>Content-Description</code> header for the body or body
-part.</para>
+<para>After establishing the headers for a request body, the processor
+has to actually package it up for transmission to the server. Exactly
+how this packaging is done depends on the <att>content-type</att>
+specified.</para>
 
-<para>If an entity body is to be sent as part of a request (e.g. a
-<code>POST</code>), either a <tag>c:body</tag> element, specifying the
-request entity body, or a <tag>c:multipart</tag> element, specifying
-multiple entity body parts, may be used. When <tag>c:multipart</tag>
-is used it may contain multiple <tag>c:body</tag> children. A
-<tag>c:body</tag> specifies the construction of a body or body part as
-follows:</para>
-  
-<para>If the <code>content-type</code> attribute does not specify an
-XML media type, or the <code>encoding</code> attribute is
-“<literal>base64</literal>”, then <error code="C0028">it is a
-<glossterm>dynamic error</glossterm> if the content of the
-<tag>c:body</tag> element does not consist entirely of
-characters</error>, and the entity body or body part will consist of
-exactly those characters.</para>
+<itemizedlist>
+<listitem>
+<para>If the content type specifies an XML media type, then the body
+is serialized using the options specified on the
+<step>p:http-request</step> and the resulting serialized form is sent
+to the server. In other words, if the body is XML, the processor does
+what you'd expect to send the XML over the wire.</para>
+</listitem>
+<listitem>
+<para>If the content type does not specify an XML media type, or if an
+<att>encoding</att> is specified, then the content of the <tag>c:body</tag>
+element is sent directly. In this case, you must have constructed the
+<tag>c:body</tag> so that it contains exactly, and only, the characters
+that you want sent. In other words, you have to encode it before you
+put it in the <tag>c:body</tag> element.</para>
+</listitem>
+</itemizedlist>
 
-<para>Otherwise (the <code>content-type</code> attribute
-<emphasis>does</emphasis> specify an XML media type and the
-<code>encoding</code> attribute is <emphasis>not</emphasis> 'base64'),
-<error code="C0022">it is a <glossterm>dynamic error</glossterm> if
-the content of the <tag>c:body</tag> element does not consist of
-exactly one element, optionally preceded and/or followed by any number
-of processing instructions, comments or whitespace characters</error>,
-and the entity body or body part will consist of the serialization of
-a document node containing that content. The serialization of that
-document is controlled by the serialization options on the
-<code>p:http-request</code> step itself.</para>
+<refsection xml:id="multipart-requests">
+<title>Multipart requests</title>
 
-<para>For example, the following input to a
-<code>p:http-request</code> step will POST a small XML
-document:</para>
+<para>Sometimes you want to send more than a single document to the server.
+Some systems address this by specifying a specific packaging system, such
+as sending a single ZIP file containing all the parts, but other systems
+use “<link xlink:href="http://www.apps.ietf.org/rfc/rfc1521.html#sec-7.2">multipart
+MIME</link>” for the packaging.
+In <step>p:http-request</step> this is supported through the use
+of the <tag>c:multipart</tag> element:</para>
 
-<programlisting>
-&lt;c:request method="POST" href="http://example.com/someservice"&gt;
-&lt;c:body xmlns:c="http://www.w3.org/ns/xproc-step" content-type="application/xml"&gt;
-&lt;doc&gt;
-&lt;title&gt;My document&lt;/title&gt;
-&lt;/doc&gt;
-&lt;/c:body&gt;
-&lt;/c:request&gt;
-</programlisting> 
-  <para>The corresponding request should look something like this:</para>
-  
-  <programlisting>POST http://example.com/someservice HTTP/1.1
-Host: example.com
-Content-Type: application/xml; charset="utf-8"
+<programlisting>&lt;c:multipart
+  content-type = string
+  boundary = string>
+    c:body+
+&lt;/c:multipart></programlisting>
 
-&lt;?xml version='1.0'?&gt;
-&lt;doc&gt;
-&lt;title&gt;My document&lt;/title&gt;
-&lt;/doc&gt;
-</programlisting>
-</section>
- 
-<section xml:id="c.request_response">
-<title>Managing the response</title>
+<para>The <att>content-type</att> specified must be a multipart media
+type. If it's not specified, a value of
+“<literal>multipart/mixed</literal>” is used.</para>
 
-<para>The handling of the response to the request and the generation
-of the step's result document is controlled by the
-<code>status-only</code>, <code>override-content-type</code> and
-<code>detailed</code> attributes on the <tag>c:request</tag>
-input.</para>
-  
-<para>The <code>override-content-type</code> attribute controls
-interpretation of the response's <code>Content-Type</code> header. If
-this attribute is present, the response will be treated as if it
-returned the <code>Content-Type</code> given by its value. This
-original <code>Content-Type</code> header will however be reflected
-unchanged as a <tag>c:header</tag> in the result document. <error code="C0030">It is a <glossterm>dynamic error</glossterm> if the
-<code>override-content-type</code> value cannot be used (e.g.
-<code>text/plain</code> to override
-<code>image/png</code>).</error></para>
+<para>In the request sent to the server, all of the parts are sent in
+a single stream. The boundaries between each part are identified with
+a boundary string. It's your responsibility to specify the
+<att>boundary</att> string and it's critically important that you
+specify a value that <emphasis>will not</emphasis> occur in the
+(possibly encoded) representations of any of the parts.</para>
 
-<para>If the <code>status-only</code> attribute has the value
-<literal>true</literal>, the result document will contain only header
-information. The entity of the response will not be processed to
-produce a <tag>c:body</tag> or <tag>c:multipart</tag> element.</para>
+<para>Each individual <tag>c:body</tag> part is handled as described
+above.</para>
+</refsection>
+</refsection>
 
-<para>The <tag>c:response</tag> element represents an HTTP response.
-The response's status code is encoded in the <code>status</code>
-attribute and the headers and entity body are processing into
+<refsection xml:id="c.request_response">
+<title>Interpreting the response</title>
+
+<para>How the processor interprets the part (or parts) that are
+returned depends critically on the value of the content type header
+that the server sends. A content type of
+“<literal>application/xml</literal>” is naturally going to be
+processed quite differently than a content type of
+“<literal>image/png</literal>”. If the <tag>c:request</tag> specifies
+an <att>override-content-type</att>, then that value is used to
+determine how the part (or parts) are interpreted. Even if an override
+is specified, however, the actual content type sent by the server will
+be presented in the <tag>c:header</tag>, if there is one.</para>
+
+<para>In the discussion below, “content type” refers to the content
+type that the processor is using, either the one the server sent or
+the one the request specified, as appropriate.</para>
+
+<para>If you make an HTTP request, your presumably expecting some sort
+of response. Sometimes you need to be able check the status code,
+inspect the headers, interrogate the relationships between the parts,
+etc.</para>
+
+<para>In this case, you want the response to include all of the detail
+that it can. The XProc processor provides this in the form of a
+<tag>c:response</tag> element:</para>
+
+<programlisting>&lt;c:response
+  status? = integer>
+    (c:header*, (c:body | c:multipart)?)
+&lt;/c:response></programlisting>
+
+<para>The response's status code is encoded in the <code>status</code>
+attribute and the headers and entity body are returned in
 <tag>c:header</tag> and <tag>c:multipart</tag> or <tag>c:body</tag>
 content.</para>
 
-<e:rng-pattern name="VocabHttpResponse" xml:id="c.response"/>
+<para>But often, you know that you're going to get back, for example,
+a single XML document. If you expect the step to succeed and you just
+want the document back, it's tedious to have to remember to unpack it
+from inside the <tag>c:response</tag> wrapper every time. To alleviate
+this tedium, the <tag>c:request</tag> allows you to specify whether or
+not you want a “detailed” response:</para>
 
-<para>The value of the <code>detailed</code> attribute determines the
-content of the result document. If it is <literal>true</literal>, the
-response to the request is handled as follows:</para>
+<itemizedlist>
+<listitem>
+<para>If <att>detailed</att> is “<literal>true</literal>”, you get
+back a <tag>c:response</tag> element containing all the headers and
+the body or bodies.</para>
+</listitem>
+<listitem>
+<para>If <att>detailed</att> is not specified or is explicitly
+“<literal>false</literal>”, the body (or each of the bodies) is
+converted into an XML representation and returned.</para>
+</listitem>
+</itemizedlist>
 
-<orderedlist>
-<listitem><para>A single <tag>c:response</tag> element is produced with the <code>status</code> attribute containing the status of the response received.</para></listitem>
-<listitem><para>Each response header is translated into a <tag>c:header</tag> element.</para></listitem>
-<listitem><para>Unless the <code>status-only</code> attribute has a value
-<literal>true</literal>, the entity body of the response is converted into
-a <tag>c:body</tag> or <tag>c:multipart</tag> element via the rules given in
- <xref linkend="c.response_body"/>.</para></listitem>
-</orderedlist>
+<para>In other words, you can get all the detail if you want, but the
+default is just to return the document (or sequence of documents) that
+the server sends back in its response.</para>
 
-<para>Otherwise (the <code>detailed</code> attribute is not specified
-or its value is <literal>false</literal>), the response to the request
-is handled as follows:</para>
-
-<orderedlist>
-<listitem><para>If the media type (as determined by the
-<code>override-content-type</code> attribute or the <code>Content-Type</code>
-response header) is an XML media type, the entity is decoded if necessary, then parsed as an XML document
-and produced on the <code>result</code> output port as the entire output of the step.</para></listitem>
-<listitem><para>Otherwise, the entity body of the response is converted into
-a <tag>c:body</tag> or <tag>c:multipart</tag> element via the rules given in
-<xref linkend="c.response_body"/>.</para></listitem>
-</orderedlist>
-
-<para>In either case the base URI of the output document is the resolved value
-of the <code>href</code> attribute from the input <tag>c:request</tag>.</para>
-
-<section xml:id="redirects">
-<title>Redirects</title>
-
-<para>One possible response from an HTTP request is a redirect,
-indicated by a status code in the three-hundred range. The precise
-semantics of the 3xx return codes are laid out by section
-<citetitle>10.3 Redirection 3xx</citetitle> in <biblioref linkend="rfc2616"/>.
-</para>
-
-<para>The <tag>p:http-request</tag> step <rfc2119>should</rfc2119> follow
-redirect requests (in a manner consistent with <biblioref linkend="rfc2616"/>)
-if they are returned by the server.
-</para>
-</section>
-
-<section xml:id="cookies">
-<title>Cookies</title>
-
-<para>With one exception, in version 1.0 of XProc, the
-<tag>p:http-request</tag> step does not provide any standard
-mechanisms for managing cookies. <impl>Pipeline authors that need to
-preserve cookies across several <tag>p:http-request</tag> calls in the
-same pipeline or across multiple invocations of the same or different
-pipelines will have to rely on
-<glossterm>implementation-defined</glossterm> mechanisms.</impl>
-</para>
-
-<para>The exception arises in the case of redirection. If a redirect
-response includes cookies, those cookies <rfc2119>should</rfc2119> be
-forwarded as appropriate to the redirected location when the
-redirection is followed.</para>
-
-<para>This behavior will allow the <tag>p:http-request</tag> step to
-interoperate with web services that use cookies as part of an
-authentication protocol.</para>
-
-</section>
- </section>
-
-<section xml:id="c.response_body">
-<title>Converting Response Entity Bodies</title>   
-
-<para>The entity of a response may be multipart per <biblioref linkend="rfc1521"/>. In those situations, the result document will be
-a <tag>c:multipart</tag> element that contains multiple
-<tag>c:body</tag> elements inside.</para>
-
-<note>
-<para>Although it is technically possible for any of the individual
-parts of a multipart message to <emphasis>also</emphasis> be
-multipart, XProc does not provide a standard representation for such
-messages. <impl>The interpretation of a multipart message inside
-another multipart message is
-<glossterm>implementation-dependent</glossterm>.</impl></para>
-</note>
-
-<para>The result of the <tag>p:http-request</tag> step is an XML
-document. For media types (images, binaries, etc.) that can't be
+<para>The output of a <step>p:http-request</step> must be XML, so the
+body (or each of the bodies) has to be converted into an XML
+representation. For media types (images, binaries, etc.) that can't be
 represented as a sequence of Unicode characters, the response is
-encoded as <literal>base64</literal>
-and then returned as text children of the <tag>c:body</tag> element.
-If the content is base64-encoded, the <tag class="attribute">encoding</tag> attribute on <tag>c:body</tag> must
+<literal>base64</literal> encoded and then returned in a
+<tag>c:body</tag> element. If the content is base64-encoded, the
+<tag class="attribute">encoding</tag> attribute on <tag>c:body</tag> will
 be set to “<literal>base64</literal>”.</para>
 
-<para>If the media type of the response
-is a text type with a
-<code>charset</code> parameter that is a Unicode character encoding
-(per <biblioref linkend="unicodetr17"/>) or
-is recognized as a non-XML media type whose contents are encoded as a
-sequence of Unicode characters (e.g. it has a character parameter or
-the definition of the media type is such that it requires Unicode),
-the content of the constructed <tag>c:body</tag> element is the translation
-of the text into a sequence of Unicode characters.</para>
+<para>If the media type isn't XML but can be represented as a sequence
+of Unicode characters, the content of the
+<tag>c:body</tag> element will be those characters. In this case,
+there will be no <att>encoding</att> attribute on the <tag>c:body</tag>.</para>
 
 <para>If the response is an XML media type, the content of the
 constructed <tag>c:body</tag> element is the result of decoding the
 body as necessary, then parsing it with an XML parser. If the content
 is not well-formed, the step fails.</para>
 
-<para>In a <tag>c:body</tag> in a response, the
-<tag class="attribute">content-type</tag> attribute <rfc2119>must</rfc2119>
-be an exact copy of the value returned in the
-<literal>Content-Type</literal> header. That is, it must reflect the
-content type actually returned, not any override value that may have been
-specified, and it must include any parameters returned by the server.</para>
-
 <para>In the case of a multipart response, the same rules apply when
 constructing a <tag>c:body</tag> element for each body part
 encountered.</para>
 
-<note>
-<para>Given the above description, any content identified as
+<para>There's one more special case. If the <att>status-only</att>
+attribute on the <tag>c:request</tag> is “<literal>true</literal>”,
+the result document will always be a <tag>c:response</tag> containing
+only header information. The response will not be processed to produce
+a <tag>c:body</tag> or <tag>c:multipart</tag> element at all.</para>
+</refsection>
+
+<refsection xml:id="http-auth">
+<title>HTTP Authentication</title>
+
+<para>Several attributes on the <tag>c:request</tag> control if
+and how authentication is performed.</para>
+
+<para>If the <att>username</att> attribute is specified, the
+<att>username</att>, <att>password</att>,
+<att>auth-method</att>, and <att>send-authorization</att>
+attributes are used to handle authentication according to the selected
+authentication method.</para>
+
+<para>The <att>username</att> and <att>password</att> specify the
+authentication credentials of the user. The <att>auth-method</att>
+specifies the expected authentication method. If the
+authentication method is “<literal>Basic</literal>” or
+“<literal>Digest</literal>”, authentication is handled as per
+<biblioref linkend="rfc2617"/>. Other values are allowed, but their
+meaning is <glossterm>implementation-defined</glossterm>.</para>
+
+<para>Authentication generally requires several messages sent back and forth
+between the client and the server. The client requests access, the server
+responds with a challenge, the client replies with appropriate credentials,
+and then the server sends back the actual response. If you're using
+basic authentication, you can avoid one round trip by setting
+<att>send-authentication</att> to “<literal>true</literal>”. If you do,
+the credentials are sent on the first request. This only works for
+basic authentication, however, because other methods require information
+from the challenge to construct the credentials.</para>
+</refsection>
+
+<refsection xml:id="other-protocols">
+<title>Supporting other protocols</title>
+
+<para>In the case of simple “GET” requests, implementors are
+encouraged to support as many protocols as practical. In particular,
+pipeline authors may attempt to use <tag>p:http-request</tag> to load
+documents with computed URIs using the <literal>file:</literal>
+scheme.</para>
+
+</refsection>
+
+<refsection xml:id="binary-types">
+<title>Binary content</title>
+
+<para>Several steps use “base64” encoding to transmit binary data
+through an XProc pipeline. The <att>encoding</att> attribute controls
+the decoding of the element content for formulating the request.</para>
+
+<para>A value of “<literal>base64</literal>” indicates the element's
+content is a base64 encoded string whose byte stream should be sent as
+the message body. An implementation may support encodings other than
+<literal>base64</literal> but these encodings and their names are
+<glossterm>implementation-defined</glossterm>.</para>
+</refsection>
+
+<refsection xml:id="cookies">
+<title>Cookies</title>
+
+<para>With one exception, in version 1.0 of XProc, the
+<tag>p:http-request</tag> step does not provide any standard
+mechanisms for managing cookies. Pipeline authors that need to
+preserve cookies across several <tag>p:http-request</tag> calls in the
+same pipeline or across multiple invocations of the same or different
+pipelines will have to rely on
+<glossterm>implementation-defined</glossterm> mechanisms.
+</para>
+
+<para>The exception arises in the case of redirection. If a redirect
+response includes cookies, those cookies are forwarded as appropriate
+to the redirected location when the redirection is followed.</para>
+
+<para>This behavior allows the <tag>p:http-request</tag> step to
+interoperate with web services that use cookies as part of an
+authentication protocol.</para>
+</refsection>
+
+<refsection xml:id="html">
+<title>HTML content</title>
+
+<para>HTML isn't always (in fact, rarely is) well-formed XML. But it
+can be represented in Unicode, so by the rules in <xref
+linkend="c.request_response"/>, any content identified as
 <code>text/html</code> will be encoded as (escaped) text or
-base64-encoded in the <tag>c:body</tag> element, as HTML isn't always
-well-formed XML. A user can attempt to convert such content into XML
-using the <tag>p:unescape-markup</tag> step.</para>
-</note>
-</section>
+base64-encoded in the <tag>c:body</tag> element.
+</para>
 
-<section xml:id="example-http-request">
-<title>HTTP Request Example</title>
+<para>If you want to treat the HTML content as XML, you can attempt to
+convert it into XML using the <tag>p:unescape-markup</tag>
+step.</para>
+</refsection>
+</refsection>
 
-<para>A simple form might be posted as follows:</para>
-<programlisting>&lt;c:request method="POST" href="http://www.example.com/form-action" xmlns:c="http://www.w3.org/ns/xproc-step"&gt;
-&lt;c:body content-type="application/x-www-form-urlencoded"&gt;
-name=W3C&amp;amp;spec=XProc
-&lt;/c:body&gt;
-&lt;/c:request&gt;
-</programlisting>
-<para>and if the response was an XHTML document, the result document would be:</para>
-<programlisting>&lt;c:response status="200" xmlns:c="http://www.w3.org/ns/xproc-step"&gt;
-&lt;c:header name="Date" value=" Wed, 09 May 2007 23:12:24 GMT"/&gt;
-&lt;c:header name="Server" value="Apache/1.3.37 (Unix) PHP/4.4.5"/&gt;
-&lt;c:header name="Vary" value="negotiate,accept"/&gt;
-&lt;c:header name="TCN" value="choice"/&gt;
-&lt;c:header name="P3P" value="policyref='http://www.w3.org/2001/05/P3P/p3p.xml'"/&gt;
-&lt;c:header name="Cache-Control" value="max-age=600"/&gt;
-&lt;c:header name="Expires" value="Wed, 09 May 2007 23:22:24 GMT"/&gt;
-&lt;c:header name="Last-Modified" value="Tue, 08 May 2007 16:10:49 GMT"/&gt;
-&lt;c:header name="ETag" value="'4640a109;42380ddc'"/&gt;
-&lt;c:header name="Accept-Ranges" value="bytes"/&gt;
-&lt;c:header name="Keep-Alive" value="timeout=2, max=100"/&gt;
-&lt;c:header name="Connection" value="Keep-Alive"/&gt;
-&lt;c:body content-type="application/xhtml+xml"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;&lt;title&gt;OK&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;&lt;p&gt;OK!&lt;/p&gt;&lt;/body&gt;
-&lt;/html&gt;
-&lt;/c:body&gt;
-&lt;/c:response&gt;
-</programlisting>
-</section>
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0040"/></entry>
+<entry>Occurs
+if the document element of the document that arrives on the
+<port>source</port> port is not <tag>c:request</tag>.
+</entry>
+</row>
+<row>
+<entry><error code="C0006"/></entry>
+<entry>Occurs
+if the
+<tag class="attribute">method</tag> is not specified on a <tag>c:request</tag>.
 
-</section>
+</entry>
+</row>
+<row>
+<entry><error code="C0005"/></entry>
+<entry>Occurs
+if the
+request contains a <tag>c:body</tag> or <tag>c:multipart</tag> but the
+<tag class="attribute">method</tag> does not allow for an entity body being sent with the request.
+</entry>
+</row>
+<row>
+<entry><error code="C0004"/></entry>
+<entry>Occurs
+if the
+<code>status-only</code> attribute has the value <literal>true</literal> and
+the <code>detailed</code> attribute does not have the value <literal>true</literal>.
+</entry>
+</row>
+<row>
+<entry><error code="C0003"/></entry>
+<entry>Occurs
+if a <option>username</option>
+or <option>password</option> is specified without specifying an
+<option>auth-method</option>, if
+the requested
+<option>auth-method</option> isn't supported, or the authentication
+challenge contains an authentication method that isn't
+supported.
+</entry>
+</row>
+<row>
+<entry><error code="C0020"/></entry>
+<entry>Occurs
+if the the user specifies a value
+or values that are inconsistent with each other or with the requirements
+of the step or protocol.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/http-request-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/http-request-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

@@ -1,4 +1,319 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Standard XProc Steps</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css"/></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>Standard XProc Steps</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#p.add-xml-base"><tt class="step">p:add-xml-base</tt></a></span><span class="refpurpose"> - Adds explicit xml:base attributes</span></dt><dt><span class="refentrytitle"><a href="#p.string-replace"><tt class="step">p:string-replace</tt></a></span><span class="refpurpose"> - Replaces matched nodes with the result of evaluating an XPath expression</span></dt></dl></div><div class="refentry" id="p.add-xml-base"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:add-xml-base</tt></span> — Adds explicit <tt class="tag-attribute">xml:base</tt> attributes.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:add-xml-base</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">all</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">relative</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>                   </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Standard XProc Steps</title><style type="text/css">div.epigraph          { margin-left: 0.5in;
+                        margin-right: 0.5in;
+                      }
+
+div.attribution       { margin-left: 50%;
+                      }
+
+div.admonition        { margin-left: 5px;
+                      }
+
+span.admon-graphic    { padding-right: 5px;
+                        vertical-align: middle;
+                      }
+
+div.admon-title-text  { font-size: x-large;
+                        font-weight: bold;
+                      }
+
+div.admon-text        { padding-top: 0px;
+                        margin-top: 0px;
+                      }
+
+div.admon-text &gt; p:first-child { padding-top: 0px;
+                                 margin-top: 0px;
+                               }
+
+div.section           { margin-left: 0.25in;
+                      }
+div.section-titlepage { margin-left: -0.25in;
+                      }
+
+span.linenumber       { padding-right: 10px;
+                        border-right: 1px solid black;
+                      }
+
+span.linenumber-separator {
+                        padding-right: 5px;
+                      }
+
+div.address           { white-space: pre }
+div.literallayout     { white-space: pre }
+span.linenumber       { white-space: pre;
+                        font-family: monospace;
+                      }
+span.linenumber-separator { white-space: pre; }
+
+div.footnote p { margin-top: 0px;
+                 padding-top: 1px;
+                 margin-bottom: 0px;
+                 padding-bottom: 1px;
+               }
+
+div.title { font-weight: bold; }
+
+div.float-right    { float: right; }
+div.float-left     { float: left; }
+
+div.figure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.figure         { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informalfigure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informalfigure { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.table-wrapper  { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.table          { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informaltable-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informaltable  { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.equation-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.example-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+div.figure-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.caption        { margin-left: 5%;
+                     margin-right: 5%;
+                     font-family: sans-serif;
+                   }
+
+div.longdesc-link  { position: absolute;
+                     right: 10px;
+                     font-size: small;
+                   }
+
+.revision-added    { background-color: #FFFF99; }
+
+.revision-deleted  { text-decoration: line-through;
+                     background-color: #FF9999;
+                   }
+.revision-changed  { background-color: #99FF99; }
+
+.revision-inherited { border-left-style: solid;
+                      border-left-width: 1px;
+                      border-left-color: #303030;
+                      padding-left: 10px;
+                    }
+
+div.synopfragment  { margin-bottom: 1em;
+                   }
+
+div.cmdsynopsis    { margin-bottom: 1em;
+                   }
+
+body.draft         { background-image: url("http://docbook.sf.net/release/images/draft.png");
+                   }
+
+em.strikethrough   { text-decoration: line-through;
+                     font-style: normal;
+                   }
+
+em.underline       { text-decoration: underline;
+                     font-style: normal;
+                   }
+
+em                 { font-style: italic; }
+
+em em              { font-style: normal; }
+
+em em em           { font-style: italic; }
+
+em em em em        { font-style: normal; }
+
+em em em em em     { font-style: italic; }
+
+div.remark         { padding: 10px;
+                     border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+
+div.sidebar        { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+div.sidebar
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.sidebar-content { padding: 10px;
+                    }
+
+div.annotation     { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-top: 1ex;
+                     margin-bottom: 1ex;
+                   }
+
+div.annotation
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.annotation-content { padding: 10px;
+                    }
+</style><style type="text/css">p.element-syntax                    { padding: 4px; }
+p.element-syntax-declare-step       { border: solid thin; background-color: #ffeeff }
+p.element-syntax-error-vocabulary   { border: solid thin; background-color: #ffffee }
+p.element-syntax-language-construct { border: solid thin; background-color: #ffeeff }
+p.element-syntax-language-example   { border: solid thin; background-color: #ffeeff }
+p.element-syntax-other-step         { border: solid thin; background-color: #ffeeff }
+p.element-syntax-step-vocabulary    { border: solid thin; background-color: #ffffee }
+
+thead tr th {
+  background-color: #333333;
+  color: white;
+}
+
+h1,h2,h3,h4,h5,h6,
+.toc p {
+  font-family: sans-serif;
+}
+
+.programlisting, .screen {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: solid thin #ccddcc;
+  background-color: #eeffee;
+}
+
+.programlisting pre, .screen pre {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+span.linenumber {
+  background-color: #ccddcc;
+}
+
+/*
+span.linenumber-separator {
+  background-color: #ccddcc;
+  border-right: solid 1px #777777;
+  margin-right: 4px;
+}
+*/
+</style></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>Standard XProc Steps</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#p.add-attribute"><tt class="step">p:add-attribute</tt></a></span><span class="refpurpose"> - Adds a single attribute to the selected element (or elements)</span></dt><dt><span class="refentrytitle"><a href="#p.add-xml-base"><tt class="step">p:add-xml-base</tt></a></span><span class="refpurpose"> - Adds explicit xml:base attributes</span></dt><dt><span class="refentrytitle"><a href="#p.compare"><tt class="step">p:compare</tt></a></span><span class="refpurpose"> - Compares two documents for equality</span></dt><dt><span class="refentrytitle"><a href="#p.count"><tt class="step">p:count</tt></a></span><span class="refpurpose"> - Counts the number of documents that appear in a sequence</span></dt><dt><span class="refentrytitle"><a href="#p.delete"><tt class="step">p:delete</tt></a></span><span class="refpurpose"> - Deletes matching nodes</span></dt><dt><span class="refentrytitle"><a href="#p.directory-list"><tt class="step">p:directory-list</tt></a></span><span class="refpurpose"> - Lists the files, directories, and other contents of a directory on the filesystem</span></dt><dt><span class="refentrytitle"><a href="#p.error"><tt class="step">p:error</tt></a></span><span class="refpurpose"> - Causes an error</span></dt><dt><span class="refentrytitle"><a href="#p.escape-markup"><tt class="step">p:escape-markup</tt></a></span><span class="refpurpose"> - Escapes XML markup</span></dt><dt><span class="refentrytitle"><a href="#p.exec"><tt class="step">p:exec</tt></a></span><span class="refpurpose"> - Runs an external command</span></dt><dt><span class="refentrytitle"><a href="#p.string-replace"><tt class="step">p:string-replace</tt></a></span><span class="refpurpose"> - Replaces matched nodes with the result of evaluating an XPath expression</span></dt></dl></div><div class="refentry" id="p.add-attribute"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:add-attribute</tt></span> — Adds a single attribute to the selected element (or elements).</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:add-attribute</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">match</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">XSLTMatchPattern</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">attribute-name</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>             </code><code class="comment">&lt;!-- </code><span class="opt-type">QName</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">attribute-prefix</code><code>"</code><code>/&gt;</code><code>                           </code><code class="comment">&lt;!-- </code><span class="opt-type">NCName</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">attribute-namespace</code><code>"</code><code>/&gt;</code><code>                        </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">attribute-value</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>            </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:add-attribute</tt> step adds a single attribute to
+any matching element in the <tt class="port">source</tt> document. The name of
+the attribute is computed from the <tt class="option">attribute-name</tt>,
+<tt class="option">attribute-prefix</tt>, and <tt class="option">attribute-namespace</tt>
+options. The <tt class="option">attribute-value</tt> option specifies its value.
+</p>
+
+<p>If the <tt class="option">attribute-name</tt> value contains a colon, then
+its value is interpreted as a QName and there must be an in-scope namespace
+declaration for that prefix in the pipeline document. It is an error in this
+case to specify either an <tt class="option">attribute-prefix</tt> or
+<tt class="option">attribute-namespace</tt>.</p>
+
+<p>If you specify an <tt class="option">attribute-namespace</tt>, you must
+also specify an <tt class="option">attribute-prefix</tt>. In XML, attributes cannot
+be in a namespace unless they have a prefix.</p>
+
+<p>If you attempt to add an attribute to an element that already has
+an attribute with that name, the attribute will remain on that element but
+will have the value specified in <tt class="option">attribute-value</tt>.
+</p>
+
+<p>Recall that in XML, namespace declarations are not attributes. You
+cannot add “attributes” named <tt class="literal">xmlns</tt> or
+<tt class="literal">xmlns:<em class="replaceable"><tt class="replaceable">somename</tt></em></tt> with
+<tt class="step">p:add-attribute</tt>. However, if you add an attribute that appears
+in a namespace, the processor will add a namespace declaration for that
+namespace automatically, if one is needed.</p>
+
+<p>If an attribute named <tt class="tag-attribute">xml:base</tt> is
+added or changed, the base URI of the element will be amended
+accordingly.</p>
+
+<div class="refsection"><div class="refsection-titlepage"><h4>Related Steps</h4></div>
+
+<p>The <tt class="step">p:add-attribute</tt> step uses the same attribute
+value everywhere that it inserts an attribute. If you need to vary the
+value depending on where it's inserted, <tt class="step">p:label-elements</tt>
+may provide the flexibility that you need.</p>
+
+<p>If you want to set multiple attributes on the same element (or
+elements), <tt class="step">p:set-attributes</tt> can be used to set them all
+at once.</p>
+</div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if the match pattern matches anything other than an element.</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if the <tt class="option">attribute-name</tt> contains a colon and you attempt
+to specify either an <tt class="option">attribute-prefix</tt> or
+<tt class="option">attribute-namespace</tt>.</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0059"/><code>err:C0059</code></td><td style="">Occurs
+if any attempt is made to construct a namespace declaration using the
+<tt class="step">p:add-attribute</tt> step.</td></tr></tbody></table></div></div>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.add-xml-base"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:add-xml-base</tt></span> — Adds explicit <tt class="tag-attribute">xml:base</tt> attributes.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:add-xml-base</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">all</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">relative</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>                   </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">p:add-xml-base</tt> step exposes the base URIs in the
@@ -54,6 +369,394 @@ if the <tt class="option">all</tt> and <tt class="option">relative</tt> options 
 <div class="programlisting"><pre>TBD
 </pre></div>
 
+</div></div><div class="refentry" id="p.compare"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:compare</tt></span> — Compares two documents for equality.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:compare</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">alternate</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-if-not-equal</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>         </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="code">p:compare</tt> step compares two documents for
+equality. Two documents are considered equal if they are equal
+according to the semantics of the <tt class="function">deep-equal</tt>
+function (see <span class="formatting-error">???</span>).</p>
+
+<p>The step returns a <tt class="tag-element">c:result</tt> element that contains either
+<tt class="literal">true</tt> or <tt class="literal">false</tt> indicating whether
+or not the documents were equal.</p>
+
+<p>If the <tt class="option">fail-if-not-equal</tt> option is
+<tt class="literal">true</tt>, the step fails if the documents are not
+equal.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0019"/><code>err:C0019</code></td><td style="">Occurs
+if the documents are not equal, and the value
+of the <tt class="option">fail-if-not-equal</tt> option is
+<tt class="literal">true</tt>.
+</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.count"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:count</tt></span> — Counts the number of documents that appear in a sequence.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:count</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">limit</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">0</code><code>"</code><code>/&gt;</code><code>                           </code><code class="comment">&lt;!-- </code><span class="opt-type">integer</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:count</tt> step counts the number of documents on
+the <tt class="port">source</tt> port. It returns a single <tt class="tag-element">c:result</tt>
+element containing the number.</p>
+
+<p>If the <tt class="tag-attribute">limit</tt> option is specified
+and is greater than zero, the <tt class="tag-element">p:count</tt> step will count at most
+that many documents. This provides a convenient mechanism to discover,
+for example, if a sequence consists of more than 1 document, without
+requiring every single document to be buffered before processing can
+continue.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.delete"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:delete</tt></span> — Deletes matching nodes.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:delete</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">match</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">XSLTMatchPattern</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:delete</tt> step deletes elements, attributes,
+processing instructions or text nodes that match the specified
+pattern. It cannot remove namespace nodes.</p>
+
+<p>If an element is selected by the <tt class="option">match</tt> option,
+the entire subtree rooted at that element is deleted.</p>
+
+<p>If an attribute named <tt class="tag-attribute">xml:base</tt> is deleted, that
+<em>does not</em> change the base URI of the element on
+which it occurred.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0062"/><code>err:C0062</code></td><td style="">
+Occurs if the <tt class="option">match</tt> option matches a namespace
+node.</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.directory-list"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:directory-list</tt></span> — Lists the files, directories, and other contents of a directory on the filesystem.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:directory-list</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">path</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">include-filter</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">RegularExpression</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">exclude-filter</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">RegularExpression</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="code">p:directory-list</tt> step lists the contents of the
+specified directory on the filesystem.</p>
+
+<p>The value of the <tt class="option">path</tt> option is interpreted as
+an IRI reference. If it is relative, it is made absolute against the
+base URI of the element on which it is specified.</p>
+
+<p>The values of the <tt class="option">include-filter</tt> and
+<tt class="option">exclude-filter</tt> options are regular expression as
+specified in <span class="formatting-error">???</span>, section 7.61
+“<tt class="literal">Regular Expression Syntax</tt>”.</p>
+
+<p>If the <tt class="option">include-filter</tt> pattern matches the name
+of a filesystem object, that object is included in the output. If the
+<tt class="option">exclude-filter</tt> pattern matches the name, that object
+is excluded from the output. If both options are provided, the include
+filter is processed first, then the exclude filter.</p>
+
+<p>Processors must support directory paths whose scheme is <tt class="uri">file:</tt>; they may also support other schemes, but
+the semantics of those schemes is
+<em class="glossterm">implementation-defined</em>.</p>
+
+<p>The “<tt class="tag-element">c:directory</tt>” document that the
+<tt class="step">p:directory-list</tt> step produces lists the included
+filesystem objects. The base URI of the document is
+the directory path read; it has a <tt class="tag-attribute">name</tt>
+attribute that is the last segment of the directory path.
+</p>
+
+<p>The children of the <tt class="tag-element">c:directory</tt> element represent
+each of the included filesystem objects:</p>
+
+<div class="itemizedlist"><ul><li><p>A <tt class="tag-element">c:directory</tt> is produced for each subdirectory.
+</p></li><li><p>A <tt class="tag-element">c:file</tt> is produced for each file.
+</p></li><li><p>If the filesystem supports “special” objects (devices, links, etc.),
+those may be represented with <tt class="tag-element">c:other</tt> elements. Exactly what
+constitutes “special” is <em class="glossterm">implementation-defined</em>
+and may vary by platform.</p></li></ul></div>
+
+<p>The <tt class="step">c:directory-list</tt> step does not process subdirectories
+recursively. For recursive processing, see
+<span class="formatting-error">???</span>.</p>
+
+<p>Each of the elements <tt class="tag-element">c:file</tt>, <tt class="tag-element">c:directory</tt>,
+and <tt class="tag-element">c:other</tt> has a <tt class="code">name</tt> whose
+value is a relative IRI reference, giving the (local) file or
+directory name.
+Implementations may include additional attributes.
+</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0012"/><code>err:C0012</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if the step cannot read the specified directory due to access restrictions
+or if the environment doesn't support the notion of a hierarchical directory
+structure.
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0017"/><code>err:C0017</code></td><td style="">Occurs
+if the absolute <tt class="option">path</tt> does not specify a directory.
+</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.error"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:error</tt></span> — Causes an error.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:error</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">code</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">QName</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">code-prefix</code><code>"</code><code>/&gt;</code><code>                                </code><code class="comment">&lt;!-- </code><span class="opt-type">NCName</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">code-namespace</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:error</tt> step generates a dynamic error using the
+specified error code.</p>
+
+<p>If the <tt class="option">code</tt> value contains a colon, then
+its value is interpreted as a QName and there must be an in-scope namespace
+declaration for that prefix in the pipeline document. It is an error in this
+case to specify either a <tt class="option">code-prefix</tt> or
+<tt class="option">code-namespace</tt>.</p>
+
+<p>This step uses the document provided on its input as the content
+of the error raised. A <tt class="tag-element">c:errors</tt> document will be produced
+on the error output port; it can be caught by a <tt class="tag-element">p:try</tt> just
+like any other dynamic error.</p>
+
+<p>The <tt class="port">result</tt> port on <tt class="step">p:error</tt> is purely for
+authoring convenience (especially in the common case where a
+<tt class="step">p:error</tt> occurs in the branch of a <tt class="step">p:choose</tt>).
+The <tt class="step">p:error</tt> step must obey all the rules with respect to
+its inputs and outputs even though the step is guaranteed to fail so
+nothing will ever appear on its <tt class="port">result</tt> port.</p>
+
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.1"/><code>err:D0034</code></td><td style="">Occurs
+if <tt class="option">code-prefix</tt> or <tt class="option">code-namespace</tt> are
+used when the lexical value of the <tt class="option">code</tt> option contains
+a colon.
+</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+</div></div><div class="refentry" id="p.escape-markup"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:escape-markup</tt></span> — Escapes XML markup.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:escape-markup</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">cdata-section-elements</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">''</code><code>"</code><code>/&gt;</code><code>         </code><code class="comment">&lt;!-- </code><span class="opt-type">ListOfQNames</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">doctype-public</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">doctype-system</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">escape-uri-attributes</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>     </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">include-content-type</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">indent</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">media-type</code><code>"</code><code>/&gt;</code><code>                                 </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">method</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'xml'</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">QName</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">omit-xml-declaration</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">standalone</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'omit'</code><code>"</code><code>/&gt;</code><code>                 </code><code class="comment">&lt;!-- </code><span class="opt-type">"true" | "false" | "omit"</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">undeclare-prefixes</code><code>"</code><code>/&gt;</code><code>                         </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">version</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'1.0'</code><code>"</code><code>/&gt;</code><code>                     </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="code">p:escape-markup</tt> step serializes the children of
+the document element of its source document and replaces those
+children with their serialization. The result is a single element
+with text content that represents the “escaped” syntax of the children
+as they were serialized.</p>
+
+<p>This step supports most of the standard serialization options;
+these options control how the output markup is produced before it is
+escaped. This step produces an XML document that contains the escaped
+characters of the serialized representation, not an encoded octet
+stream. The serialization options related to encoding characters
+(<tt class="option">byte-order-mark</tt>, <tt class="option">encoding</tt>, and
+<tt class="option">normalization-form</tt>) do not apply and cannot be used
+on this step.</p>
+
+<p>By default, this step does not generate an XML declaration in
+the escaped result.</p>
+</div></div><div class="refentry" id="p.exec"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:exec</tt></span> — Runs an external command.<div class="unknowntag"><font color="red">&lt;refclass&gt;</font>optional<font color="red">&lt;/refclass&gt;</font></div></p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:exec</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">true</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">errors</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">exit-status</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">command</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">args</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">''</code><code>"</code><code>/&gt;</code><code>                           </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">cwd</code><code>"</code><code>/&gt;</code><code>                                        </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">source-is-xml</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">result-is-xml</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">wrap-result-lines</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>         </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">errors-is-xml</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>             </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">wrap-error-lines</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>          </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">path-separator</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">failure-threshold</code><code>"</code><code>/&gt;</code><code>                          </code><code class="comment">&lt;!-- </code><span class="opt-type">integer</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">arg-separator</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">' '</code><code>"</code><code>/&gt;</code><code>                 </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">byte-order-mark</code><code>"</code><code>/&gt;</code><code>                            </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">cdata-section-elements</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">''</code><code>"</code><code>/&gt;</code><code>         </code><code class="comment">&lt;!-- </code><span class="opt-type">ListOfQNames</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">doctype-public</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">doctype-system</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">encoding</code><code>"</code><code>/&gt;</code><code>                                   </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">escape-uri-attributes</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>     </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">include-content-type</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">indent</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">media-type</code><code>"</code><code>/&gt;</code><code>                                 </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">method</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'xml'</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">QName</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">normalization-form</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'none'</code><code>"</code><code>/&gt;</code><code>         </code><code class="comment">&lt;!-- </code><span class="opt-type">NormalizationForm</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">omit-xml-declaration</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>       </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">standalone</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'omit'</code><code>"</code><code>/&gt;</code><code>                 </code><code class="comment">&lt;!-- </code><span class="opt-type">"true" | "false" | "omit"</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">undeclare-prefixes</code><code>"</code><code>/&gt;</code><code>                         </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">version</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'1.0'</code><code>"</code><code>/&gt;</code><code>                     </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+
+
+<p>The <tt class="step">p:exec</tt> step runs an external command. It can pass
+a document to the “standard input” of the command and it can return both
+the command's “standard output” and “standard error” as XML documents.</p>
+
+<p>The <tt class="step">p:exec</tt> step executes the command passed on
+<tt class="option">command</tt> with the arguments passed on
+<tt class="option">args</tt>. The processor does not interpolate the values
+of the <tt class="option">command</tt> or <tt class="option">args</tt> (for example,
+expanding references to environment variables).
+</p>
+
+<p>If <tt class="option">cwd</tt> is specified, then the current working
+directory is changed to the value of that option before execution
+begins. If <tt class="option">cwd</tt> is not specified, the current working
+directory is <em class="glossterm">implementation-defined</em>.</p>
+
+<p>Although the step is optional and therefore not guaranteed to be
+portable, some care has been taken to address at least the most common
+cross-platform issues: path and argument separators.</p>
+
+<p>Unix-based systems us a forward slash to separate the components
+of a path, for example <tt class="filename">/usr/bin/ls</tt>. On
+Windows-based systems, the backward slash is used, for example:
+<tt class="filename">\usr\bin\ls</tt>. Assuming that you want to run a
+<tt class="step">p:exec</tt> step on both kinds of systems, and you've already
+arranged for the actual path name of the command to be the same on
+both systems, you couldn't easily write the <tt class="step">p:exec</tt> step
+because no matter which character you chose, it would only work on one
+of the systems.</p>
+
+<p>XProc addresses this with a <tt class="option">path-separator</tt> option.
+This option, which must be exactly one character, will be replaced in
+<tt class="option">command</tt> and <tt class="option">args</tt> options with the
+appropriate, platform-specific path separator character.</p>
+
+<p>A similar problem exists for the command line arguments. It's
+common to separate arguments with spaces. For example,
+“<tt class="literal">a b c</tt>” is usually interpreted as three distinct
+arguments, “<tt class="literal">a</tt>”, “<tt class="literal">b</tt>”, and
+“<tt class="literal">c</tt>”.</p>
+
+<p>A the same time, it's become quite common for filenames to contain
+spaces. This leads to a dilemma. Given a file named
+“<tt class="filename">My Report.xml</tt>”, how do I pass it to a command without
+having it interpreted as two arguments: “<tt class="literal">My</tt>” and
+“<tt class="literal">Report.xml</tt>”.</p>
+
+<p>Command line tools usually get around this problem by introducing
+various quoting mechanisms. Double quotes around the filename, for example,
+tell the shell to recognize it as a single argument, and a backslash in front
+of a character often causes it to be interpreted literally (allowing even
+uncommon filenames like “<tt class="filename">My "report".xml</tt>” to be
+processed).</p>
+
+<p>XML already has its own notion of special characters and an
+escaping mechanism for them, not a mechanism that can reasonably be
+extended to cover this case. Adding <em>another</em>
+mechanism for escaping characters in this context would have been
+confusing. What's more, XProc doesn't really give the pipeline author
+a convenient way to analyze the arguments, select an appropriate,
+escaping mechanism, and use it. That's just not the sort of thing it's
+made to do.</p>
+
+<p>XProc attacks the problem a different way, it provides an
+<tt class="option">arg-separator</tt> option, which defaults to a space. Every
+occurrence of this character in the <tt class="option">args</tt> string is
+interpreted as a separator between arguments. Using this mechanism, you can
+pass filenames with special characters along with other arguments simply
+by picking a different separator:</p>
+
+<div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:exec command="dosomething"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        arg-separator="!"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        args='-f!My "report".xml' …&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>…
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/p:exec&gt;
+</pre></div>
+
+<p>This has one unfortunate consequence: if you separate arguments
+with <em>multiple spaces</em>, each space gets interpreted
+as a separator and you get empty strings as individual arguments which
+is rarely what you want. Either pick an explicit separator character or
+make sure you use only a single space between arguments.</p>
+
+<div class="refsection"><div class="refsection-titlepage"><h4>Inputs and outputs</h4></div>
+
+
+<p>The document that appears on the <tt class="port">source</tt> port is sent
+to the command on “standard input”. The step is declared to allow a sequence
+of documents to appear on <tt class="port">source</tt>, this is only to allow
+the source to be an empty sequence. If an empty sequence appears on the
+<tt class="port">source</tt> port, nothing is passed to standard input. It is an
+error to send more than one document to the <tt class="port">source</tt> port.</p>
+
+<p>There's no standard API for passing XML documents to external
+commands, so they are sent as text. If the
+<tt class="option">source-is-xml</tt> option is “<tt class="literal">true</tt>”,
+then the source document is serialized with the serialization options
+specified and that text is sent to the command. If
+<tt class="option">source-is-xml</tt> option is “<tt class="literal">false</tt>”,
+the XPath string-value of the document is passed.</p>
+
+<p>The standard output of the command is read and returned on
+<tt class="port">result</tt>; the standard error output is read and returned on
+<tt class="port">errors</tt>. In order to assure that the result will be an
+XML document, each of the results will be wrapped in a <tt class="tag-element">c:result</tt>
+element.</p>
+
+<p>If <tt class="option">result-is-xml</tt> is “<tt class="literal">true</tt>”,
+the standard output of the program is assumed to be XML and will be
+parsed as a single document. If it is false, the output will be
+returned as escaped text.</p>
+
+<p>If <tt class="option">wrap-result-lines</tt> is
+“<tt class="literal">true</tt>”, a <tt class="tag-element">c:line</tt> element will be wrapped
+around each line of output.</p>
+
+<p>The same rules apply to the standard error output of the
+program, with the <tt class="option">errors-is-xml</tt> and
+<tt class="option">wrap-error-lines</tt> options, respectively.</p>
+
+<p>If either of the results are XML, they are parsed using the same
+rules that <tt class="tag-element">p:document</tt> uses.</p>
+
+<p>The <tt class="port">exit-status</tt> port always returns a single
+<tt class="tag-element">c:result</tt> element which contains the system exit status that
+the process returned. The specific exit status values returned by
+a process invoked with <tt class="step">p:exec</tt> are
+<em class="glossterm">implementation-dependent</em>.</p>
+
+<p>If a <tt class="option">failure-threshold</tt> value is supplied, and
+the exit status is greater than that threshold, then the
+<tt class="step">p:exec</tt> step will fail. This failure, like any step
+failure, can be captured with a <tt class="tag-element">p:try</tt>.</p>
+</div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
+
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0033"/><code>err:C0033</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs if the command cannot be run.
+</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0034"/><code>err:C0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if the current working directory cannot be changed
+to the value of the <tt class="option">cwd</tt> option.
+</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0063"/><code>err:C0063</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if the <tt class="option">path-separator</tt> option is
+specified and is not exactly one character long.
+</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0066"/><code>err:C0066</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if
+the <tt class="option">arg-separator</tt> option is specified and is not
+exactly one character long.
+</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0006"/><code>err:D0006</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs if more than one document appears on the
+<tt class="port">source</tt> port of the <tt class="step">p:exec</tt> step.
+</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0035"/><code>err:C0035</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+if both
+<tt class="option">result-is-xml</tt> and <tt class="option">wrap-result-lines</tt> or
+<tt class="option">error-is-xml</tt> and <tt class="option">wrap-error-lines</tt>
+are specified
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0064"/><code>err:C0064</code></td><td style="">Occurs
+if the exit code from the command is greater than
+the specified <tt class="option">failure-threshold</tt> value.
+</td></tr></tbody></table></div></div>
+</div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
+
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
+<div class="programlisting"><pre>TBD
+</pre></div>
+
 </div></div><div class="refentry" id="p.string-replace"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">p:string-replace</tt></span> — Replaces matched nodes with the result of evaluating an XPath expression.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">p:string-replace</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:input</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">source</code><code>"</code><code>/&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">match</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">XSLTMatchPattern</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">replace</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                    </code><code class="comment">&lt;!-- </code><span class="opt-type">XPathExpression</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
@@ -98,20 +801,20 @@ expect.</p>
 <p>Consider this pipeline:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="new-class" select="'new-value'"/&gt;
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;p:option name="new-class" select="'new-value'"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class"&gt;
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace" select="$new-class"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace" select="$new-class"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
-<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber"> 15</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <p>On the surface, this pipeline appears to replace the value of
@@ -121,10 +824,10 @@ effectively the same as this one:
 </p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class" replace="new-value"&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
 </pre></div>
 
 <p>Here we can see that the value of the <tt class="option">replace</tt> option
@@ -141,30 +844,30 @@ value that will be used for the <tt class="tag-attribute">class</tt> attribute.<
 <p>The step that we need to evaluate effectively is this one:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class" replace="'new-value'"&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
 </pre></div>
 
 <p>That can be achieved in the following way:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:option name="new-class" select="'new-value'"/&gt;
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;p:option name="new-class" select="'new-value'"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:string-replace match="p/@class"&gt;
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                   select="concat(&amp;quot;'&amp;quot;,$new-class,&amp;quot;'&amp;quot;)"/&gt;
-<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
+<span class="linenumber"> 15</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <p>Which is undeniably pretty ugly.</p>

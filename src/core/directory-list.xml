@@ -1,97 +1,133 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.directory-list">
-<title>p:directory-list</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.directory-list">
+<refnamediv>
+<refname><step>p:directory-list</step></refname>
+<refpurpose>Lists the files, directories, and other contents of a directory on the filesystem</refpurpose>
+</refnamediv>
 
-<para>The <code>p:directory-list</code> step produces a list of the
-contents of a specified
-directory.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:directory-list">
   <p:output port="result"/>
-  <p:option name="path" required="true" e:type="xsd:anyURI"/>
-  <p:option name="include-filter" e:type="RegularExpression"/>
-  <p:option name="exclude-filter" e:type="RegularExpression"/>
+  <p:option name="path" required="true" cx:type="xsd:anyURI"/>
+  <p:option name="include-filter" cx:type="RegularExpression"/>
+  <p:option name="exclude-filter" cx:type="RegularExpression"/>
 </p:declare-step>
- 
-<para>The value of the <option>path</option> option
-<rfc2119>must</rfc2119> be an <type>anyURI</type>. It is interpreted
-as an IRI reference. If it is relative, it is made absolute against
-the base URI of the element on which it is specified
-(<tag>p:with-option</tag> or <tag>p:directory-list</tag> in the case of a
-<link linkend="option-shortcut">syntactic shortcut</link> value).</para>
+</refsynopsisdiv>
 
-<para><error code="C0017">It is a
-<glossterm>dynamic error</glossterm> if the absolute path does not
-identify a directory.</error> <error code="C0012">It is a
-<glossterm>dynamic error</glossterm> if the contents of the directory
-path are not available to the step due to access restrictions in the
-environment in which the pipeline is run.</error></para>
- 
-<para><impl>Conformant processors <rfc2119>must</rfc2119> support directory paths whose
-scheme is <code>file</code>. It is
-<glossterm>implementation-defined</glossterm> what other schemes are
-supported by <tag>p:directory-list</tag>, and what the interpretation
-of 'directory', 'file' and 'contents' is for those schemes.</impl>
+<refsection>
+<title>Description</title>
+
+<para>The <code>p:directory-list</code> step lists the contents of the
+specified directory on the filesystem.</para>
+
+<para>The value of the <option>path</option> option is interpreted as
+an IRI reference. If it is relative, it is made absolute against the
+base URI of the element on which it is specified.</para>
+
+<para>The values of the <option>include-filter</option> and
+<option>exclude-filter</option> options are regular expression as
+specified in <biblioref linkend="xpath-functions"/>, section 7.61
+“<literal>Regular Expression Syntax</literal>”.</para>
+
+<para>If the <option>include-filter</option> pattern matches the name
+of a filesystem object, that object is included in the output. If the
+<option>exclude-filter</option> pattern matches the name, that object
+is excluded from the output. If both options are provided, the include
+filter is processed first, then the exclude filter.</para>
+
+<para>Processors must support directory paths whose scheme is <uri
+type="scheme">file:</uri>; they may also support other schemes, but
+the semantics of those schemes is
+<glossterm>implementation-defined</glossterm>.</para>
+
+<para>The “<tag>c:directory</tag>” document that the
+<step>p:directory-list</step> step produces lists the included
+filesystem objects. The base URI of the document is
+the directory path read; it has a <tag class="attribute">name</tag>
+attribute that is the last segment of the directory path.
 </para>
- 
-<para>If present, the value of the <option>include-filter</option>
-or <option>exclude-filter</option>
-option <rfc2119>must</rfc2119> be a regular expression as specified in <biblioref linkend="xpath-functions"/>, section 7.61 “<literal>Regular Expression
-Syntax</literal>”.</para>
 
-<para>If the <option>include-filter</option> pattern matches a
-directory entry's name, the entry is included in the output. If the
-<option>exclude-filter</option> pattern matches a directory entry's name,
-the entry is excluded in the output. If both options are provided, the
-include filter is processed first, then the exclude filter.</para>
-
-<para xml:id="cv.directory">The result document produced for
-the specified directory path has a <tag>c:directory</tag> document
-element whose base URI is the directory path and whose
-<tag class="attribute">name</tag> attribute is the last segment
-of the directory path (that is, the directory's (local) name).</para>
-
-<e:rng-pattern name="VocabDirectory"/>
-
-<para>Its contents are determined as follows, based on the entries in
-the directory identified by the directory path. For each entry in the
-directory, if either no <option>filter</option> was specified, or the
-(local) name of the entry matches the filter pattern, a
-<tag>c:file</tag>, a <tag>c:directory</tag>, or a <tag>c:other</tag>
-element is produced, as follows:
-</para>
+<para>The children of the <tag>c:directory</tag> element represent
+each of the included filesystem objects:</para>
 
 <itemizedlist>
 <listitem>
-<para>A <tag>c:directory</tag> is produced for each subdirectory not
-determined to be special.</para>
-</listitem>
-<listitem>
-<para xml:id="cv.file">A <tag>c:file</tag> is produced for each file
-not determined to be special.</para>
-<e:rng-pattern name="VocabFile"/>
-</listitem>
-<listitem>
-<para xml:id="cv.other"><impl>Any file or directory determined to be
-special by the <tag>p:directory-list</tag> step may be output using a
-<tag>c:other</tag> element but the criteria for marking a file as
-special are <glossterm>implementation-defined</glossterm>.</impl>
+<para>A <tag>c:directory</tag> is produced for each subdirectory.
 </para>
-<e:rng-pattern name="VocabOther"/>
+</listitem>
+<listitem>
+<para>A <tag>c:file</tag> is produced for each file.
+</para>
+</listitem>
+<listitem>
+<para>If the filesystem supports “special” objects (devices, links, etc.),
+those may be represented with <tag>c:other</tag> elements. Exactly what
+constitutes “special” is <glossterm>implementation-defined</glossterm>
+and may vary by platform.</para>
 </listitem>
 </itemizedlist>
 
-<para>When a directory entry is a subdirectory, that directory's entries are not
-output as part of that entry's <tag>c:directory</tag>.  A user must apply this step
-again to the subdirectory to list subdirectory contents.</para>
+<para>The <step>c:directory-list</step> step does not process subdirectories
+recursively. For recursive processing, see
+<xref linkend="ex.recursive-directory-list"/>.</para>
 
 <para>Each of the elements <tag>c:file</tag>, <tag>c:directory</tag>,
-and <tag>c:other</tag> has a <code>name</code> attribute when it
-appears within the top-level <tag>c:directory</tag> element, whose
+and <tag>c:other</tag> has a <code>name</code> whose
 value is a relative IRI reference, giving the (local) file or
-directory name.</para>
+directory name.
+Implementations may include additional attributes.
+</para>
 
-<para><impl>Any attributes other than <tag class="attribute">name</tag> on
-<tag>c:file</tag>, <tag>c:directory</tag>, or <tag>c:other</tag>
-are <glossterm>implementation-defined</glossterm>.</impl></para>
+</refsection>
 
-</section>
+<refsection>
+<title>Errors</title>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0012"/></entry>
+<entry>Occurs
+if the step cannot read the specified directory due to access restrictions
+or if the environment doesn't support the notion of a hierarchical directory
+structure.
+</entry>
+</row>
+<row>
+<entry><error code="C0017"/></entry>
+<entry>Occurs
+if the absolute <option>path</option> does not specify a directory.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/directory-list-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/directory-list-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

@@ -12,7 +12,7 @@ index.html: reference.xml \
             validate-with-xml-schema.xml wrap-sequence.xml wrap.xml \
             www-form-urldecode.xml www-form-urlencode.xml xinclude.xml xquery.xml \
             xsl-formatter.xml xslt.xml
-	calabash -isource=reference.xml -oresult=$@ ../../xpl/format.xpl
+	calabash -isource=$< -oresult=$@ ../../xpl/format.xpl
 
 examples:
 	make -C results

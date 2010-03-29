@@ -1,56 +1,119 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.insert">
-<title>p:insert</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.insert">
+<refnamediv>
+<refname><step>p:insert</step></refname>
+<refpurpose>Inserts content into a document</refpurpose>
+</refnamediv>
 
-<para>The <code>p:insert</code> step inserts the
-<code>insertion</code> port's document into the <port>source</port>
-port's document relative to the matching elements in the
-<code>source</code> port's document.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:insert">
    <p:input port="source" primary="true"/>
    <p:input port="insertion" sequence="true"/>
    <p:output port="result"/>
-   <p:option name="match" select="'/*'" e:type="XSLTMatchPattern"/>
-   <p:option name="position" required="true" e:type="first-child|last-child|before|after"/>
+   <p:option name="match" select="'/*'" cx:type="XSLTMatchPattern"/>
+   <p:option name="position" required="true" cx:type="first-child|last-child|before|after"/>
 </p:declare-step>
+</refsynopsisdiv>
 
-<para>The value of the <option>match</option> option
-<rfc2119>must</rfc2119> be an XSLTMatchPattern. <error code="C0023">It
-is a <glossterm>dynamic error</glossterm> if that pattern matches
-anything other than element, text, processing-instruction, or comment nodes.</error>
-Multiple matches are
+<refsection>
+<title>Description</title>
+
+<para>The <step>p:insert</step> step inserts content into a document at the
+positions identified by the <option>match</option> pattern.</para>
+
+<para>Multiple matches are
 allowed, in which case multiple copies of the <port>insertion</port>
 documents will occur. If no elements match, then the document is
 unchanged.</para>
 
-<para>The value of the <option>position</option> option <rfc2119>must</rfc2119> be an NMTOKEN in
-the following list:
-</para>
+<para>The value of the <option>position</option> option
+determines how the insertionis performed:</para>
 
-<itemizedlist>
+<variablelist>
+<varlistentry>
+<term><literal>first-child</literal></term>
 <listitem>
-<para>”<literal>first-child</literal>” - the insertion is made as the first child of the match;</para>
+<para>The insertion is made as the first child of the matched element.
+</para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>last-child</literal></term>
 <listitem>
-<para>”<literal>last-child</literal>” - the insertion is made as the last child of the match;</para>
+<para>The insertion is made as the last child of the matched element.
+</para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>before</literal></term>
 <listitem>
-<para>”<literal>before</literal>” - the insertion is made as the immediate preceding sibling of the match;</para>
+<para>The insertion is made before the matched node.
+</para>
 </listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>after</literal></term>
 <listitem>
-<para>”<literal>after</literal>” - the insertion is made as the immediate following sibling of the match.</para>
+<para>The insertion is made after the matched node.
+</para>
 </listitem>
-</itemizedlist>
- 
-<para><error code="C0025">It is a <glossterm>dynamic error</glossterm>
+</varlistentry>
+</variablelist>
+
+<para>In the case of <literal>first-child</literal> and <literal>last-child</literal>,
+it is an error if the matched node is not an element (because the other kinds
+of nodes don't have children).</para>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0023"/></entry>
+<entry>Occurs
+if the pattern matches
+anything other than element, text, processing-instruction, or comment nodes.
+</entry>
+</row>
+<row>
+<entry><error code="C0025"/></entry>
+<entry>Occurs
 if the match pattern matches anything other than an element node and
 the value of the <option>position</option> option is
 “<literal>first-child</literal>” or
-“<literal>last-child</literal>”.</error></para>
+“<literal>last-child</literal>”.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
 
-<para>As the inserted elements are part of the output of the step they
-are not considered in determining matching elements. If an empty sequence
-appears on the <port>insertion</port> port, the result will be the same
-as the source.</para>
+<refsection>
+<title>Examples</title>
 
-</section>
+<programlisting
+><xi:include href="examples/insert-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/insert-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

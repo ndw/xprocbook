@@ -1,17 +1,33 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.rename">
-<title>p:rename</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.rename">
+<refnamediv>
+<refname><step>p:rename</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:rename">
+  <p:input port="source"/>
+  <p:output port="result"/>
+  <p:option name="match" required="true" cx:type="XSLTMatchPattern"/>
+  <p:option name="new-name" required="true" cx:type="xsd:QName"/>
+  <p:option name="new-prefix" cx:type="xsd:NCName"/>
+  <p:option name="new-namespace" cx:type="xsd:anyURI"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <code>p:rename</code> step renames elements, attributes, or
 processing-instruction targets in a document.</para>
 
-<p:declare-step type="p:rename">
-  <p:input port="source"/>
-  <p:output port="result"/>
-  <p:option name="match" required="true" e:type="XSLTMatchPattern"/>
-  <p:option name="new-name" required="true" e:type="xsd:QName"/>
-  <p:option name="new-prefix" e:type="xsd:NCName"/>
-  <p:option name="new-namespace" e:type="xsd:anyURI"/>
-</p:declare-step>
 
 <para>The value of the <option>match</option> option must be an
 XSLTMatchPattern. <error code="C0023">It is a <glossterm>dynamic
@@ -54,4 +70,61 @@ is a <glossterm>dynamic error</glossterm> if the pattern matches
 a processing instruction and the new name has a non-null namespace.</error>
 </para>
 
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0023"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic
+error</glossterm> if the pattern matches anything other than element,
+attribute or processing instruction nodes.
+</entry>
+</row>
+<row>
+<entry><error code="D0034"/></entry>
+<entry>Occurs
+It is a
+<glossterm>dynamic error</glossterm> to specify a new namespace or
+prefix if the lexical value of the specified name contains a
+colon.
+</entry>
+</row>
+<row>
+<entry><error code="C0013"/></entry>
+<entry>Occurs
+It
+is a <glossterm>dynamic error</glossterm> if the pattern matches
+a processing instruction and the new name has a non-null namespace.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/rename-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/rename-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

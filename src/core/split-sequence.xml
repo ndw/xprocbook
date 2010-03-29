@@ -1,16 +1,32 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.split-sequence">
-<title>p:split-sequence</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.split-sequence">
+<refnamediv>
+<refname><step>p:split-sequence</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
 
-<para>The <tag>p:split-sequence</tag> step accepts a sequence of
-documents and divides it into two sequences.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:split-sequence">
   <p:input port="source" sequence="true"/>
   <p:output port="matched" sequence="true" primary="true"/>
   <p:output port="not-matched" sequence="true"/>
-  <p:option name="initial-only" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="test" required="true" e:type="XPathExpression"/>
+  <p:option name="initial-only" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="test" required="true" cx:type="XPathExpression"/>
 </p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+
+<para>The <tag>p:split-sequence</tag> step accepts a sequence of
+documents and divides it into two sequences.</para>
+
  
  <para>The value of the <option>test</option> option <rfc2119>must</rfc2119> be an XPathExpression.</para>
 
@@ -49,4 +65,24 @@ and ignore the context size.</para>
 steps, the <tag>p:split-sequence</tag> step <rfc2119>must</rfc2119> preserve
 any annotations that appear in the input.</para>
 
-</section>
+</refsection>
+
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/split-sequence-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/split-sequence-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

@@ -1,18 +1,34 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.wrap-sequence">
-<title>p:wrap-sequence</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.wrap-sequence">
+<refnamediv>
+<refname><step>p:wrap-sequence</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:wrap-sequence">
+   <p:input port="source" sequence="true"/>
+   <p:output port="result" sequence="true"/>
+   <p:option name="wrapper" required="true" cx:type="xsd:QName"/>
+   <p:option name="wrapper-prefix" cx:type="xsd:NCName"/>
+   <p:option name="wrapper-namespace" cx:type="xsd:anyURI"/>
+   <p:option name="group-adjacent" cx:type="XPathExpression"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <tag>p:wrap-sequence</tag> step accepts a sequence of
 documents and produces either a single document or a new sequence of
 documents.</para>
 
-<p:declare-step type="p:wrap-sequence">
-   <p:input port="source" sequence="true"/>
-   <p:output port="result" sequence="true"/>
-   <p:option name="wrapper" required="true" e:type="xsd:QName"/>
-   <p:option name="wrapper-prefix" e:type="xsd:NCName"/>
-   <p:option name="wrapper-namespace" e:type="xsd:anyURI"/>
-   <p:option name="group-adjacent" e:type="XPathExpression"/>
-</p:declare-step>
 
 <para>The value of the <option>wrapper</option> option
 <rfc2119>must</rfc2119> be a <type>QName</type>. If the lexical value
@@ -49,4 +65,44 @@ adjacent” value, they are wrapped together in a single wrapper
 element.
 </para>
 
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="D0034"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm>
+to specify a new namespace or prefix if the lexical value of the specified
+name contains a colon.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/wrap-sequence-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/wrap-sequence-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

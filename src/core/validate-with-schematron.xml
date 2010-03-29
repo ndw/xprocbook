@@ -1,19 +1,35 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.validate-with-schematron">
-<title>p:validate-with-schematron</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.validate-with-schematron">
+<refnamediv>
+<refname><step>p:validate-with-schematron</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
 
-<para>The <tag>p:validate-with-schematron</tag> step applies
-<biblioref linkend="iso19757-3"/>
-processing to the <port>source</port> document.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:validate-with-schematron">
   <p:input port="parameters" kind="parameter"/>
   <p:input port="source" primary="true"/>
   <p:input port="schema"/>
   <p:output port="result" primary="true"/>
   <p:output port="report" sequence="true"/>
-  <p:option name="phase" select="'#ALL'" e:type="xsd:string"/>
-  <p:option name="assert-valid" select="'true'" e:type="xsd:boolean"/>
+  <p:option name="phase" select="'#ALL'" cx:type="xsd:string"/>
+  <p:option name="assert-valid" select="'true'" cx:type="xsd:boolean"/>
 </p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
+
+<para>The <tag>p:validate-with-schematron</tag> step applies
+<biblioref linkend="iso19757-3"/>
+processing to the <port>source</port> document.</para>
+
 
 <para><error code="C0054">It is a <glossterm>dynamic error</glossterm>
 if the <option>assert-valid</option> option is <literal>true</literal>
@@ -35,4 +51,44 @@ Validation Report Language</citetitle> (SVRL).</para>
 
 <para>The output of this step
 <rfc2119>may</rfc2119> include PSVI annotations.</para>
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0054"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm>
+if the <option>assert-valid</option> option is <literal>true</literal>
+and any Schematron assertions fail.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/validate-with-schematron-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/validate-with-schematron-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>

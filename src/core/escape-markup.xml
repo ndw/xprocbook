@@ -1,59 +1,54 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.escape-markup">
-<title>p:escape-markup</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.escape-markup">
+<refnamediv>
+<refname><step>p:escape-markup</step></refname>
+<refpurpose>Escapes XML markup</refpurpose>
+</refnamediv>
 
-<para>The <code>p:escape-markup</code> step applies XML serialization to the
-children of the document element and replaces those children with their
-serialization. The outcome is a single element with text content that
-represents the "escaped" syntax of the children as they were
-serialized.</para>
-
+<refsynopsisdiv>
 <p:declare-step type="p:escape-markup">
   <p:input port="source"/>
   <p:output port="result"/>
-  <p:option name="cdata-section-elements" select="''" e:type="ListOfQNames"/>
-  <p:option name="doctype-public" e:type="xsd:string"/>
-  <p:option name="doctype-system" e:type="xsd:anyURI"/>
-  <p:option name="escape-uri-attributes" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="include-content-type" select="'true'" e:type="xsd:boolean"/>
-  <p:option name="indent" select="'false'" e:type="xsd:boolean"/>
-  <p:option name="media-type" e:type="xsd:string"/>
-  <p:option name="method" select="'xml'" e:type="xsd:QName"/>
-  <p:option name="omit-xml-declaration" select="'true'" e:type="xsd:boolean"/>
-  <p:option name="standalone" select="'omit'" e:type="true|false|omit"/>
-  <p:option name="undeclare-prefixes" e:type="xsd:boolean"/>
-  <p:option name="version" select="'1.0'" e:type="xsd:string"/>
+  <p:option name="cdata-section-elements" select="''" cx:type="ListOfQNames"/>
+  <p:option name="doctype-public" cx:type="xsd:string"/>
+  <p:option name="doctype-system" cx:type="xsd:anyURI"/>
+  <p:option name="escape-uri-attributes" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="include-content-type" select="'true'" cx:type="xsd:boolean"/>
+  <p:option name="indent" select="'false'" cx:type="xsd:boolean"/>
+  <p:option name="media-type" cx:type="xsd:string"/>
+  <p:option name="method" select="'xml'" cx:type="xsd:QName"/>
+  <p:option name="omit-xml-declaration" select="'true'" cx:type="xsd:boolean"/>
+  <p:option name="standalone" select="'omit'" cx:type="true|false|omit"/>
+  <p:option name="undeclare-prefixes" cx:type="xsd:boolean"/>
+  <p:option name="version" select="'1.0'" cx:type="xsd:string"/>
 </p:declare-step>
+</refsynopsisdiv>
 
-<para>This step supports the standard serialization options as specified in <link linkend="serialization-options"/>.  These 
-options control how the output markup is produced before it is escaped.
-</para>
+<refsection>
+<title>Description</title>
 
-<para>For example, the input:</para>
-<programlisting>&lt;description&gt;
-&lt;div xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;p&gt;This is a chunk of XHTML.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/description&gt;
-</programlisting>
-<para>produces:</para>
-<programlisting>&lt;description&gt;
-&amp;lt;div xmlns="http://www.w3.org/1999/xhtml"&amp;gt;
-&amp;lt;p&gt;This is a chunk of XHTML.&amp;lt;/p&amp;gt;
-&amp;lt;/div&amp;gt;
-&lt;/description&gt;
-</programlisting>
+<para>The <code>p:escape-markup</code> step serializes the children of
+the document element of its source document and replaces those
+children with their serialization. The result is a single element
+with text content that represents the “escaped” syntax of the children
+as they were serialized.</para>
 
-<note>
-<para>The result of this step is an XML document that contains the
-Unicode characters that are the characters that result from escaping
-the input. It is not encoded characters in a serialized octet stream,
-therefore, the serialization options related to encoding characters
+<para>This step supports most of the standard serialization options;
+these options control how the output markup is produced before it is
+escaped. This step produces an XML document that contains the escaped
+characters of the serialized representation, not an encoded octet
+stream. The serialization options related to encoding characters
 (<option>byte-order-mark</option>, <option>encoding</option>, and
-<option>normalization-form</option>) do not apply. They are omitted
-from the standard serialization options on this step.</para>
-</note>
+<option>normalization-form</option>) do not apply and cannot be used
+on this step.</para>
 
-<para>By default, this step <rfc2119>must not</rfc2119> generate an
-XML declaration in the escaped result.</para>
+<para>By default, this step does not generate an XML declaration in
+the escaped result.</para>
+</refsection>
+</refentry>
 
-</section>

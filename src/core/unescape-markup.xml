@@ -1,5 +1,29 @@
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:p="http://www.w3.org/ns/xproc" xmlns:e="http://www.w3.org/1999/XSL/Spec/ElementSyntax" xmlns:cs="http://www.w3.org/XML/XProc/2006/04/components#" xml:id="c.unescape-markup">
-<title>p:unescape-markup</title>
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.unescape-markup">
+<refnamediv>
+<refname><step>p:unescape-markup</step></refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<p:declare-step type="p:unescape-markup">
+  <p:input port="source"/>
+  <p:output port="result"/>
+  <p:option name="namespace" cx:type="xsd:anyURI"/>
+  <p:option name="content-type" select="'application/xml'" cx:type="xsd:string"/>
+  <p:option name="encoding" cx:type="xsd:string"/>
+  <p:option name="charset" cx:type="xsd:string"/>
+</p:declare-step>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+
 
 <para>The <tag>p:unescape-markup</tag> step takes the string value of
 the document element and parses the content as if it was a Unicode
@@ -7,14 +31,6 @@ character stream containing serialized XML. The output consists of the
 same document element with children that result from the parse. This
 is the reverse of the <tag>p:escape-markup</tag> step.</para>
 
-<p:declare-step type="p:unescape-markup">
-  <p:input port="source"/>
-  <p:output port="result"/>
-  <p:option name="namespace" e:type="xsd:anyURI"/>
-  <p:option name="content-type" select="'application/xml'" e:type="xsd:string"/>
-  <p:option name="encoding" e:type="xsd:string"/>
-  <p:option name="charset" e:type="xsd:string"/>
-</p:declare-step>
  
 <para>The value of the <option>namespace</option> option
 <rfc2119>must</rfc2119> be an <type>anyURI</type>. It
@@ -99,4 +115,61 @@ namespace, the following input:</para>
 &lt;p xmlns="http://www.w3.org/1999/xhtml"&gt;This is a another chunk.&lt;/p&gt;
 &lt;/description&gt;
 </programlisting>
-</section>
+</refsection>
+
+<refsection>
+<title>Errors</title>
+<informaltable>
+<tgroup cols="2">
+<colspec colnum="1" colwidth="1in"/>
+<thead>
+<row>
+<entry>Error</entry>
+<entry>Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry><error code="C0051"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic
+error</glossterm> if the content-type specified is not supported by
+the implementation.
+</entry>
+</row>
+<row>
+<entry><error code="C0052"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm> if the
+encoding specified is not supported by the
+implementation.
+</entry>
+</row>
+<row>
+<entry><error code="C0010"/></entry>
+<entry>Occurs
+It is a <glossterm>dynamic error</glossterm>
+if an encoding of <literal>base64</literal> is specified and
+the character set is not specified or if the specified
+character set is not supported by the implementation.
+</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<programlisting
+><xi:include href="examples/unescape-markup-1.xpl" parse="text"
+/></programlisting>
+
+<programlisting
+><xi:include href="results/unescape-markup-1.xml" parse="text"
+/></programlisting>
+
+</refsection>
+
+</refentry>
