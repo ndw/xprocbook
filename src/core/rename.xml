@@ -7,7 +7,7 @@
           xml:id="p.rename">
 <refnamediv>
 <refname><step>p:rename</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Renames elements, attributes, or processing instructions</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -24,51 +24,40 @@
 <refsection>
 <title>Description</title>
 
+<para>The <code>p:rename</code> step renames matching elements,
+attributes, or processing-instructions in the document. It doesn't
+make any sense to match comment or text nodes, they don't have
+names.</para>
 
-<para>The <code>p:rename</code> step renames elements, attributes, or
-processing-instruction targets in a document.</para>
+<para>If the <option>new-name</option> value contains a colon, then
+its value is interpreted as a QName and there must be an in-scope namespace
+declaration for that prefix in the pipeline document. It is an error in this
+case to specify either an <option>new-prefix</option> or
+<option>new-namespace</option>.</para>
 
+<para>If the <option>new-name</option> option does not contain a
+colon, you can use the <option>new-namespace</option> and
+<option>new-prefix</option> options to place it in a namespace and
+provide a suggested prefix.</para>
 
-<para>The value of the <option>match</option> option must be an
-XSLTMatchPattern. <error code="C0023">It is a <glossterm>dynamic
-error</glossterm> if the pattern matches anything other than element,
-attribute or processing instruction nodes.</error></para>
-
-<para>The value of the <option>new-name</option> option must be a
-<type>QName</type>.
-If the lexical value does not contain a colon, then the <tag class="attribute">new-namespace</tag> may be used to specify the
-namespace of the new name. In that case, the <tag class="attribute">new-prefix</tag> may be specified to suggest a
-prefix for the new name. <error code="D0034">It is a
-<glossterm>dynamic error</glossterm> to specify a new namespace or
-prefix if the lexical value of the specified name contains a
-colon.</error>
+<para>Each element, attribute, or processing-instruction that matches
+the <option>match</option> option is renamed with the specified name.
+In the case of attributes, if the element already had an attribute with
+the specified name, it is effectively deleted before the renaming is
+performed.
 </para>
 
-<para>Each element, attribute, or processing-instruction in the input
-matched by the match pattern specified in the <option>match</option>
-option is renamed in the output to the name specified by the
-<option>new-name</option> option.</para>
-
-<para>If the <option>match</option> option matches an attribute and if
-the element on which it occurs already has an attribute whose expanded
-name is the same as the expanded name of the specified
-<option>new-name</option>, then the results is as if the current
-attribute named “<replaceable>new-name</replaceable>” was deleted before
-renaming the matched attribute.</para>
-
-<para>With respect to attributes named “<literal>xml:base</literal>”, the
-following semantics apply: renaming an <emphasis>from</emphasis> 
-“<literal>xml:base</literal>” <emphasis>to</emphasis> something else has
-no effect on the underlying base URI of the element; however,
-if an attribute is renamed <emphasis>from</emphasis> something else
-<emphasis>to</emphasis> “<literal>xml:base</literal>”, the base URI
-of the element <rfc2119>must</rfc2119> also be amended accordingly.</para>
+<para>With respect to attributes named “<literal>xml:base</literal>”,
+the following semantics apply: renaming an <emphasis>from</emphasis>
+“<literal>xml:base</literal>” <emphasis>to</emphasis> something else
+has no effect on the underlying base URI of the element; however, if
+an attribute is renamed <emphasis>from</emphasis> something else
+<emphasis>to</emphasis> “<literal>xml:base</literal>”, the base URI of
+the element is updated accordingly.</para>
 
 <para>If the pattern matches processing instructions, then it is the
-processing instruction target that is renamed. <error code="C0013">It
-is a <glossterm>dynamic error</glossterm> if the pattern matches
-a processing instruction and the new name has a non-null namespace.</error>
-</para>
+processing instruction target that is renamed. In this case, it's an error
+if the new name specifies a namespace.</para>
 
 </refsection>
 
@@ -87,8 +76,7 @@ a processing instruction and the new name has a non-null namespace.</error>
 <row>
 <entry><error code="C0023"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic
-error</glossterm> if the pattern matches anything other than element,
+if the pattern matches anything other than element,
 attribute or processing instruction nodes.
 </entry>
 </row>
@@ -104,8 +92,7 @@ colon.
 <row>
 <entry><error code="C0013"/></entry>
 <entry>Occurs
-It
-is a <glossterm>dynamic error</glossterm> if the pattern matches
+if the pattern matches
 a processing instruction and the new name has a non-null namespace.
 </entry>
 </row>
@@ -117,13 +104,7 @@ a processing instruction and the new name has a non-null namespace.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/rename-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/rename-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/rename.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

@@ -462,13 +462,12 @@ of the step or protocol.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/http-request-1.xpl" parse="text"
-/></programlisting>
+<para>Most of the examples in this section interact with small web services
+hosted at <link xlink:href="http://tests.xproc.org/"/>. These services were
+designed to help test various aspects of the <step>p:http-request</step> step.
+As such, they tend to be small and simple, if not particularly useful.</para>
 
-<programlisting
-><xi:include href="results/http-request-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/http-request.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

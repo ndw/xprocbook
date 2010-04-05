@@ -7,7 +7,7 @@
           xml:id="p.load">
 <refnamediv>
 <refname><step>p:load</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Loads a document from a URI</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -21,49 +21,17 @@
 <refsection>
 <title>Description</title>
 
-
-<para>The <code>p:load</code> step has no inputs but produces as its
-result an XML resource specified by an IRI.</para>
-
-
-<para>The value of the <option>href</option> option
-<rfc2119>must</rfc2119> be an <type>anyURI</type>. It is interpreted
-as an IRI reference. If it is relative, it is made absolute against
-the base URI of the element on which it is specified
-(<tag>p:with-option</tag> or <tag>p:load</tag> in the case of a <link linkend="option-shortcut">syntactic shortcut</link> value).</para>
-
-<para>The value of the <option>dtd-validate</option> option
-<rfc2119>must</rfc2119> be a boolean.</para>
-
-<para>The <tag>p:load</tag> step is the same as <tag>p:document</tag>
-with two additions:</para>
-
-<orderedlist>
-<listitem>
-<para>The URI to be accessed can be constructed dynamically by the
-pipeline.</para>
-</listitem>
-<listitem>
-<para>The <tag>p:load</tag> step has an option to invoke DTD validation.
-</para>
-</listitem>
-</orderedlist>
-
-<para>When <option>dtd-validate</option> is <literal>false</literal>,
-<tag>p:load</tag> processing is the same as <tag>p:document</tag>
-processing on the computed <option>href</option> value.</para>
+<para>The <step>p:load</step> step loads the document specified in the
+<option>href</option> option. The <step>p:load</step> step is the same
+as <tag>p:document</tag> except that the URI can be computed dynamically
+and DTD validation can be requested:</para>
 
 <para>When <option>dtd-validate</option> is <literal>true</literal>,
-<tag>p:load</tag> processing is the same as <tag>p:document</tag>
-processing on the computed <option>href</option> value but
-<rfc2119>must</rfc2119> use a validating parser. <error code="C0027">It is a <glossterm>dynamic error</glossterm> if the
-document is not valid or the step doesn't support DTD
-validation.</error>
-</para>
+the processor uses a validating parser. A validating parser performs DTD
+validation; if you want to perform RELAX NG or XML Schema validation, use
+the <step>p:validate-with-relax-ng</step> or <step>p:validate-with-xml-schema</step>
+steps, respectively.</para>
 
-<para>The retrieved document is produced on the <port>result</port>
-port. The base URI of the result is the (absolute) IRI used to
-retrieve it.</para>
 </refsection>
 
 <refsection>
@@ -81,7 +49,7 @@ retrieve it.</para>
 <row>
 <entry><error code="C0027"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm> if the
+if the
 document is not valid or the step doesn't support DTD
 validation.
 </entry>
@@ -94,13 +62,7 @@ validation.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/load-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/load-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/load.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

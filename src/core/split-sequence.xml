@@ -7,7 +7,7 @@
           xml:id="p.split-sequence">
 <refnamediv>
 <refname><step>p:split-sequence</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Divides a sequence of documents into two sequences</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -23,17 +23,12 @@
 <refsection>
 <title>Description</title>
 
-
 <para>The <tag>p:split-sequence</tag> step accepts a sequence of
-documents and divides it into two sequences.</para>
-
- 
- <para>The value of the <option>test</option> option <rfc2119>must</rfc2119> be an XPathExpression.</para>
-
-<para>The XPath expression in the <option>test</option> option is
-applied to each document in the input sequence. If the effective
-boolean value of the expression is true, the document is copied to the
-<port>matched</port> port; otherwise it is copied to the
+documents and divides it into two sequences. For each input document,
+the <option>test</option> expression is evaluated using that document
+as the context node. If the effective boolean value of the expression
+is “<literal>true</literal>”, then the document is passed to the
+<port>matched</port> port, otherwise it is passed to the
 <port>not-matched</port> port.</para>
 
 <para>If the <option>initial-only</option> option is true, then when
@@ -45,43 +40,17 @@ documents (which may be empty) to the <port>matched</port> port.
 All other documents are written to the <port>not-matched</port> port,
 irrespective of whether or not they match.</para>
 
-<para>The <link linkend="xpath-context">XPath context</link> for the
-<option>test</option> option changes over time. For each document that
-appears on the <code>source</code> port, the expression is evaluated
-with that document as the context document. The context position
+<para>When evaluating the test, the context position
 (<code>position()</code>) is the position of that document within the
 sequence and the context size (<code>last()</code>) is the total
 number of documents in the sequence.</para>
 
-<note>
-<para>In principle, this component cannot stream because it must
-buffer all of the input sequence in order to find the context size. In
-practice, if the test expression does not use the
-<function>last()</function> function, the implementation can stream
-and ignore the context size.</para>
-</note>
-
-<para>If the implementation supports passing PSVI annotations between
-steps, the <tag>p:split-sequence</tag> step <rfc2119>must</rfc2119> preserve
-any annotations that appear in the input.</para>
-
-</refsection>
-
-</tbody>
-</tgroup>
-</informaltable>
 </refsection>
 
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/split-sequence-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/split-sequence-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/split-sequence.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

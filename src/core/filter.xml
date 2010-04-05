@@ -34,13 +34,7 @@ dynamically.</para>
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/filter-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/filter-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/filter.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

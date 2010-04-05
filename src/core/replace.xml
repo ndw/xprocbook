@@ -7,7 +7,7 @@
           xml:id="p.replace">
 <refnamediv>
 <refname><step>p:replace</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Replaces matching content</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -22,24 +22,8 @@
 <refsection>
 <title>Description</title>
 
-
-<para>The <code>p:replace</code> step replaces matching nodes in
-its primary input with the document element of the
-<code>replacement</code> port's document.</para>
-
- 
-<para>The value of the <option>match</option> option
-<rfc2119>must</rfc2119> be an XSLTMatchPattern. <error code="C0023">It
-is a <glossterm>dynamic error</glossterm> if that pattern matches
-anything other than element, text, processing-instruction, or comment
-nodes. </error> Multiple matches are allowed, in which case multiple
-copies of the <port>replacement</port> document will occur.</para>
-
-<para>Every node in the primary input matching the specified
-pattern is replaced in the output is replaced by the document element
-of the <port>replacement</port> document. Only non-nested matches are
-replaced. That is, once a node is replaced, its descendants cannot
-be matched.</para>
+<para>The <code>p:replace</code> step replaces matching nodes in its input
+with the content of the <port>replacement</port> document.</para>
 
 </refsection>
 
@@ -58,10 +42,9 @@ be matched.</para>
 <row>
 <entry><error code="C0023"/></entry>
 <entry>Occurs
-It
-is a <glossterm>dynamic error</glossterm> if that pattern matches
+if the <option>match</option> pattern matches
 anything other than element, text, processing-instruction, or comment
-nodes. 
+nodes.
 </entry>
 </row>
 </tbody>
@@ -72,13 +55,7 @@ nodes.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/replace-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/replace-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/replace.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

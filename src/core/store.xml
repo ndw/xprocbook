@@ -7,7 +7,7 @@
           xml:id="p.store">
 <refnamediv>
 <refname><step>p:store</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Stores a document (usually on the filesystem)</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -36,23 +36,12 @@
 <refsection>
 <title>Description</title>
 
+<para>The <tag>p:store</tag> step serializes its input document and stores
+it at the specified URI.</para>
 
-<para>The <tag>p:store</tag> step stores a serialized version of its
-input to a URI. This step outputs a reference to the location of the
-stored document.</para>
-
-
-<para>The value of the <option>href</option> option
-<rfc2119>must</rfc2119> be an <type>anyURI</type>. If it is relative,
-it is made absolute against the base URI of the element on which it is
-specified (<tag>p:with-option</tag> or <tag>p:store</tag> in the case
-of a <link linkend="option-shortcut">syntactic shortcut</link>
-value).</para>
-
-<para>The step attempts to store the XML document to the specified
-URI. <error code="C0050">It is a <glossterm>dynamic error</glossterm>
-if the URI scheme is not supported or the step cannot store to the
-specified location.</error></para>
+<para>If the <option>href</option> option is relative, it's made
+absolute against the base URI of the element on which it is specified
+in the pipeline.</para>
 
 <para>The output of this step is a document containing a single
 <tag>c:result</tag> element whose content is the absolute URI of the
@@ -78,7 +67,6 @@ as specified in <link linkend="serialization-options"/>.</para>
 <row>
 <entry><error code="C0050"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
 if the URI scheme is not supported or the step cannot store to the
 specified location.
 </entry>
@@ -91,13 +79,7 @@ specified location.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/store-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/store-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/store.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

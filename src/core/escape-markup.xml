@@ -50,5 +50,12 @@ on this step.</para>
 <para>By default, this step does not generate an XML declaration in
 the escaped result.</para>
 </refsection>
-</refentry>
 
+<refsection>
+<title>Examples</title>
+
+<xi:include href="build/escape-markup.xml" xpointer="xpath(/*/*)"/>
+
+</refsection>
+
+</refentry>

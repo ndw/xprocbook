@@ -81,13 +81,7 @@ not appropriate for that algorithm.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/hash-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/hash-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/hash.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

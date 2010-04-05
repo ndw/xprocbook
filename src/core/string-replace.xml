@@ -118,13 +118,7 @@ value that will be used for the <att>class</att> attribute.</para>
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/string-replace-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/string-replace-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/string-replace.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

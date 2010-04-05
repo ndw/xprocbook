@@ -120,13 +120,26 @@ if the absolute <option>path</option> does not specify a directory.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/directory-list-1.xpl" parse="text"
-/></programlisting>
+<xi:include href="build/directory-list.xml" xpointer="xpath(/*/*)"/>
+
+</refsection>
+
+<refsection>
+<title>A Recursive Directory Listing</title>
+
+<para>The standard <step>p:directory-list</step> step does not build
+an entire tree, it only returns the contents of a single directory.
+But it's easy to write your own recursive processor directly in
+XProc:</para>
 
 <programlisting
-><xi:include href="results/directory-list-1.xml" parse="text"
+><xi:include href="../xpl/recursive-directory-list.xpl"
+             parse="text"
 /></programlisting>
+
+<para>The slightly convoluted <step>p:choose</step> is a consequence of
+limitations in how <function>p:value-available</function> works;
+see <xref linkend="f.value-available"/>.</para>
 
 </refsection>
 

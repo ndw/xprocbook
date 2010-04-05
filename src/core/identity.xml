@@ -37,13 +37,7 @@ one or more of the branches of the choice to “do nothing”.</para>
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/identity-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/identity-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/identity.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

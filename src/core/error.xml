@@ -75,13 +75,7 @@ a colon.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/error-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/error-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/error.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

@@ -61,13 +61,7 @@ node.</entry>
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/delete-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/delete-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/delete.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

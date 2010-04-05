@@ -255,13 +255,7 @@ the specified <option>failure-threshold</option> value.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/exec-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/exec-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/exec.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

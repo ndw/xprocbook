@@ -7,7 +7,7 @@
           xml:id="p.namespace-rename">
 <refnamediv>
 <refname><step>p:namespace-rename</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Changes the URI associated with a namespace binding</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -23,34 +23,23 @@
 <refsection>
 <title>Description</title>
 
+<para>In the serialized form of an XML document, changing the URI
+associated with a namespace declaration is a small, local operation.
+In an XPath data model, changing the URI associated with a namespace
+binding effects not just the element on which the changes is made, but
+potentially all of it's descendants.</para>
 
-<para>The <code>p:namespace-rename</code> step renames any namespace declaration or
-use of a namespace in a document to a new IRI value.</para>
- 
- 
-<para>The value of the <option>from</option> option
-<rfc2119>must</rfc2119> be an <type>anyURI</type>. It
-<rfc2119>should</rfc2119> be either empty or absolute, but will not be
-resolved in any case.</para>
- 
-<para>The value of the <option>to</option> option
-<rfc2119>must</rfc2119> be an <type>anyURI</type>. It
-<rfc2119>should</rfc2119> be empty or absolute, but will not be
-resolved in any case.</para>
+<para>The <step>p:namespace-rename</step> step exists to accomplish this
+task. It changes the URI associated with a namespace binding for an entire
+substree of the document.
+This renaming can be applied to elements, attributes, or both elements
+and attribute, as controlled by the <option>apply-to</option> option.
+</para>
 
-<para>The value of the <option>apply-to</option> option
-<rfc2119>must</rfc2119> be one of “<literal>all</literal>”,
-“<literal>elements</literal>”, or “<literal>attributes</literal>”.
-If the value is “<literal>elements</literal>”, only elements will be
-renamed, if the value is “<literal>attributes</literal>”, only attributes
-will be renamed, if the value is “<literal>all</literal>”, both elements
-and attributes will be renamed.</para>
- 
-<para><error code="C0014">It is a <glossterm>dynamic error</glossterm>
-if the XML namespace (<uri>http://www.w3.org/XML/1998/namespace</uri>)
-or the XMLNS namespace (<uri>http://www.w3.org/2000/xmlns/</uri>) is
-the value of either the <option>from</option> option or the
-<option>to</option> option.</error></para>
+<para>This step <emphasis>cannot</emphasis> perform operations that are
+forbidden by XML. You cannot change the XML namespace
+(<uri>http://www.w3.org/XML/1998/namespace</uri>)
+or the XMLNS namespace (<uri>http://www.w3.org/2000/xmlns/</uri>).</para>
 
 <para>If the value of the <option>from</option> option is the same as
 the value of the <option>to</option> option, the input is reproduced
@@ -58,6 +47,9 @@ unchanged on the output. Otherwise, namespace bindings, namespace
 attributes and element and attribute names are changed as
 follows:</para>
 
+<para>FIXME:</para>
+
+<!--
 <itemizedlist>
   <listitem>
    <para>Namespace bindings:  If the <option>from</option> option is present
@@ -115,14 +107,15 @@ not specified or has an empty string as its value) the namespace attribute is ab
    </itemizedlist>
   </listitem>
  </itemizedlist>
- 
-<note><para>The <option>apply-to</option> option is primarily intended to make
+-->
+
+<para>The <option>apply-to</option> option is primarily intended to make
 it possible to avoid renaming attributes when the <option>from</option> option
 specifies no namespace, since many attributes are in no namespace.</para>
 
 <para>Care should be taken when specifying no namespace with the
 <option>to</option> option.  Prefixed names in content, for example QNames and
-XPath expressions, may end up with no appropriate namespace binding.</para></note>
+XPath expressions, may end up with no appropriate namespace binding.</para>
 
 </refsection>
 
@@ -141,7 +134,6 @@ XPath expressions, may end up with no appropriate namespace binding.</para></not
 <row>
 <entry><error code="C0014"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
 if the XML namespace (<uri>http://www.w3.org/XML/1998/namespace</uri>)
 or the XMLNS namespace (<uri>http://www.w3.org/2000/xmlns/</uri>) is
 the value of either the <option>from</option> option or the
@@ -156,13 +148,7 @@ the value of either the <option>from</option> option or the
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/namespace-rename-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/namespace-rename-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/namespace-rename.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

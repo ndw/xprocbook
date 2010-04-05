@@ -1,0 +1,7 @@
+<!DOCTYPE doc [
+<!ELEMENT doc (p+)>
+<!ELEMENT p (#PCDATA)*>
+]>
+<doc>
+<para>I'm not valid!</para>
+</doc>

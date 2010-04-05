@@ -7,7 +7,7 @@
           xml:id="p.sink">
 <refnamediv>
 <refname><step>p:sink</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Discards its input</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -19,28 +19,19 @@
 <refsection>
 <title>Description</title>
 
-
 <para>The <tag>p:sink</tag> step accepts a sequence of documents and
 discards them. It has no output.</para>
 
+<para>This is valuable when you want to ignore the primary output of some
+step (perhaps because you only care about one of its secondary outputs or
+you are relying on some side-effect that it has).</para>
 
-</refsection>
-
-</tbody>
-</tgroup>
-</informaltable>
 </refsection>
 
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/sink-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/sink-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/sink.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

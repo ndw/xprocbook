@@ -7,7 +7,7 @@
           xml:id="p.pack">
 <refnamediv>
 <refname><step>p:pack</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Merges two document sequences</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -24,26 +24,10 @@
 <refsection>
 <title>Description</title>
 
-
-<para>The <code>p:pack</code> step merges two document sequences in a pair-wise
-fashion.</para>
-
-
-<para>The value of the <option>wrapper</option> option
-<rfc2119>must</rfc2119> be a <type>QName</type>. If the lexical value
-does not contain a colon, then the <tag class="attribute">wrapper-namespace</tag>
-may be used to specify the namespace of the wrapper. In that case, the
-<tag class="attribute">wrapper-prefix</tag> may be specified to suggest a
-prefix for the wrapper element.
-<error code="D0034">It is a <glossterm>dynamic error</glossterm>
-to specify a new namespace or prefix if the lexical value of the specified
-name contains a colon.</error></para>
-
-<para>The step takes each pair of documents, in order, one from the
-<port>source</port> port and one from the <port>alternate</port> port,
-wraps them with a new element node whose QName is the value specified
-in the <option>wrapper</option> option, and writes that element to the
-<port>result</port> port as a document.</para>
+<para>The <code>p:pack</code> step merges two document sequences, “packing”
+their members together. One document is read from each sequence and each
+pair is placed in the specified wrapper. The result is a sequence of
+documents containing such pairs.</para>
 
 <para>If the step reaches the end of one input sequence before the
 other, then it simply wraps each of the remaining documents in the
@@ -73,8 +57,7 @@ this step does not attempt to distinguish which one.</para>
 <row>
 <entry><error code="D0034"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
-to specify a new namespace or prefix if the lexical value of the specified
+if you specify a new namespace or prefix when the lexical value of the specified
 name contains a colon.
 </entry>
 </row>
@@ -86,13 +69,7 @@ name contains a colon.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/pack-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/pack-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/pack.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

@@ -106,13 +106,7 @@ the value of the <option>position</option> option is
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/insert-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/insert-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/insert.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

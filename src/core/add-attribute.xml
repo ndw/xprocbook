@@ -111,13 +111,7 @@ if any attempt is made to construct a namespace declaration using the
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/add-attribute-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/add-attribute-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/add-attribute.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

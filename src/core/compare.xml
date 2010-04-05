@@ -66,13 +66,7 @@ of the <option>fail-if-not-equal</option> option is
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/compare-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/compare-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/compare.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

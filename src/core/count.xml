@@ -37,13 +37,7 @@ continue.</para>
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/count-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/count-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/count.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

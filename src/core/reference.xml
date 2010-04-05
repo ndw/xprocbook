@@ -6,6 +6,7 @@
            xml:id="fileutils">
 <title>Standard XProc Steps</title>
 
+<!--
 <xi:include href="add-attribute.xml"/>
 <xi:include href="add-xml-base.xml"/>
 <xi:include href="compare.xml"/>
@@ -17,11 +18,44 @@
 <xi:include href="exec.xml"/>
 <xi:include href="filter.xml"/>
 <xi:include href="hash.xml"/>
+-->
+
 <xi:include href="http-request.xml"/>
+
+<!--
 <xi:include href="identity.xml"/>
 <xi:include href="insert.xml"/>
-
+<xi:include href="label-elements.xml"/>
+<xi:include href="load.xml"/>
+<xi:include href="make-absolute-uris.xml"/>
+<xi:include href="namespace-rename.xml"/>
+<xi:include href="pack.xml"/>
+<xi:include href="parameters.xml"/>
+<xi:include href="rename.xml"/>
+<xi:include href="replace.xml"/>
+<xi:include href="set-attributes.xml"/>
+<xi:include href="sink.xml"/>
+<xi:include href="split-sequence.xml"/>
+<xi:include href="store.xml"/>
 <xi:include href="string-replace.xml"/>
+-->
+
+<!--
+<xi:include href="unescape-markup.xml"/>
+<xi:include href="unwrap.xml"/>
+<xi:include href="uuid.xml"/>
+<xi:include href="validate-with-relax-ng.xml"/>
+<xi:include href="validate-with-schematron.xml"/>
+<xi:include href="validate-with-xml-schema.xml"/>
+<xi:include href="wrap-sequence.xml"/>
+<xi:include href="wrap.xml"/>
+<xi:include href="www-form-urldecode.xml"/>
+<xi:include href="www-form-urlencode.xml"/>
+<xi:include href="xinclude.xml"/>
+<xi:include href="xquery.xml"/>
+<xi:include href="xsl-formatter.xml"/>
+<xi:include href="xslt.xml"/>
+-->
 
 </reference>
 

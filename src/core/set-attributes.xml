@@ -7,7 +7,7 @@
           xml:id="p.set-attributes">
 <refnamediv>
 <refname><step>p:set-attributes</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Sets a number of attributes at once</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -22,39 +22,19 @@
 <refsection>
 <title>Description</title>
 
-
-<para>The <tag>p:set-attributes</tag> step sets attributes on
-matching elements.</para>
-
- 
- <para>The value of the <option>match</option> option <rfc2119>must</rfc2119> be an
- XSLTMatchPattern. <error code="C0023">It is a <glossterm>dynamic
- error</glossterm> if that pattern matches anything other than element
- nodes.</error></para>
-
-<para>Each attribute on the document element of the document that
-appears on the <port>attributes</port> port is copied to each element
-that matches the <option>match</option> expression.</para>
+<para>The <tag>p:set-attributes</tag> step is a shortcut for several
+consecutive <step>p:add-attribute</step> steps. Instead of taking the
+attributes as options, it takes a second document. All of the
+attributes on the document element of that document are copied onto
+matching elements in the source document.</para>
 
 <para>If an attribute with the same name as one of the attributes to
 be copied already exists, the value specified on the
-<port>attribute</port> port's document is used. The result port of
-this step produces a copy of the <port>source</port> port's document
-with the matching elements' attributes modified.</para>
+<port>attribute</port> port's document is used.</para>
 
-<para>The matching elements are specified by the match pattern in the
-<option>match</option> option. All matching elements are processed.
-If no elements match, the step will not change any elements.</para>
-
-<para>This step must not copy namespace declarations.  If the attributes
-copied from the <port>attributes</port> use namespaces, prefixes, or 
-prefixes bound to different namespaces, the document produced on the
-<port>result</port> output port will require
-<link linkend="namespace-fixup">namespace fixup</link>.</para>
-
-<para>If an attribute named
-<tag class="attribute">xml:base</tag> is added or changed, the base URI
-of the element <rfc2119>must</rfc2119> also be amended accordingly.</para>
+<para>If an attribute named <tag class="attribute">xml:base</tag> is
+added or changed, the base URI of the element is amended
+accordingly.</para>
 
 </refsection>
 
@@ -73,9 +53,8 @@ of the element <rfc2119>must</rfc2119> also be amended accordingly.</para>
 <row>
 <entry><error code="C0023"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic
- error</glossterm> if that pattern matches anything other than element
- nodes.
+if the <option>match</option> pattern matches anything other than
+element nodes.
 </entry>
 </row>
 </tbody>
@@ -86,14 +65,7 @@ It is a <glossterm>dynamic
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/set-attributes-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/set-attributes-1.xml" parse="text"
-/></programlisting>
-
+<xi:include href="build/set-attributes.xml" xpointer="xpath(/*/*)"/>
 </refsection>
-
 </refentry>
+

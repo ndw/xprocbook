@@ -7,7 +7,7 @@
           xml:id="p.parameters">
 <refnamediv>
 <refname><step>p:parameters</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Converts step parameters into XML</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -20,54 +20,29 @@
 <refsection>
 <title>Description</title>
 
-
-<para>The <code>p:parameters</code> step exposes a set of parameters
-as a <tag>c:param-set</tag> document.</para>
-
+<para>The <code>p:parameters</code> step accepts any number of parameters
+and delivers them back in a <tag>c:param-set</tag> document.</para>
 
 <para>Each parameter passed to the step is converted into a
 <tag>c:param</tag> element. The step resolves duplicate parameters in
-the normal way (see <link linkend="parameter-inputs"/>) so at most one
+the normal way (see <xref linkend="parameter-inputs"/>) so at most one
 parameter with any given name will appear in the result.
-The resulting <tag>c:param</tag> elements are wrapped in a 
+The resulting <tag>c:param</tag> elements are wrapped in a
 <tag>c:param-set</tag> and the parameter set document is written
 to the <port>result</port> port.
-<impl>The
-order in which <tag>c:param</tag> elements occur in the <tag>c:param-set</tag> is
-<glossterm>implementation-dependent</glossterm>.</impl></para>
+</para>
 
-<para>For consistency and user convenience, if any of the parameters
-have names that are in a namespace, the
-<tag class="attribute">namespace</tag> attribute on the
-<tag>c:param</tag> element <rfc2119>must</rfc2119> be used. Each
-<tag class="attribute">name</tag> <rfc2119>must</rfc2119> be an NCName.</para>
+<para>The <step>p:parameters</step> step always uses the
+<att>namespace</att> attribute on <tag>c:param</tag> if the parameter
+is in a namespace. In other words, the <att>name</att> on the
+<tag>c:param</tag> will never contain a colon.</para>
 
-<para>The base URI of the output document is the URI of the pipeline document
-that contains the step.</para>
- 
-<note>
-<para>Since the <port>parameters</port> port is <emphasis>not</emphasis>
-primary, any explicit <tag>p:with-param</tag> settings <rfc2119>must</rfc2119> include a
-<tag class="attribute">port</tag> attribute, per the last paragraph of <xref linkend="p.with-param"/>.</para>
-</note>
-
-</refsection>
-
-</tbody>
-</tgroup>
-</informaltable>
 </refsection>
 
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/parameters-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/parameters-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/parameters.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

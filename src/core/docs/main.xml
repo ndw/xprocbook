@@ -1,0 +1,13 @@
+<!DOCTYPE book [
+<!ENTITY ch01 SYSTEM "chaps/ch01.xml">
+<!ENTITY ch02 SYSTEM "chaps/ch02.xml">
+<!ENTITY appa SYSTEM "apps/appa.xml">
+]>
+<book>
+<title>Some Title</title>
+&ch01;
+&ch02;
+&appa;
+</book>
+
+

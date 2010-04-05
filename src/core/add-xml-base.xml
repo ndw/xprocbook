@@ -97,13 +97,7 @@ if the <option>all</option> and <option>relative</option> options are
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/add-xml-base-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/add-xml-base-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/add-xml-base.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 
