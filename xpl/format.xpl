@@ -8,6 +8,8 @@
   <p:input port="parameters" kind="parameter"/>
   <p:output port="result"/>
 
+  <p:import href="/home/ndw/xmlcalabash.com/library/tee.xpl"/>
+
   <p:xinclude name="xinclude"/>
 
   <p:xslt name="patchdb">
@@ -15,6 +17,8 @@
       <p:document href="../style/patch-db.xsl"/>
     </p:input>
   </p:xslt>
+
+  <cx:tee href="/tmp/out.xml" debug="1"/>
 
   <p:xslt name="style">
     <p:input port="stylesheet">

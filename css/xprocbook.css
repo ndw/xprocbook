@@ -1,0 +1,118 @@
+p.element-syntax                    { padding: 4px; }
+p.element-syntax-declare-step       { border: solid thin; background-color: #ffeeff }
+p.element-syntax-error-vocabulary   { border: solid thin; background-color: #ffffee }
+p.element-syntax-language-construct { border: solid thin; background-color: #ffeeff }
+p.element-syntax-language-example   { border: solid thin; background-color: #ffeeff }
+p.element-syntax-other-step         { border: solid thin; background-color: #ffeeff }
+p.element-syntax-step-vocabulary    { border: solid thin; background-color: #ffffee }
+
+thead tr th {
+  background-color: #333333;
+  color: white;
+}
+
+h1,h2,h3,h4,h5,h6,
+.toc p {
+  font-family: sans-serif;
+}
+
+h2 .refname tt {
+  font-family: sans-serif;
+}
+
+.programlisting, .screen {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: solid thin #ccddcc;
+  background-color: #eeffee;
+}
+
+.programlisting pre, .screen pre {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+span.linenumber {
+  background-color: #ccddcc;
+}
+
+.admonition {
+  padding: 10px;
+  border: solid thin #ccdddcc;
+}
+
+.admonition h3 {
+  font-size: normal;
+}
+
+span.diff, div.diff {
+  background-color: #ffffaa;
+}
+
+span.add, div.add {
+  background-color: #aaffaa;
+}
+
+span.orig, div.orig {
+  background-color: #ffffaa;
+}
+
+span.del, div.del {
+  background-color: #ffaaaa;
+  text-decoration: line-through;
+}
+
+div.line {
+  font-family: monospace;
+  white-space: pre;
+}
+
+table.pipelineexample {
+  margin-top: "0.5em;"
+}
+
+/* Pretty printing */
+
+.atteq {
+}
+
+.attq {
+}
+
+.colon {
+}
+
+.mso {
+}
+
+.msc {
+}
+
+.nsdecl,
+.nsdecl .tag-attribute,
+.nsdecl .tag-attvalue {
+  color: #AAAAAA;
+}
+
+.pcdata {
+  color: #44AA44;
+}
+
+pre .tag-attribute {
+}
+
+pre .tag-attvalue {
+}
+
+pre .tag-element {
+}
+
+pre .tag-localname {
+}
+
+pre .tag-prefix {
+}
+
+/* /Pretty printing */

@@ -34,4 +34,7 @@
 
 <xi:include href="xc01.xml"/>
 </part>
+
+<xi:include href="bibl.xml"/>
+
 </book>

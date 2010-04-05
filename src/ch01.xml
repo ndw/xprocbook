@@ -20,7 +20,14 @@ for example.</para>
 
 <para>At a high level of abstraction, a pipeline is what you get
 whenever the output of one process feeds into the input of another.
-They're a common feature of Unix command lines, for example:</para>
+If you work with XML, you've probably already used pipelines
+even if you didn't think about them in those terms. If you validate
+a document and then transform it, or if you apply XInclude and then
+validate, or if you use XSLT to run two differen transformations,
+those are all simple “pipeline” operations.</para>
+
+<para>In another context, pipelines are a common feature of Unix
+command lines, for example:</para>
 
 <screen>cat ch01.xml | grep "&lt;para" | wc -l</screen>
 
@@ -144,6 +151,78 @@ number of documents it saw.
 </para>
 </listitem>
 </orderedlist>
+
+<para>In fairness, that's not a very useful pipeline. It was chosen for
+its similarity to the preceding Unix example. Here's a more realistic
+XProc pipeline:</para>
+
+<programlisting
+><xi:include href="examples/simple.xpl" parse="text"
+/></programlisting>
+
+<para>That pipeline performs XInclude, RELAX NG validation, then
+transformation. These pipelines are all quite simple. As we'll see,
+pipelines can be very sophisticated: they can interact with web services,
+make choices, iterate over sequences, recover from errors, and be
+extended in a variety of ways.</para>
+</section>
+
+<section xml:id="why">
+<title>Why pipelines?</title>
+
+<para>Although there are exceptions, many XML technologies were designed
+with a very specific focus: XML base is about base URIs, XInclude is about
+transclusion, XQuery and XSLT are about querying and transformation, XML
+Schema and RELAX NG are about validation, etc.</para>
+
+<para>There are many common use cases where the order and interaction
+between these processes is obvious. Your favorite stylesheet
+processor, for example, may give you options for performing validation
+or XInclude processing, or both. That processor supports the most
+common scenario of those technologies: XInclude, followed by
+validation, followed by transformation. In fact, those options allow
+you to control a very limited pipeline within the product.</para>
+
+<para>But equally, there are many use cases where the order and
+interaction between these process is not simply less obvious, it
+doesn't exist:</para>
+
+<itemizedlist>
+<listitem>
+<para>You might want to validate <emphasis>before</emphasis> performing
+XInclude processing (in order to determine if the <tag>xi:include</tag>
+elements themselves occurred in legal places). You might then want to
+perform validation <emphasis>again</emphasis>, probably with a
+<emphasis>different schema</emphasis> after XInclude to assess the validity
+of the composed document.</para>
+</listitem>
+<listitem>
+<para>Along the same lines, you might want to perform validation both
+before and after a transformation.</para>
+</listitem>
+<listitem>
+<para>If a document can't be processed by some part of a pipeline, you
+might want to recover in application-specific ways.</para>
+</listitem>
+<listitem>
+<para>You might want to interact with a web service as part of a larger
+process, perhaps choosing to perform different kinds of processing depending
+on the result of that interaction.</para>
+</listitem>
+</itemizedlist>
+
+<para>In these and countless other scenarious, the order and sequence of
+steps has no single, predefined, correct order.</para>
+
+<para>Decomposing a complex “business process” (to use the vernacular)
+into a sequence of simpler steps, operations on XML documents in our
+case, is a natural and powerful abstraction. What's needed to achieve
+this vision is some “glue language” that allows us to express the nature
+and order of operations that comprise our application: we need a pipeline
+language.</para>
+
+<para>Dozens of vendor and application-specicific languages have been
+invented for this task.</para>
 </section>
 
 <section xml:id="procmodel">
@@ -217,6 +296,10 @@ identifies its type which determines what kind of processing it
 performs.</para>
 
 <para>[[NICE GRAPHICAL REPRESENTATION OF A STEP HERE]]</para>
+
+<para>In addition to the connections between them, steps can have options
+and parameters, some steps can be nested, variables may be declared,
+etc.</para>
 
 <para>We'll consider the anatomy of pipelines in more detail in
 <xref linkend="pipelines"/>.</para>

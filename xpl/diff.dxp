@@ -1,0 +1,47 @@
+<!-- * nxml * -->
+<comparatorPipeline description="XML Compare, output XML delta" id="delta">
+  <fullDescription>
+This configuration is used to produce an XML delta file representing changes in the input xml.
+  </fullDescription>
+  <pipelineParameters>
+    <booleanParameter name='Preserve Whitespace' defaultValue="true">
+      <description>whether to normalise whitespace before comparison</description>
+    </booleanParameter>
+    <booleanParameter name='Full Context' defaultValue="true">
+      <description>whether to include unchanged data in the delta file</description>
+    </booleanParameter>
+    <booleanParameter name='Word By Word' defaultValue="false">
+      <description>whether to compare PCDATA in a more detailed way</description>
+    </booleanParameter>
+    <booleanParameter name="Enhanced Match 1" defaultValue="true">
+      <description>whether to use the 4.x enhanced matcher that is tailored to comparing documents</description>
+    </booleanParameter>
+    <stringParameter name='Indent' defaultValue="no">
+      <description>whether to pretty print the output or not. May be set to 'yes' or 'no'</description>
+    </stringParameter>
+  </pipelineParameters>
+  <inputFilters>
+    <filter unless="Preserve Whitespace">
+      <class name="com.deltaxml.pipe.filters.NormalizeSpace"/>
+    </filter>
+    <filter if="Word By Word">
+      <class name="com.deltaxml.pipe.filters.dx2.wbw.WordInfilter"/>
+    </filter>
+  </inputFilters>
+  <outputFilters>
+    <filter if="Word By Word">
+      <class name="com.deltaxml.pipe.filters.dx2.wbw.WordSpaceFixup"/>
+    </filter>
+    <filter if="Word By Word">
+      <class name="com.deltaxml.pipe.filters.dx2.wbw.WordOutfilter"/>
+    </filter>
+  </outputFilters>
+  <outputProperties>
+    <property name="indent" parameterRef="Indent"/>
+  </outputProperties>
+  <outputFileExtension extension="xml"/>
+  <comparatorFeatures>
+    <feature name="http://deltaxml.com/api/feature/isFullDelta" parameterRef="Full Context"/>
+    <feature name="http://deltaxml.com/api/feature/enhancedMatch1" parameterRef="Enhanced Match 1"/>
+  </comparatorFeatures>
+</comparatorPipeline>

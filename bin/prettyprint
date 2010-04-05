@@ -1,0 +1,225 @@
+#!/usr/bin/perl -- # -*- Perl -*-
+
+# Assume the input has already been run through xmllint
+
+use strict;
+use English;
+
+# Go around the houses to deal with the fact that someone leaves
+# the newline off the last line...
+
+my $xml = "";
+while (<>) {
+    $xml .= $_;
+}
+
+my @lines = split(/\n/, $xml);
+my @format = ();
+
+shift @lines if $lines[0] =~ /<\?xml\s/;
+
+foreach $_ (@lines) {
+    my $line = "";
+
+    if (/^(\s*)<([^\/\?\!].*?)(\/?)>(.*)$/s) {
+        my $ws = $1;
+        my $tag = $2;
+        my $etag = $3;
+        my $content = $4;
+        my $gi = "";
+
+        if ($tag =~ /^(\S+)(\s.*)$/) {
+            $gi = $1;
+            $_ = $2;
+        } else {
+            $gi = $tag;
+            $_ = "";
+        }
+
+        #open (F, ">>/tmp/prettyprint.log");
+        #print F "LIST:$_\n";
+        my @attr = ();
+        while (/^\s([^=]+)=([\"\'])(.*?)\2(.*)$/) {
+            print F "ATTR: {$1}, $2, $3 [$4]\n";
+            push (@attr, "$1=$2$3$2");
+            $_ = $4;
+        }
+        #print F "\n";
+        #close (F);
+
+        my $pos = length($ws) + length($gi) + 2;
+        my $first = 1;
+
+        if ($ws eq '  ' && $gi =~ /^p:/) {
+            if ($gi eq 'p:input' || $gi eq 'p:output'
+                || $gi eq 'p:serialization' || $gi eq 'p:log') {
+                # nop
+            } else {
+                push(@format, '');
+            }
+        }
+
+        $line = "$ws<$gi";
+        while (@attr) {
+            my $att = shift @attr;
+            if ($first || ($pos + length($att) < 62)) {
+                $line .= " $att";
+                $pos += length($att) + 1;
+                $first = 0;
+            } else {
+                push (@format, $line);
+                $line = " " x (length($ws) + length($gi) + 2);
+                $line .= $att;
+                $pos += length($att) + 1;
+            }
+        }
+        $line .= "$etag>$content";
+        push (@format, $line);
+        $line = "";
+    } else {
+        push (@format, $_);
+        $line = "";
+    }
+}
+
+my $body = "";
+foreach $_ (@format) {
+    $body .= "$_\n";
+}
+
+#print "---\n$body\n---\n";
+
+my $newbody = "";
+
+while ($body =~ /^(.*?)(<.*?>)(.*)$/s) {
+    my $text = $1;
+    my $tag = $2;
+    $body = $3;
+
+    $newbody .= pcdata($text) if $text ne '';
+
+    #print STDERR "==> $tag\n";
+
+    if ($tag =~ /<\?(\S+)(\s+.*)?\?>/) {
+        $newbody .= "<phrase role='mso'>&lt;?</phrase>";
+        $newbody .= "<phrase role='pitarget'>$1</phrase>";
+        $newbody .= "<phrase role='pidata'>$2</phrase>";
+        $newbody .= "<phrase role='msc'>?&gt;</phrase>";
+    } elsif ($tag =~ /<\!--(.*)-->/) {
+        $newbody .= "<phrase role='mso'>&lt;!--</phrase>";
+        $newbody .= "<tag class='comment'>$1</phrase>";
+        $newbody .= "<phrase role='msc'>--&gt;</phrase>";
+    } elsif ($tag =~ /<\/((.*?):)?(\S+)>/) {
+        $newbody .= "<phrase role='mso'>&lt;/</phrase>";
+        $newbody .= "<tag class='prefix'>$2</tag><phrase role='colon'>:</phrase>"
+            if $1 ne '';
+        $newbody .= "<tag class='localname'>$3</tag><phrase role='msc'>&gt;</phrase>";
+    } elsif ($tag =~ /<([\S:]+?)(\s.*)?>/s) {
+        my $gi = $1;
+        my $attr = $2;
+
+        $gi =~ /((.*?):)?(\S+)$/;
+        $newbody .= "<phrase role='mso'>&lt;</phrase>";
+        $newbody .= "<tag class='prefix'>$2</tag><phrase role='colon'>:</phrase>" if $1 ne '';
+        $newbody .= "<tag class='localname'>$3</tag>";
+
+        while ($attr =~ /(\s*)([\S:]+)=([\"\'])(.*?)\3(.*)$/s) {
+            $text = $1;
+            my $name = $2;
+            my $value = $3 . $4 . $3;
+            $attr = $5;
+
+            $newbody .= pcdata($text) if $text ne '';
+
+            $name =~ /((.*?):)?(\S+)$/;
+            my $pfx = $2;
+            my $lcl = $3;
+
+            if ($pfx eq 'xmlns' || ($pfx eq '' && $lcl eq 'xmlns')) {
+                $newbody .= "<phrase role='nsdecl'>";
+            }
+
+            $newbody .= "<tag class='attribute'>$name</tag>";
+            $newbody .= "<phrase role='atteq'>=</phrase>";
+
+            $value =~ /^([\"\'])(.*)\1$/;
+
+            $newbody .= "<phrase role='attq'>$1</phrase>";
+            $newbody .= attvalue($2);
+            $newbody .= "<phrase role='attq'>$1</phrase>";
+
+            if ($pfx eq 'xmlns' || ($pfx eq '' && $lcl eq 'xmlns')) {
+                $newbody .= "</phrase>";
+            }
+        }
+
+        $newbody .= "<phrase role='msc'>&gt;</phrase>";
+    } else {
+        die "Unparseable: $tag\n";
+    }
+}
+
+my @lines = split(/\n/, $newbody);
+
+print "<c:prettyprint xmlns:c='http://www.w3.org/ns/xproc-step' xmlns='http://docbook.org/ns/docbook'>\n";
+foreach $_ (@lines) {
+    print "<c:line>$_</c:line>\n";
+}
+print "</c:prettyprint>\n";
+
+sub esc {
+    my $text = shift;
+    my $stag = shift;
+    my $etag = shift;
+
+    return "" if $text eq '';
+
+    my $esc = "";
+    while ($text =~ /^(.*?)&(.*?);(.*)$/s) {
+        $esc .= $1;
+        my $ent = $2;
+        $text = $3;
+
+        if ($ent =~ /^[0-9]+$/) {
+            $esc .= "<tag class='numcharref'>$ent</tag>";
+        } elsif ($ent =~ /^x[0-9a-f]+$/i) {
+            $esc .= "<tag class='numcharref'>$ent</tag>";
+        } else {
+            $esc .= "<tag class='genentity'>$ent</tag>";
+        }
+
+    }
+
+    my $lines = $esc . $text;
+    $text = "";
+    my $pos = index($lines, "\n");
+
+#    print STDERR "::: $lines :::\n";
+#    print STDERR "--- $pos ---\n";
+#    print STDERR ";;; ", substr($lines, 0, $pos), " ;;;\n";
+#    print STDERR "*** ", substr($lines, $pos+1), " ***\n";
+
+    while ($pos >= 0) {
+        my $pre = substr($lines, 0, $pos);
+        $lines = substr($lines, $pos+1);
+
+        $text .= $stag . $pre . $etag if $pre ne '';
+        $text .= "\n";
+
+        $pos = index($lines, "\n");
+    }
+
+    $text .= $stag . $lines. $etag if $lines ne '';
+
+    return $text;
+}
+
+sub pcdata {
+    my $text = shift;
+    return esc($text, "<phrase role='pcdata'>", "</phrase>");
+}
+
+sub attvalue {
+    my $text = shift;
+    return esc($text, "<tag class='attvalue'>", "</tag>");
+}
