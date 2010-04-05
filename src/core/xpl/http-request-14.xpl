@@ -12,11 +12,14 @@ you just get back the resource:</para>
     <doc/>
   </p:pipeinfo>
 
+  <p:documentation xmlns="http://docbook.org/ns/docbook">
+    <para>Just like the first example!</para>
+  </p:documentation>
+
   <p:http-request>
     <p:input port="source">
       <p:inline>
-        <c:request href="http://tests.xproc.org/docs/helloworld.xml" method="get"
-                   detailed="true"/>
+        <c:request href="http://tests.xproc.org/docs/helloworld.xml" method="get"/>
       </p:inline>
     </p:input>
   </p:http-request>
