@@ -7,7 +7,7 @@
           xml:id="p.uuid">
 <refnamediv>
 <refname><step>p:uuid</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Generates a UUID and inserts it into a document</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -22,44 +22,26 @@
 <refsection>
 <title>Description</title>
 
-
 <para>The <tag>p:uuid</tag> step generates a
 <biblioref linkend="bib.uuid"/> and injects it into
-the <port>source</port> document.</para>
+the <port>source</port> document at specified location(s).
+If the <option>version</option> is specified, that version of
+UUID must be computed.</para>
 
-
-<para>The value of the <option>match</option> option must be an
-XSLTMatchPattern. The value of the <option>version</option> option
-must be an integer.</para>
-
-<para>If the <option>version</option> is specified, that version of
-UUID must be computed. <error code="C0060">It is a <glossterm>dynamic
-error</glossterm> if the processor does not support the specified
-<option>version</option> of the UUID algorithm.</error> <impl>If the
-<option>version</option> is not specified, the version of UUID
-computed is
-<glossterm>implementation-defined</glossterm>.</impl></para>
-
-<para>Implementations <rfc2119>must</rfc2119> support version 4 UUIDs.
-<impl>Support for other versions of UUID, and the mechanism by which
+<para>All implementations support version 4 UUIDs (the random-number based
+version).
+Support for other versions of UUID, and the mechanism by which
 the necessary inputs are made available for computing other versions,
-is <glossterm>implementation-defined</glossterm>.</impl>
+is <glossterm>implementation-defined</glossterm>.
 </para>
- 
-<para>The matched nodes are specified with the match pattern in the
-<option>match</option> option. For each matching node, the generated
-UUID is used in the output (if more than one node matches, the
-<emphasis>same</emphasis> UUID is used in each match). Nodes that do not
-match are copied without change.</para>
 
-<para>If the expression given in the <option>match</option> option
-matches an <emphasis>attribute</emphasis>, the UUID is used as the new
-value of the attribute in the output. If the attribute is named “<tag class="attribute">xml:base</tag>”, the base URI of the element
-<rfc2119>must</rfc2119> also be amended accordingly.</para>
+<para>Each matching node in the source document is replaced by the
+UUID (if more than one node matches, the
+<emphasis>same</emphasis> UUID value is used as the replacement
+each time). If the matched node is an attribute, then the UUID
+is used as the new attribute value, in all other cases, the entire node
+is replaced.</para>
 
-<para>If the expression matches any
-other kind of node, the entire node (and <emphasis>not</emphasis> just
-its contents) is replaced by the UUID.</para>
 </refsection>
 
 <refsection>
@@ -77,8 +59,7 @@ its contents) is replaced by the UUID.</para>
 <row>
 <entry><error code="C0060"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic
-error</glossterm> if the processor does not support the specified
+if the processor does not support the specified
 <option>version</option> of the UUID algorithm.
 </entry>
 </row>
@@ -90,13 +71,7 @@ error</glossterm> if the processor does not support the specified
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/uuid-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/uuid-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/uuid.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

@@ -1,0 +1,4 @@
+start = doc
+doc = element doc { title?, p* }
+title = element title { text }
+p = element p { text }

@@ -7,7 +7,7 @@
           xml:id="p.unwrap">
 <refnamediv>
 <refname><step>p:unwrap</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Removes an element, but not its content</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -21,27 +21,13 @@
 <refsection>
 <title>Description</title>
 
+<para>The <step>p:unwrap</step> step replaces an element with its content.
+In other words, it deletes the element wrapper but not the children of the
+element.</para>
 
-<para>The <tag>p:unwrap</tag> step replaces matched elements with their
-children.</para>
-
-
- <para>The value of the <option>match</option> option <rfc2119>must</rfc2119> be an
- XSLTMatchPattern. <error code="C0023">It is a <glossterm>dynamic
- error</glossterm> if that pattern matches anything other than element
- nodes.</error></para>
-
-<para>Every element in the <port>source</port> document that matches
-the specified <option>match</option> pattern is replaced by its children,
-effectively “unwrapping” the children from their parent. Non-element nodes
-and unmatched elements are passed through unchanged.</para>
-
-<note>
-<para>The matching applies to the entire document, not just the “top-most”
-matches. A pattern of the form <literal>h:div</literal> will replace
-<emphasis>all</emphasis> <tag>h:div</tag> elements, not just the top-most
-ones.</para>
-</note>
+<para>Every element in the input document that matches is replaced by
+its children, effectively “unwrapping” the children from their parent.
+</para>
 
 <para>This step produces a single document; if the document element is
 unwrapped, the result might not be well-formed XML.</para>
@@ -62,8 +48,7 @@ unwrapped, the result might not be well-formed XML.</para>
 <row>
 <entry><error code="C0023"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic
- error</glossterm> if that pattern matches anything other than element
+if the <option>match</option> pattern matches anything other than element
  nodes.
 </entry>
 </row>
@@ -75,13 +60,7 @@ It is a <glossterm>dynamic
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/unwrap-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/unwrap-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/unwrap.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

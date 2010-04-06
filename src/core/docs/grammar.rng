@@ -1,0 +1,25 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <start>
+    <ref name="doc"/>
+  </start>
+  <define name="doc">
+    <element name="doc">
+      <optional>
+        <ref name="title"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="p"/>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="title">
+    <element name="title">
+      <text/>
+    </element>
+  </define>
+  <define name="p">
+    <element name="p">
+      <text/>
+    </element>
+  </define>
+</grammar>

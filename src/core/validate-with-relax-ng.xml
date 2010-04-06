@@ -7,7 +7,7 @@
           xml:id="p.validate-with-relax-ng">
 <refnamediv>
 <refname><step>p:validate-with-relax-ng</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Validates a document using a RELAX NG grammar</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -24,45 +24,36 @@
 <refsection>
 <title>Description</title>
 
-
-<para>The <tag>p:validate-with-relax-ng</tag> step applies 
+<para>The <tag>p:validate-with-relax-ng</tag> step applies
 <biblioref linkend="iso19757-2"/>
-validation to the <port>source</port> document.</para>
+validation to its input document. If <option>assert-valid</option> is true,
+the step fails if the document is invalid, otherwise a copy of the input
+appears on the output.</para>
 
- 
-<para>The values of the <option>dtd-attribute-values</option> and
-<option>dtd-id-idref-warnings</option> options
-<rfc2119>must</rfc2119> be booleans.</para>
+<para>While there's no technical reason that the output couldn't be decorated
+with type assignments, in practice there aren't any RELAX NG validators that do
+that at this time.</para>
+
+<para>If the <option>dtd-attribute-values</option> option is
+<literal>true</literal>, then the attribute value defaulting conventions of
+<biblioref linkend="relaxng-dtd-compat"/> are also applied. In practice,
+there aren't any RELAX NG validators that do that at this time either.</para>
+
+<para>If the <option>dtd-id-idref-warnings</option> option is
+<literal>true</literal>, then the validator should
+treat a schema that is incompatible with the ID/IDREF/IDREFs feature
+of <biblioref linkend="relaxng-dtd-compat"/> as if the document
+was invalid. In other words, this option enables ID/IDREF checking.
+</para>
 
 <para>If the root element of the schema is <tag>c:data</tag> or
 has a <tag class="attribute">c:content-type</tag> attribute that specifies
 a text content type or a media type that the implementation recognizes,
-then the step <rfc2119>should</rfc2119> treat the
+then the step should treat the
 text node descendants of the element as a
-<biblioref linkend="relaxng-compact-syntax"/> document for validation.</para>
-
-<para>If the <option>dtd-attribute-values</option> option is
-<literal>true</literal>, then the attribute value defaulting conventions of
-<biblioref linkend="relaxng-dtd-compat"/> are also applied.</para>
-
-<para>If the <option>dtd-id-idref-warnings</option> option is
-<literal>true</literal>, then the validator <rfc2119>should</rfc2119> 
-treat a schema that is incompatible with the ID/IDREF/IDREFs feature
-of <biblioref linkend="relaxng-dtd-compat"/> as if the document
-was invalid.
+<biblioref linkend="relaxng-compact-syntax"/> document for validation.
+Support for this feature is <glossterm>implementation defined</glossterm>.
 </para>
-
-<para><error code="C0053">It is a <glossterm>dynamic error</glossterm>
-if the <option>assert-valid</option> option is <literal>true</literal>
-and the input document is not valid.</error></para>
-
-<para>The output from this step is a copy of the input, possibly
-augmented by application of the
-<biblioref linkend="relaxng-dtd-compat"/>. The output of this step
-<rfc2119>may</rfc2119> include PSVI annotations.</para>
-
-<para><impl>Support for <biblioref linkend="relaxng-dtd-compat"/> is
-<glossterm>implementation defined</glossterm>.</impl></para>
 
 </refsection>
 
@@ -81,7 +72,6 @@ augmented by application of the
 <row>
 <entry><error code="C0053"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
 if the <option>assert-valid</option> option is <literal>true</literal>
 and the input document is not valid.
 </entry>
@@ -94,13 +84,7 @@ and the input document is not valid.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/validate-with-relax-ng-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/validate-with-relax-ng-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/validate-with-relax-ng.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

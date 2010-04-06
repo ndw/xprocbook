@@ -18,11 +18,7 @@
 <xi:include href="exec.xml"/>
 <xi:include href="filter.xml"/>
 <xi:include href="hash.xml"/>
--->
-
 <xi:include href="http-request.xml"/>
-
-<!--
 <xi:include href="identity.xml"/>
 <xi:include href="insert.xml"/>
 <xi:include href="label-elements.xml"/>
@@ -38,15 +34,15 @@
 <xi:include href="split-sequence.xml"/>
 <xi:include href="store.xml"/>
 <xi:include href="string-replace.xml"/>
--->
-
-<!--
 <xi:include href="unescape-markup.xml"/>
 <xi:include href="unwrap.xml"/>
 <xi:include href="uuid.xml"/>
 <xi:include href="validate-with-relax-ng.xml"/>
 <xi:include href="validate-with-schematron.xml"/>
 <xi:include href="validate-with-xml-schema.xml"/>
+-->
+
+<!--
 <xi:include href="wrap-sequence.xml"/>
 <xi:include href="wrap.xml"/>
 <xi:include href="www-form-urldecode.xml"/>

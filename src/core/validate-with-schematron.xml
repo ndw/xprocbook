@@ -7,7 +7,7 @@
           xml:id="p.validate-with-schematron">
 <refnamediv>
 <refname><step>p:validate-with-schematron</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Validates a document using a Schematron schema</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -25,32 +25,22 @@
 <refsection>
 <title>Description</title>
 
-
 <para>The <tag>p:validate-with-schematron</tag> step applies
 <biblioref linkend="iso19757-3"/>
-processing to the <port>source</port> document.</para>
-
-
-<para><error code="C0054">It is a <glossterm>dynamic error</glossterm>
-if the <option>assert-valid</option> option is <literal>true</literal>
-and any Schematron assertions fail.</error></para>
+processing to its input document. If <option>assert-valid</option> is
+true, the step fails if any Schematron assertions fail, otherwise a
+copy of the input appears on the output.</para>
 
 <para>The value of the <option>phase</option> option identifies the
-Schematron validation phase with which validation begins.</para>
-
-<para>The <port>parameters</port> port provides name/value pairs which
+Schematron validation phase with which validation begins.
+The <port>parameters</port> port provides name/value pairs which
 correspond to Schematron external variables.</para>
 
 <para>The <port>result</port> output from this step is a copy of the
-input.</para>
-
-<para>Schematron assertions and reports, if any,
-<rfc2119>must</rfc2119> appear on the <port>report</port> port. The
-output <rfc2119>should</rfc2119> be in <citetitle>Schematron
-Validation Report Language</citetitle> (SVRL).</para>
-
-<para>The output of this step
-<rfc2119>may</rfc2119> include PSVI annotations.</para>
+input. Schematron assertions and reports, if any, appear on the
+<port>report</port> port. The output should be in
+<citetitle>Schematron Validation Report Language</citetitle>
+(SVRL).</para>
 </refsection>
 
 <refsection>
@@ -68,7 +58,6 @@ Validation Report Language</citetitle> (SVRL).</para>
 <row>
 <entry><error code="C0054"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
 if the <option>assert-valid</option> option is <literal>true</literal>
 and any Schematron assertions fail.
 </entry>
@@ -81,13 +70,7 @@ and any Schematron assertions fail.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/validate-with-schematron-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/validate-with-schematron-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/validate-with-schematron.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

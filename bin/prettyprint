@@ -114,9 +114,10 @@ while ($body =~ /^(.*?)(<.*?>)(.*)$/s) {
         $newbody .= "<tag class='prefix'>$2</tag><phrase role='colon'>:</phrase>"
             if $1 ne '';
         $newbody .= "<tag class='localname'>$3</tag><phrase role='msc'>&gt;</phrase>";
-    } elsif ($tag =~ /<([\S:]+?)(\s.*)?>/s) {
+    } elsif ($tag =~ /<([\S:]+?)(\s.*?)?([\/])?>/s) {
         my $gi = $1;
         my $attr = $2;
+        my $etag = $3;
 
         $gi =~ /((.*?):)?(\S+)$/;
         $newbody .= "<phrase role='mso'>&lt;</phrase>";
@@ -153,7 +154,7 @@ while ($body =~ /^(.*?)(<.*?>)(.*)$/s) {
             }
         }
 
-        $newbody .= "<phrase role='msc'>&gt;</phrase>";
+        $newbody .= "<phrase role='msc'>$etag&gt;</phrase>";
     } else {
         die "Unparseable: $tag\n";
     }

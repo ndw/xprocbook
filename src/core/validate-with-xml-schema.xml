@@ -7,7 +7,7 @@
           xml:id="p.validate-with-xml-schema">
 <refnamediv>
 <refname><step>p:validate-with-xml-schema</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Validates a document using W3C XML Schema</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -25,21 +25,12 @@
 <refsection>
 <title>Description</title>
 
-
 <para>The <tag>p:validate-with-xml-schema</tag> step applies
 <biblioref linkend="xmlschema-1"/>
-validity assessment to the <port>source</port> input.</para>
-
- 
-<para>The values of the <option>use-location-hints</option>,
-<option>try-namespaces</option>, and 
-<option>assert-valid</option>
-options
- <rfc2119>must</rfc2119> be boolean.</para>
- 
-<para>The value of the <option>mode</option> option
-<rfc2119>must</rfc2119> be an NMTOKEN whose value is either
-“<literal>strict</literal>” or “<literal>lax</literal>”.</para>
+validity assessment to its input document. If
+<option>assert-valid</option> is true, the step fails if the document
+is invalid, otherwise a copy of the input appears on the output,
+possibly representing an augmented PSVI.</para>
 
 <para>Validation is performed against the set of schemas represented
 by the documents on the <port>schema</port> port. These schemas must
@@ -51,44 +42,45 @@ schema-processor-defined namespace-based strategies, for the
 namespaces covered by the documents available on the schemas port.</para>
 
 <para>If <code>xs:include</code> elements occur within the supplied
-schema documents, they are treated like any other <link linkend="external-docs">external documents</link>. <impl>It is
-<glossterm>implementation-defined</glossterm> if the documents supplied
-on the <port>schemas</port> port are considered when resolving
-<code>xs:include</code> elements in the schema documents provided.</impl>
+schema documents, they are treated like any other
+external documents (see <xref linkend="external-docs"/>). <impl>It is
+<glossterm>implementation-defined</glossterm> if the documents
+supplied on the <port>schemas</port> port are considered when
+resolving <code>xs:include</code> elements in the schema documents
+provided.</impl>
 </para>
 
 <para>The <option>use-location-hints</option> and
 <option>try-namespaces</option> options allow the pipeline author to
 control how the schema processor should attempt to locate schema
-documents necessary but not provided on the <port>schema</port>
-port. Any schema documents provided on the <port>schema</port> port
-<rfc2119>must</rfc2119> be used in preference to schema documents
-located by other means.</para>
+documents necessary but not provided on the <port>schema</port> port.
+Any schema documents provided on the <port>schema</port> port are used
+in preference to schema documents located by other means.</para>
 
 <para>If the <option>use-location-hints</option> option is
-“<literal>true</literal>”, the processor <rfc2119>should</rfc2119>
-make use of schema location hints to locate schema documents. If the
-option is “<literal>false</literal>”, the processor
-<rfc2119>should</rfc2119> ignore any such hints.</para>
+“<literal>true</literal>”, the processor should make use of schema
+location hints to locate schema documents. If the option is
+“<literal>false</literal>”, the processor should ignore any such
+hints.</para>
 
 <para>If the <option>try-namespaces</option> option is
-“<literal>true</literal>”, the processor <rfc2119>should</rfc2119>
+“<literal>true</literal>”, the processor should
 attempt to dereference the namespace URI to locate schema documents.
 If the
 option is “<literal>false</literal>”, the processor
-<rfc2119>should not</rfc2119> dereference namespace URIs.</para>
+should not dereference namespace URIs.</para>
 
 <para>The <option>mode</option> option allow the pipeline author to
-control how schema validation begins. The “<literal>strict</literal>”
+control how schema validation begins. It must be either
+“<literal>strict</literal>” or “<literal>lax</literal>”.
+The “<literal>strict</literal>”
 mode means that the document element must be declared and
 schema-valid, otherwise it will be treated as invalid. The
 “<literal>lax</literal>” mode means that the
 absence of a declaration for the document element does not itself
 count as an unsuccessful outcome of validation.</para>
 
-<para><error code="C0053">It is a <glossterm>dynamic error</glossterm>
-if the <option>assert-valid</option> option is <literal>true</literal>
-and the input document is not valid.</error> If the <option>assert-valid</option>
+<para>If the <option>assert-valid</option>
 option is <literal>false</literal>, it is not an error for the document
 to be invalid. In this case, if the implementation does not
 support the PSVI, <tag>p:validate-with-xml-schema</tag> is essentially
@@ -96,15 +88,9 @@ just an “identity” step, but if the implementation <emphasis>does</emphasis>
 support the PSVI, then the resulting document will have additional type
 information (at least for the subtrees that are valid).</para>
 
-<para>When XML Schema validation assessment
-is performed, the processor is invoked in the mode specified by the
-<option>mode</option> option.
-<error code="C0055">It is a <glossterm>dynamic error</glossterm>
-if the implementation does not support the specified mode.</error>
-</para>
-
 <para>The <port>result</port> of the assessment is a document with the
-Post-Schema-Validation-Infoset (PSVI) (<biblioref linkend="xmlschema-1"/>) annotations, if the pipeline implementation
+Post-Schema-Validation-Infoset (PSVI) (<biblioref
+linkend="xmlschema-1"/>) annotations, if the pipeline implementation
 supports such annotations. If not, the input document is reproduced
 with any defaulting of attributes and elements performed as specified
 by the XML Schema recommendation.</para>
@@ -125,16 +111,14 @@ by the XML Schema recommendation.</para>
 <row>
 <entry><error code="C0053"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
 if the <option>assert-valid</option> option is <literal>true</literal>
 and the input document is not valid.
 </entry>
 </row>
 <row>
 <entry><error code="C0055"/></entry>
-<entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
-if the implementation does not support the specified mode.
+<entry>Occurs if a <option>mode</option> is specified and
+the implementation does not support the specified mode.
 </entry>
 </row>
 </tbody>
@@ -145,13 +129,7 @@ if the implementation does not support the specified mode.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/validate-with-xml-schema-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/validate-with-xml-schema-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/validate-with-xml-schema.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

@@ -45,9 +45,6 @@
                              else concat(substring-before(/*/@name, '-1.xml'),'-.*')"/>
     </p:directory-list>
 
-    <cx:tee href="/tmp/list.xml" debug="1"/>
-
-
     <p:for-each>
       <p:iteration-source select="//c:file"/>
 
