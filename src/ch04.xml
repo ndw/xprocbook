@@ -1,0 +1,45 @@
+<chapter xmlns="http://docbook.org/ns/docbook"
+         xmlns:cx="http://xmlcalabash.com/ns/extensions"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:p="http://www.w3.org/ns/xproc"
+         version="5.0-xproc" xml:id="connections">
+<info>
+<title>Pipeline Inputs</title>
+</info>
+
+<section xml:id="p.input">
+<title>p:input</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.pipe">
+<title>p:pipe</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.inline">
+<title>p:inline</title>
+<para>…</para>
+
+<section xml:id="exclude-inline-prefixes">
+<title>Excluding inline prefixes</title>
+<para>…</para>
+</section>
+</section>
+
+<section xml:id="p.document">
+<title>p:document</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.data">
+<title>p:data</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.empty">
+<title>p:empty</title>
+<para>…</para>
+</section>
+</chapter>

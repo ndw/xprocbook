@@ -1,0 +1,31 @@
+<chapter xmlns="http://docbook.org/ns/docbook"
+         xmlns:cx="http://xmlcalabash.com/ns/extensions"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:p="http://www.w3.org/ns/xproc"
+         version="5.0-xproc" xml:id="varsandopts">
+<info>
+<title>Variables, Options, and Parameters</title>
+</info>
+
+<section xml:id="p.variable">
+<title>p:variable</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.option">
+<title>p:option</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.with-option">
+<title>p:with-option</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.with-param">
+<title>p:with-param</title>
+<para>…</para>
+</section>
+
+</chapter>

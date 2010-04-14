@@ -1,0 +1,28 @@
+<chapter xmlns="http://docbook.org/ns/docbook"
+         xmlns:cx="http://xmlcalabash.com/ns/extensions"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:p="http://www.w3.org/ns/xproc"
+         version="5.0-xproc" xml:id="serialization">
+<info>
+<title>Pipeline Outputs and Serialization</title>
+</info>
+
+<para>…</para>
+
+<section xml:id="p.output">
+<title>p:output</title>
+<para>…</para>
+</section>
+
+<section xml:id="serialization">
+<title>Serialization</title>
+
+<para>…</para>
+
+<section xml:id="p.serialization">
+<title>p:serialization</title>
+<para>…</para>
+</section>
+</section>
+</chapter>

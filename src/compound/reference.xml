@@ -1,0 +1,17 @@
+<reference xmlns="http://docbook.org/ns/docbook"
+           xmlns:cx="http://xmlcalabash.com/ns/extensions"
+           xmlns:xi="http://www.w3.org/2001/XInclude"
+           xmlns:xlink="http://www.w3.org/1999/xlink"
+           xmlns:p="http://www.w3.org/ns/xproc"
+           xml:id="fileutils">
+<title>Standard XProc Compound Steps</title>
+
+<xi:include href="choose.xml"/>
+<xi:include href="declare-step.xml"/>
+<xi:include href="for-each.xml"/>
+<xi:include href="group.xml"/>
+<xi:include href="pipeline.xml"/>
+<xi:include href="try.xml"/>
+<xi:include href="viewport.xml"/>
+
+</reference>

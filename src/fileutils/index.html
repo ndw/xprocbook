@@ -1,4 +1,341 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>File Utilities</title><link rel="stylesheet" type="text/css" href="/sourceforge/docbook/xsl2/html/default.css"/></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>File Utilities</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#cxf.copy"><tt class="step">cxf:copy</tt></a></span><span class="refpurpose"> - Copies a file</span></dt><dt><span class="refentrytitle"><a href="#cxf.delete"><tt class="step">cxf:delete</tt></a></span><span class="refpurpose"> - Deletes a file</span></dt><dt><span class="refentrytitle"><a href="#cxf.head"><tt class="step">cxf:head</tt></a></span><span class="refpurpose"> - Returns the first few lines of text file</span></dt><dt><span class="refentrytitle"><a href="#cxf.info"><tt class="step">cxf:info</tt></a></span><span class="refpurpose"> - Returns information about a file or directory</span></dt><dt><span class="refentrytitle"><a href="#cxf.mkdir"><tt class="step">cxf:mkdir</tt></a></span><span class="refpurpose"> - Creates a directory</span></dt><dt><span class="refentrytitle"><a href="#cxf.move"><tt class="step">cxf:move</tt></a></span><span class="refpurpose"> - Moves (renames) a file or directory</span></dt><dt><span class="refentrytitle"><a href="#cxf.tail"><tt class="step">cxf:tail</tt></a></span><span class="refpurpose"> - Returns the last few lines of a text file</span></dt><dt><span class="refentrytitle"><a href="#cxf.tempfile"><tt class="step">cxf:tempfile</tt></a></span><span class="refpurpose"> - Creates a temporary file</span></dt><dt><span class="refentrytitle"><a href="#cxf.touch"><tt class="step">cxf:touch</tt></a></span><span class="refpurpose"> - Update the modification time of a file</span></dt></dl></div><div class="refentry" id="cxf.copy"><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:copy</tt></span> — Copies a file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:copy</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">target</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                     </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>File Utilities</title><style type="text/css">div.epigraph          { margin-left: 0.5in;
+                        margin-right: 0.5in;
+                      }
+
+div.attribution       { margin-left: 50%;
+                      }
+
+div.admonition        { margin-left: 0.5in;
+                        margin-right: 0.5in;
+                        border: solid thin #aaaaaa;
+                      }
+
+div.admonition h3     { margin-top: 0px;
+                        margin-bottom: 0px;
+                        padding-top: 4px;
+                        padding-left: 5px;
+                        font-weight: medium;
+                        background-color: #dddddd;
+                      }
+
+div.admonition p      { padding-left: 5px;
+                      }
+
+span.admon-graphic    { padding-right: 5px;
+                        vertical-align: middle;
+                      }
+
+div.admon-title-text  { font-size: x-large;
+                        font-weight: bold;
+                      }
+
+div.admon-text        { padding-top: 0px;
+                        margin-top: 0px;
+                      }
+
+div.admon-text &gt; p:first-child { padding-top: 0px;
+                                 margin-top: 0px;
+                               }
+
+div.section           { margin-left: 0.25in;
+                      }
+div.section-titlepage { margin-left: -0.25in;
+                      }
+
+span.linenumber       { padding-right: 10px;
+                        border-right: 1px solid black;
+                      }
+
+span.linenumber-separator {
+                        padding-right: 0px;
+                      }
+
+div.address           { white-space: pre }
+div.literallayout     { white-space: pre }
+span.linenumber       { white-space: pre;
+                        font-family: monospace;
+                      }
+span.linenumber-separator { white-space: pre; }
+
+div.footnote p { margin-top: 0px;
+                 padding-top: 1px;
+                 margin-bottom: 0px;
+                 padding-bottom: 1px;
+               }
+
+div.title { font-weight: bold; }
+
+div.float-right    { float: right; }
+div.float-left     { float: left; }
+
+div.figure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.figure         { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.informalfigure-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.informalfigure { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.table-wrapper  { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+
+div.table          { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+/*
+div.informaltable-wrapper { padding: 0px;
+                     border-color: #CACACA;
+                     border-width: 1px;
+                     border-style: solid;
+                   }
+*/
+
+div.informaltable  { padding-left: 3px;
+                     padding-right: 3px;
+                     padding-top: 5px;
+                     padding-bottom: 5px;
+                   }
+
+div.equation-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.example-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+div.figure-wrapper
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.caption        { margin-left: 5%;
+                     margin-right: 5%;
+                     font-family: sans-serif;
+                   }
+
+div.longdesc-link  { position: absolute;
+                     right: 10px;
+                     font-size: small;
+                   }
+
+.revision-added    { background-color: #FFFF99; }
+
+.revision-deleted  { text-decoration: line-through;
+                     background-color: #FF9999;
+                   }
+.revision-changed  { background-color: #99FF99; }
+
+.revision-inherited { border-left-style: solid;
+                      border-left-width: 1px;
+                      border-left-color: #303030;
+                      padding-left: 10px;
+                    }
+
+div.synopfragment  { margin-bottom: 1em;
+                   }
+
+div.cmdsynopsis    { margin-bottom: 1em;
+                   }
+
+body.draft         { background-image: url("http://docbook.sf.net/release/images/draft.png");
+                   }
+
+em.strikethrough   { text-decoration: line-through;
+                     font-style: normal;
+                   }
+
+em.underline       { text-decoration: underline;
+                     font-style: normal;
+                   }
+
+em                 { font-style: italic; }
+
+em em              { font-style: normal; }
+
+em em em           { font-style: italic; }
+
+em em em em        { font-style: normal; }
+
+em em em em em     { font-style: italic; }
+
+div.remark         { padding: 10px;
+                     border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+
+div.sidebar        { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-bottom: 1ex;
+                   }
+
+div.sidebar
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.sidebar-content { padding: 10px;
+                    }
+
+div.annotation     { border: solid #afafaf 1px;
+                     margin-left: 35px;
+                     margin-right: 70px;
+                     margin-top: 1ex;
+                     margin-bottom: 1ex;
+                   }
+
+div.annotation
+div.title          { background-color: #CACACA;
+                     padding: 3px;
+                   }
+
+div.annotation-content { padding: 10px;
+                    }
+</style><style type="text/css">p.element-syntax                    { padding: 4px; }
+p.element-syntax-declare-step       { border: solid thin; background-color: #ffeeff }
+p.element-syntax-error-vocabulary   { border: solid thin; background-color: #ffffee }
+p.element-syntax-language-construct { border: solid thin; background-color: #ffeeff }
+p.element-syntax-language-example   { border: solid thin; background-color: #ffeeff }
+p.element-syntax-other-step         { border: solid thin; background-color: #ffeeff }
+p.element-syntax-step-vocabulary    { border: solid thin; background-color: #ffffee }
+
+thead tr th {
+  background-color: #333333;
+  color: white;
+}
+
+h1,h2,h3,h4,h5,h6,
+.toc p {
+  font-family: sans-serif;
+}
+
+h2 .refname tt {
+  font-family: sans-serif;
+}
+
+.programlisting, .screen {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border: solid thin #ccddcc;
+  background-color: #eeffee;
+}
+
+.programlisting pre, .screen pre {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+span.linenumber {
+  background-color: #ccddcc;
+}
+
+.admonition {
+  padding: 10px;
+  border: solid thin #ccdddcc;
+}
+
+.admonition h3 {
+  font-size: normal;
+}
+
+span.diff, div.diff {
+  background-color: #ffffaa;
+}
+
+span.add, div.add {
+  background-color: #aaffaa;
+}
+
+span.orig, div.orig {
+  background-color: #ffffaa;
+}
+
+span.del, div.del {
+  background-color: #ffaaaa;
+  text-decoration: line-through;
+}
+
+div.line {
+  font-family: monospace;
+  white-space: pre;
+}
+
+table.pipelineexample {
+  margin-top: "0.5em;"
+}
+
+/* Pretty printing */
+
+.atteq {
+}
+
+.attq {
+}
+
+.colon {
+}
+
+.mso {
+}
+
+.msc {
+}
+
+.nsdecl,
+.nsdecl .tag-attribute,
+.nsdecl .tag-attvalue {
+  color: #AAAAAA;
+}
+
+.pcdata {
+  color: #44AA44;
+}
+
+pre .tag-attribute {
+}
+
+pre .tag-attvalue {
+}
+
+pre .tag-element {
+}
+
+pre .tag-localname {
+}
+
+pre .tag-prefix {
+}
+
+/* /Pretty printing */</style></head><body><div class="reference" x="1" id="fileutils"><div class="reference-titlepage"><h1>File Utilities</h1></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="refentrytitle"><a href="#cxf.copy"><tt class="step">cxf:copy</tt></a></span><span class="refpurpose"> - Copies a file</span></dt><dt><span class="refentrytitle"><a href="#cxf.delete"><tt class="step">cxf:delete</tt></a></span><span class="refpurpose"> - Deletes a file</span></dt><dt><span class="refentrytitle"><a href="#cxf.head"><tt class="step">cxf:head</tt></a></span><span class="refpurpose"> - Returns the first few lines of text file</span></dt><dt><span class="refentrytitle"><a href="#cxf.info"><tt class="step">cxf:info</tt></a></span><span class="refpurpose"> - Returns information about a file or directory</span></dt><dt><span class="refentrytitle"><a href="#cxf.mkdir"><tt class="step">cxf:mkdir</tt></a></span><span class="refpurpose"> - Creates a directory</span></dt><dt><span class="refentrytitle"><a href="#cxf.move"><tt class="step">cxf:move</tt></a></span><span class="refpurpose"> - Moves (renames) a file or directory</span></dt><dt><span class="refentrytitle"><a href="#cxf.tail"><tt class="step">cxf:tail</tt></a></span><span class="refpurpose"> - Returns the last few lines of a text file</span></dt><dt><span class="refentrytitle"><a href="#cxf.tempfile"><tt class="step">cxf:tempfile</tt></a></span><span class="refpurpose"> - Creates a temporary file</span></dt><dt><span class="refentrytitle"><a href="#cxf.touch"><tt class="step">cxf:touch</tt></a></span><span class="refpurpose"> - Update the modification time of a file</span></dt></dl></div><div class="refentry" id="cxf.copy"><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:copy</tt></span></h2><p><span class="refname"><tt class="step">cxf:copy</tt></span> — Copies a file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:copy</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">target</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                     </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">cxf:copy</tt> copies the file named in
@@ -28,24 +365,24 @@ cannot be copied to the specified target.</td></tr></tbody></table></div></div>
 
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"&gt;
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>    &lt;p:pipe step="copy" port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:pipe step="copy" port="result"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:output&gt;
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:copy name="copy" href="copy-1.xpl" target="/tmp/copied.xpl"/&gt;
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;file:/tmp/copied.xpl&lt;/c:result&gt;
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.delete"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:delete</tt></span> — Deletes a file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:delete</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">recursive</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                 </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.delete"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:delete</tt></span></h2><p><span class="refname"><tt class="step">cxf:delete</tt></span> — Deletes a file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:delete</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">recursive</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'false'</code><code>"</code><code>/&gt;</code><code>                 </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">cxf:delete</tt> step attempts to delete the file or
@@ -84,7 +421,7 @@ empty and the <tt class="option">recursive</tt> option is not
 <div class="programlisting"><pre>TBD
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.head"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:head</tt></span> — Returns the first few lines of text file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:head</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">count</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">int</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.head"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:head</tt></span></h2><p><span class="refname"><tt class="step">cxf:head</tt></span> — Returns the first few lines of text file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:head</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">count</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">int</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>Returns the first <tt class="option">count</tt> lines of the file named
@@ -119,69 +456,69 @@ are implementation-defined.</td></tr></tbody></table></div></div>
 following lines:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>Let me not to the marriage of true minds
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>Admit impediments. Love is not love
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>Admit impediments. Love is not love
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>Which alters when it alteration finds,
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>Or bends with the remover to remove:
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>O no! it is an ever-fixed mark
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>That looks on tempests and is never shaken;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>Or bends with the remover to remove:
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>O no! it is an ever-fixed mark
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>That looks on tempests and is never shaken;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>It is the star to every wandering bark,
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>Whose worth's unknown, although his height be taken.
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>Whose worth's unknown, although his height be taken.
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>Love's not Time's fool, though rosy lips and cheeks
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>Within his bending sickle's compass come:
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>Love alters not with his brief hours and weeks,
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>But bears it out even to the edge of doom.
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>But bears it out even to the edge of doom.
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>   If this be error and upon me proved,
-<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>   I never writ, nor no man ever loved.
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>   I never writ, nor no man ever loved.
 </pre></div>
 
 <p>The the following pipelines produce the results shown below them:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:head count="3" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:head count="3" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;&lt;c:line&gt;Let me not to the marriage of true minds&lt;/c:line&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;c:line&gt;Admit impediments. Love is not love&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Admit impediments. Love is not love&lt;/c:line&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Which alters when it alteration finds,&lt;/c:line&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:head count="5" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:head count="5" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;&lt;c:line&gt;Let me not to the marriage of true minds&lt;/c:line&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;c:line&gt;Admit impediments. Love is not love&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Admit impediments. Love is not love&lt;/c:line&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Which alters when it alteration finds,&lt;/c:line&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;c:line&gt;Or bends with the remover to remove:&lt;/c:line&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;O no! it is an ever-fixed mark&lt;/c:line&gt;
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Or bends with the remover to remove:&lt;/c:line&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;c:line&gt;O no! it is an ever-fixed mark&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:head count="0" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:head count="0" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
@@ -190,25 +527,25 @@ following lines:</p>
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:head count="-10" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:head count="-10" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;&lt;c:line&gt;Love alters not with his brief hours and weeks,&lt;/c:line&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;c:line&gt;But bears it out even to the edge of doom.&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;But bears it out even to the edge of doom.&lt;/c:line&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;   If this be error and upon me proved,&lt;/c:line&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;c:line&gt;   I never writ, nor no man ever loved.&lt;/c:line&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;   I never writ, nor no man ever loved.&lt;/c:line&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.info"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:info</tt></span> — Returns information about a file or directory.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:info</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.info"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:info</tt></span></h2><p><span class="refname"><tt class="step">cxf:info</tt></span> — Returns information about a file or directory.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:info</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr sequence-attr">sequence</code><code>="</code><code class="value sequence-value">true</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">info</tt> step returns information about the file or
@@ -259,7 +596,7 @@ if the file named in <tt class="option">href</tt> cannot be read.
 <div class="programlisting"><pre>TBD
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.mkdir"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:mkdir</tt></span> — Creates a directory.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:mkdir</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.mkdir"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:mkdir</tt></span></h2><p><span class="refname"><tt class="step">cxf:mkdir</tt></span> — Creates a directory.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:mkdir</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">cxf:mkdir</tt> step creates a directory with the
@@ -292,7 +629,7 @@ if the directory named in <tt class="option">href</tt> cannot be created.
 <div class="programlisting"><pre>TBD
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.move"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:move</tt></span> — Moves (renames) a file or directory.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:move</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">target</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                     </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.move"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:move</tt></span></h2><p><span class="refname"><tt class="step">cxf:move</tt></span> — Moves (renames) a file or directory.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:move</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">target</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                     </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">cxf:move</tt> step attempts to move (rename) the
@@ -332,7 +669,7 @@ implementation-defined.</p>
 <div class="programlisting"><pre>TBD
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.tail"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:tail</tt></span> — Returns the last few lines of a text file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:tail</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">count</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">int</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.tail"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:tail</tt></span></h2><p><span class="refname"><tt class="step">cxf:tail</tt></span> — Returns the last few lines of a text file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:tail</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">count</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                      </code><code class="comment">&lt;!-- </code><span class="opt-type">int</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>Returns the last <tt class="option">count</tt> lines of the file named
@@ -367,69 +704,69 @@ are implementation-defined.</td></tr></tbody></table></div></div>
 following lines:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>Let me not to the marriage of true minds
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>Admit impediments. Love is not love
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>Admit impediments. Love is not love
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>Which alters when it alteration finds,
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>Or bends with the remover to remove:
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>O no! it is an ever-fixed mark
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>That looks on tempests and is never shaken;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>Or bends with the remover to remove:
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>O no! it is an ever-fixed mark
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>That looks on tempests and is never shaken;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>It is the star to every wandering bark,
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>Whose worth's unknown, although his height be taken.
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>Whose worth's unknown, although his height be taken.
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>Love's not Time's fool, though rosy lips and cheeks
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>Within his bending sickle's compass come:
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>Love alters not with his brief hours and weeks,
-<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>But bears it out even to the edge of doom.
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>But bears it out even to the edge of doom.
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>   If this be error and upon me proved,
-<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>   I never writ, nor no man ever loved.
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>   I never writ, nor no man ever loved.
 </pre></div>
 
 <p>The the following pipelines produce the results shown below them:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="3" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="3" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;&lt;c:line&gt;But bears it out even to the edge of doom.&lt;/c:line&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;c:line&gt;   If this be error and upon me proved,&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;   If this be error and upon me proved,&lt;/c:line&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;   I never writ, nor no man ever loved.&lt;/c:line&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="5" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="5" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;&lt;c:line&gt;Within his bending sickle's compass come:&lt;/c:line&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;c:line&gt;Love alters not with his brief hours and weeks,&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Love alters not with his brief hours and weeks,&lt;/c:line&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;But bears it out even to the edge of doom.&lt;/c:line&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;c:line&gt;   If this be error and upon me proved,&lt;/c:line&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;   I never writ, nor no man ever loved.&lt;/c:line&gt;
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;   If this be error and upon me proved,&lt;/c:line&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;c:line&gt;   I never writ, nor no man ever loved.&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="0" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="0" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
@@ -438,25 +775,25 @@ following lines:</p>
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;p:declare-step xmlns:p="http://www.w3.org/ns/xproc"
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>                xmlns:cxf="http://xmlcalabash.com/ns/extensions/fileutils"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                name="main" version="1.0"&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:output port="result"/&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  6</span><span class="linenumber-separator"> </span>  &lt;p:import href="http://xmlcalabash.com/extension/steps/fileutils.xpl"/&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">  8</span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="-10" href="sonnet116.txt"/&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;cxf:tail count="-10" href="sonnet116.txt"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
 </pre></div>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step"&gt;&lt;c:line&gt;Let me not to the marriage of true minds&lt;/c:line&gt;
-<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;c:line&gt;Admit impediments. Love is not love&lt;/c:line&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Admit impediments. Love is not love&lt;/c:line&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Which alters when it alteration finds,&lt;/c:line&gt;
-<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;c:line&gt;Or bends with the remover to remove:&lt;/c:line&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:line&gt;Or bends with the remover to remove:&lt;/c:line&gt;
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/c:result&gt;
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.tempfile"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:tempfile</tt></span> — Creates a temporary file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:tempfile</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">prefix</code><code>"</code><code>/&gt;</code><code>                                     </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">suffix</code><code>"</code><code>/&gt;</code><code>                                     </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">delete-on-exit</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.tempfile"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:tempfile</tt></span></h2><p><span class="refname"><tt class="step">cxf:tempfile</tt></span> — Creates a temporary file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:tempfile</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">prefix</code><code>"</code><code>/&gt;</code><code>                                     </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">suffix</code><code>"</code><code>/&gt;</code><code>                                     </code><code class="comment">&lt;!-- </code><span class="opt-type">string</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">delete-on-exit</code><code>"</code><code>/&gt;</code><code>                             </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">cxf:tempfile</tt> step creates a temporary file. The
@@ -499,7 +836,7 @@ directory.</td></tr></tbody></table></div></div>
 <div class="programlisting"><pre>TBD
 </pre></div>
 
-</div></div><div class="refentry" id="cxf.touch"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2>Name</h2><p><span class="refname"><tt class="step">cxf:touch</tt></span> — Update the modification time of a file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:touch</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">timestamp</code><code>"</code><code>/&gt;</code><code>                                  </code><code class="comment">&lt;!-- </code><span class="opt-type">xs:dateTime</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
+</div></div><div class="refentry" id="cxf.touch"><div class="refentry-separator"><hr/></div><div class="refnamediv"><h2><span class="refname"><tt class="step">cxf:touch</tt></span></h2><p><span class="refname"><tt class="step">cxf:touch</tt></span> — Update the modification time of a file.</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><p class="element-syntax element-syntax-declare-step"><span class="decl"><code>&lt;p:declare-step</code> <code class="attr type-attr">type</code><code>="</code><code class="value type-value">cxf:touch</code><code>"</code><code>&gt;</code></span><br/>     <span class="input"><code>&lt;p:output</code> <code class="attr port-attr">port</code><code>="</code><code class="value port-value">result</code><code>"</code> <code class="attr primary-attr">primary</code><code>="</code><code class="value primary-value">false</code><code>"</code><code>/&gt;</code></span><br/>     <span class="opt-req"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">href</code><code>"</code> <code class="attr required-attr">required</code><code>="</code><code class="value required-value">true</code><code>"</code><code>/&gt;</code><code>                       </code><code class="comment">&lt;!-- </code><span class="opt-type">anyURI</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">timestamp</code><code>"</code><code>/&gt;</code><code>                                  </code><code class="comment">&lt;!-- </code><span class="opt-type">xs:dateTime</span><code class="comment"> --&gt;</code></span><br/>     <span class="opt-opt"><code>&lt;p:option</code> <code class="attr name-attr">name</code><code>="</code><code class="value name-value">fail-on-error</code><code>"</code> <code class="attr select-attr">select</code><code>="</code><code class="value select-value">'true'</code><code>"</code><code>/&gt;</code><code>              </code><code class="comment">&lt;!-- </code><span class="opt-type">boolean</span><code class="comment"> --&gt;</code></span><br/><code>&lt;/p:declare-step&gt;</code></p></div><div class="refsection"><div class="refsection-titlepage"><h3>Description</h3></div>
 
 
 <p>The <tt class="step">cxf:touch</tt> step “touches” the file named in

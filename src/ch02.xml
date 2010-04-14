@@ -3,9 +3,9 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:p="http://www.w3.org/ns/xproc"
-         version="5.0-xproc" xml:id="pipelines">
+         version="5.0-xproc" xml:id="terminology">
 <info>
-<title>XProc Pipelines</title>
+<title>Pipeline Terminology</title>
 </info>
 
 <para>In this chapter, we'll survey the main syntactic elements of
@@ -16,9 +16,4 @@ connects the output port of one step to the input port of another. The
 type, name, and number of ports on each type of step is fixed and
 immutable.</para>
 
-<section xml:id="external-documents">
-<title>External documents</title>
-
-<para>FIXME: where does this belong?</para>
-</section>
 </chapter>

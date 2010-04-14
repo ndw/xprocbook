@@ -4,13 +4,23 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:p="http://www.w3.org/ns/xproc">
 <info>
-<title>Exploring XProc</title>
+<title>XML Pipelines</title>
+<subtitle>A Guide to XProc</subtitle>
 <author>
   <personname>
     <firstname>Norman</firstname>
     <surname>Walsh</surname>
   </personname>
 </author>
+<editor>
+  <personname>
+    <firstname>Richard</firstname>
+    <surname>Hamilton</surname>
+  </personname>
+</editor>
+<publisher>
+<publishername>XML Press</publishername>
+</publisher>
 <copyright><year>2010</year><holder>Norman Walsh</holder></copyright>
 </info>
 
@@ -18,11 +28,18 @@
 <title>Introduction</title>
 <xi:include href="ch01.xml"/>
 <xi:include href="ch02.xml"/>
+<xi:include href="ch03.xml"/>
+<xi:include href="ch04.xml"/>
+<xi:include href="ch05.xml"/>
+<xi:include href="ch06.xml"/>
+<xi:include href="ch07.xml"/>
+<xi:include href="ch08.xml"/>
 </part>
 
 <part xml:id="partii">
 <title>Reference</title>
 
+<xi:include href="compound/reference.xml"/>
 <xi:include href="core/reference.xml"/>
 <xi:include href="fileutils/reference.xml"/>
 <xi:include href="osutils/reference.xml"/>
@@ -33,8 +50,12 @@
 <title>Extending XML Calabash</title>
 
 <xi:include href="xc01.xml"/>
+<xi:include href="xc02.xml"/>
 </part>
 
 <xi:include href="bibl.xml"/>
+<!--
+<xi:include href="glossary.xml"/>
+-->
 
 </book>

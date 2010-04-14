@@ -1,0 +1,46 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.choose">
+<refnamediv>
+<refname><step>p:choose</step></refname>
+<refpurpose>Selects one of a number of alternative pipelines</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<para>…</para>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+<para>…</para>
+</refsection>
+
+<refsection xml:id="p.xpath-context">
+<title>p:xpath-context</title>
+<para>…</para>
+</refsection>
+
+<refsection xml:id="p.when">
+<title>p:when</title>
+<para>…</para>
+</refsection>
+
+<refsection xml:id="p.otherwise">
+<title>p:otherwise</title>
+<para>…</para>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<para>…</para>
+<!--
+<xi:include href="build/.xml" xpointer="xpath(/*/*)"/>
+-->
+
+</refsection>
+</refentry>

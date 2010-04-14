@@ -1,0 +1,36 @@
+<refentry xmlns="http://docbook.org/ns/docbook"
+          xmlns:cx="http://xmlcalabash.com/ns/extensions"
+          xmlns:xi="http://www.w3.org/2001/XInclude"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+          xmlns:p="http://www.w3.org/ns/xproc"
+          xml:id="p.for-each">
+<refnamediv>
+<refname><step>p:for-each</step></refname>
+<refpurpose>Iterates over a sequence of documents</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<para>…</para>
+</refsynopsisdiv>
+
+<refsection>
+<title>Description</title>
+<para>…</para>
+</refsection>
+
+<refsection xml:id="p.iteration-source">
+<title>p:iteration-source</title>
+<para>…</para>
+</refsection>
+
+<refsection>
+<title>Examples</title>
+
+<para>…</para>
+<!--
+<xi:include href="build/.xml" xpointer="xpath(/*/*)"/>
+-->
+
+</refsection>
+</refentry>
