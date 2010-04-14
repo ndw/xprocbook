@@ -7,7 +7,7 @@
           xml:id="p.xslt">
 <refnamediv>
 <refname><step>p:xslt</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Performs XSLT processing</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -27,33 +27,16 @@
 <refsection>
 <title>Description</title>
 
-
 <para>The <tag>p:xslt</tag> step applies an
 <biblioref linkend="xslt10"/> or
 <biblioref linkend="xslt20"/> stylesheet to a document.</para>
 
- 
-<para>If present, the value of the <option>initial-mode</option>
-option <rfc2119>must</rfc2119> be a <type>QName</type>.</para>
- 
-<para>If present, the value of the <option>template-name</option>
-option <rfc2119>must</rfc2119> be a <type>QName</type>.</para>
- 
-<para>If present, the value of the <option>output-base-uri</option>
-option <rfc2119>must</rfc2119> be an <type>anyURI</type>. If it is
-relative, it is made absolute against the base URI of the element on
-which it is specified (<tag>p:with-option</tag> or <tag>p:xslt</tag> in the
-case of a <link linkend="option-shortcut">syntactic shortcut</link>
-value).</para>
-
-<para>If the step specifies a <option>version</option>, then that version
-of XSLT <rfc2119>must</rfc2119> be used to process the transformation.
-<error code="C0038">It is a
-<glossterm>dynamic error</glossterm> if the specified version of XSLT
-is not available.</error> If the step does not specify a version, the
-implementation may use any version it has available and may use any means
-to determine what version to use, including, but not limited to,
-examining the version of the stylesheet.</para>
+<para>If the step specifies a <option>version</option>, then that
+version of XSLT is used to process the transformation. If the step
+does not specify a version, the implementation may use any version it
+has available and may use any means to determine what version to use,
+including, but not limited to, examining the version of the
+stylesheet.</para>
 
 <para>The XSLT stylesheet provided on the <port>stylesheet</port> port
 is applied to the document on the <port>source</port> port. Any
@@ -61,8 +44,8 @@ parameters passed on the <port>parameters</port> port are used to
 define top-level stylesheet parameters. The primary result document of
 the transformation appears on the <port>result</port> port. All other
 result documents appear on the <port>secondary</port> port. If XSLT
-1.0 is used, an empty sequence of documents <rfc2119>must</rfc2119>
-appear on the <port>secondary</port> port.</para>
+1.0 is used, an empty sequence of documents always
+appears on the <port>secondary</port> port.</para>
 
 <para>If a sequence of documents is provided on the
 <port>source</port> port, the first document is used as the
@@ -71,25 +54,20 @@ collection.
 If no documents are provided on the <port>source</port> port,
 the primary input document is undefined and the default collection
 is empty.
-<error code="C0039">It is a
-<glossterm>dynamic error</glossterm> if a sequence of documents (including
-an empty sequence) is provided
-to an XSLT 1.0 step.</error>
 </para>
 
 <para>A dynamic error occurs if the XSLT processor signals a fatal
 error. This includes the case where the transformation terminates due
-to a <tag>xsl:message</tag> instruction with a <tag class="attribute">terminate</tag> attribute value of
-“<literal>yes</literal>”. <impl>How XSLT message termination
-errors are reported to the XProc processor is
-<glossterm>implementation-dependent</glossterm>.</impl></para>
+to a <tag>xsl:message</tag> instruction with a <tag
+class="attribute">terminate</tag> attribute value of
+“<literal>yes</literal>”. How XSLT message termination errors
+are reported to the XProc processor is
+<glossterm>implementation-dependent</glossterm>.</para>
 
 <para>The invocation of the transformation is controlled by the
 <option>initial-mode</option> and <option>template-name</option>
 options that set the initial mode and/or named template in the XSLT
-transformation where processing begins. <error code="C0056">It is a
-<glossterm>dynamic error</glossterm> if the specified initial mode
-or named template cannot be applied to the specified stylesheet.</error>
+transformation where processing begins.
 </para>
 
 <para>The <option>output-base-uri</option> option sets the context's
@@ -98,52 +76,13 @@ of the <port>result</port> document is the base URI of the first
 document in the <code>source</code> port's sequence. If the value of
 the <option>output-base-uri</option> option is not absolute, it will
 be resolved using the base URI of its <tag>p:option</tag>
-element. An XSLT 1.0 step <rfc2119>should</rfc2119> use the value of the
+element. An XSLT 1.0 step should use the value of the
 <option>output-base-uri</option> as the base URI of its output, if the
 option is specified.</para>
 
-<para>If XSLT 2.0 is used, the outputs of this step
-<rfc2119>may</rfc2119> include PSVI annotations.</para>
+<para>If XSLT 2.0 is used, the outputs of this step may include PSVI
+annotations.</para>
 
-
-<para>The static and initial dynamic contexts of the XSLT processor
-are the contexts defined in <xref linkend="step-xpath-context-10"/>
-for an XSLT 1.0 processor and
-<xref linkend="step-xpath-context-20"/> for an XSLT 2.0 processor
-with the following adjustments.</para>
-
-<para>The dynamic context is augmented as follows:</para>
-
-<variablelist>
-<varlistentry>
-<term>Context item</term>
-<listitem>
-<para>The first document that appears on the <port>source</port> port.
-</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>Variable values</term>
-<listitem>
-<para>Any parameters
-passed on the <port>parameters</port> port are available as variable bindings
-to the XSLT processor.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>Function implementations</term>
-<listitem>
-<para>The function implementations provided by the XSLT processor.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>Default collection</term>
-<listitem>
-<para>The sequence of documents provided on the <port>source</port> port.
-</para>
-</listitem>
-</varlistentry>
-</variablelist>
 </refsection>
 
 <refsection>
@@ -161,16 +100,14 @@ to the XSLT processor.</para>
 <row>
 <entry><error code="C0038"/></entry>
 <entry>Occurs
-It is a
-<glossterm>dynamic error</glossterm> if the specified version of XSLT
+if the specified version of XSLT
 is not available.
 </entry>
 </row>
 <row>
 <entry><error code="C0039"/></entry>
 <entry>Occurs
-It is a
-<glossterm>dynamic error</glossterm> if a sequence of documents (including
+if a sequence of documents (including
 an empty sequence) is provided
 to an XSLT 1.0 step.
 </entry>
@@ -178,8 +115,7 @@ to an XSLT 1.0 step.
 <row>
 <entry><error code="C0056"/></entry>
 <entry>Occurs
-It is a
-<glossterm>dynamic error</glossterm> if the specified initial mode
+if the specified initial mode
 or named template cannot be applied to the specified stylesheet.
 </entry>
 </row>
@@ -191,13 +127,7 @@ or named template cannot be applied to the specified stylesheet.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/xslt-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/xslt-1.xml" parse="text"
-/></programlisting>
+<para>FIXME: tbd.</para>
 
 </refsection>
 

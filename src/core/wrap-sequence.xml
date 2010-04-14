@@ -7,7 +7,7 @@
           xml:id="p.wrap-sequence">
 <refnamediv>
 <refname><step>p:wrap-sequence</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Places an element wrapper around a sequence of documents</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -24,46 +24,37 @@
 <refsection>
 <title>Description</title>
 
+<para>The <step>p:wrap-sequence</step> step is something like the
+<step>p:wrap</step> step except that instead of operating on nodes within
+a document, it operates on a sequence of documents.</para>
 
-<para>The <tag>p:wrap-sequence</tag> step accepts a sequence of
-documents and produces either a single document or a new sequence of
-documents.</para>
+<para>In the simple case, the <step>p:wrap-sequence</step> step turns
+a sequence of documents into a single document; it creates a new
+document element and inserts the content of each document in the
+sequence into the new element.
+In the not so simple case, the <option>group-adjacent</option>
+expression can be used to group the documents in a sequence.</para>
 
-
-<para>The value of the <option>wrapper</option> option
-<rfc2119>must</rfc2119> be a <type>QName</type>. If the lexical value
-does not contain a colon, then the <tag class="attribute">wrapper-namespace</tag>
-may be used to specify the namespace of the wrapper. In that case, the
-<tag class="attribute">wrapper-prefix</tag> may be specified to suggest a
-prefix for the wrapper element.
-<error code="D0034">It is a <glossterm>dynamic error</glossterm>
-to specify a new namespace or prefix if the lexical value of the specified
-name contains a colon.</error></para>
-
-<para>The value of the <option>group-adjacent</option> option
-<rfc2119>must</rfc2119> be an XPathExpression.</para>
-
-<para>In its simplest form, <tag>p:wrap-sequence</tag> takes a
-sequence of documents and produces a single, new document by placing
-each document in the <port>source</port> sequence inside a new
-document element as sequential siblings. The name of the document
-element is the value specified in the <option>wrapper</option>
-option.</para>
+<para>The name of
+the wrapper is computed from the <option>wrapper</option>,
+<option>wrapper-prefix</option>, and <option>wrapper-namespace</option>
+options. If the <option>wrapper</option> value contains a colon, then
+its value is interpreted as a QName and there must be an in-scope namespace
+declaration for that prefix in the pipeline document. It is an error in this
+case to specify either a <option>wrapper-prefix</option> or
+<option>wrapper-namespace</option>.</para>
 
 <para>The <option>group-adjacent</option> option can be used to group
-adjacent documents.
-The <link linkend="xpath-context">XPath context</link> for the
-<option>group-adjacent</option> option changes over time. For each document that
-appears on the <code>source</code> port, the expression is evaluated
-with that document as the context document. The context position
-(<code>position()</code>) is the position of that document within the
-sequence and the context size (<code>last()</code>) is the total
-number of documents in the sequence.
-Whenever
-two or more sequentially adjacent documents have the same “group
-adjacent” value, they are wrapped together in a single wrapper
-element.
+adjacent documents. For each input document, the <option>group-adjacent</option>
+expression is evaluated with the input document as the context. Whenever
+two or more sequentially adjacent documents yield the same value for
+the <option>group-adjacent</option> option, they are wrapped together.
 </para>
+
+<para>The context position (<code>position()</code>) is the position
+of that document within the sequence and the context size
+(<code>last()</code>) is the total number of documents in the
+sequence.</para>
 
 </refsection>
 
@@ -82,9 +73,9 @@ element.
 <row>
 <entry><error code="D0034"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
-to specify a new namespace or prefix if the lexical value of the specified
-name contains a colon.
+if either <option>wrapper-namespace</option> or
+<option>wrapper-prefix</option> are specified when the
+<option>wrapper</option> name contains a colon.
 </entry>
 </row>
 </tbody>
@@ -95,13 +86,8 @@ name contains a colon.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/wrap-sequence-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/wrap-sequence-1.xml" parse="text"
-/></programlisting>
+<para>FIXME: TBD. (The harness that runs examples for the book doesn't
+have any way of taking in a sequence of documents.)</para>
 
 </refsection>
 

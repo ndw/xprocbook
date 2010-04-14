@@ -43,11 +43,11 @@ namespaces covered by the documents available on the schemas port.</para>
 
 <para>If <code>xs:include</code> elements occur within the supplied
 schema documents, they are treated like any other
-external documents (see <xref linkend="external-docs"/>). <impl>It is
+external documents (see <xref linkend="external-docs"/>). It is
 <glossterm>implementation-defined</glossterm> if the documents
 supplied on the <port>schemas</port> port are considered when
 resolving <code>xs:include</code> elements in the schema documents
-provided.</impl>
+provided.
 </para>
 
 <para>The <option>use-location-hints</option> and

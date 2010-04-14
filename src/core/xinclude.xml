@@ -7,7 +7,7 @@
           xml:id="p.xinclude">
 <refnamediv>
 <refname><step>p:xinclude</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Performs XInclude processing</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -22,23 +22,21 @@
 <refsection>
 <title>Description</title>
 
+<para>The <tag>p:xinclude</tag> step applies <biblioref
+linkend="xinclude"/> processing to its input
+document.</para>
 
-<para>The <tag>p:xinclude</tag> step applies <biblioref linkend="xinclude"/> processing to the <port>source</port> document.</para>
-
-
-<para>The value of the <option>fixup-xml-base</option> option <rfc2119>must</rfc2119> be a
-boolean. If it is true, base URI fixup will be performed as per
-<biblioref linkend="xinclude"/>.</para>
-
-<para>The value of the <option>fixup-xml-lang</option> option <rfc2119>must</rfc2119> be a
-boolean. If it is true, language fixup will be performed as per
-<biblioref linkend="xinclude"/>.</para>
+<para>If <option>fixup-xml-base</option> is “<literal>true</literal>”,
+base URI fixup will be performed, and if
+<option>fixup-xml-lang</option> is “<literal>true</literal>”,
+language fixup will be performed, both as per
+<biblioref
+linkend="xinclude"/>.</para>
 
 <para>The included documents are located with the base URI of the
-input document and are not provided as input to the step.</para>
-
-<para><error code="C0029">It is a <glossterm>dynamic error</glossterm>
-if an XInclude error occurs during processing.</error> </para>
+input document and are not provided as input to the step. Whether the
+output of preceding steps can be incorporated via XInclude is
+<glossterm>implementation-defined</glossterm>.</para>
 </refsection>
 
 <refsection>
@@ -56,7 +54,6 @@ if an XInclude error occurs during processing.</error> </para>
 <row>
 <entry><error code="C0029"/></entry>
 <entry>Occurs
-It is a <glossterm>dynamic error</glossterm>
 if an XInclude error occurs during processing.
 </entry>
 </row>
@@ -68,13 +65,7 @@ if an XInclude error occurs during processing.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/xinclude-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/xinclude-1.xml" parse="text"
-/></programlisting>
+<para>FIXME: tbd.</para>
 
 </refsection>
 

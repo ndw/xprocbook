@@ -24,7 +24,8 @@
 
 <para>The <tag>p:uuid</tag> step generates a
 <biblioref linkend="bib.uuid"/> and injects it into
-the <port>source</port> document at specified location(s).
+the input document at the location(s) specified by the
+<option>match</option> option.
 If the <option>version</option> is specified, that version of
 UUID must be computed.</para>
 

@@ -7,7 +7,7 @@
           xml:id="p.www-form-urldecode">
 <refnamediv>
 <refname><step>p:www-form-urldecode</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Decodes URL encoded form data</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -20,27 +20,21 @@
 <refsection>
 <title>Description</title>
 
+<para>The most common way for browsers to send parameters to a web service
+is with an encoding called “<literal>x-www-form-urlencoded</literal>”.
+You've all seen it:</para>
 
-<para>The <tag>p:www-form-urldecode</tag> step decodes a
-<literal>x-www-form-urlencoded</literal> string into a set of parameters.</para>
+<screen>http://example.org/service?a=b&amp;c=d&amp;e=&amp;f</screen>
 
+<para>The “<literal>a=b&amp;c=d&amp;e=&amp;f</literal>” part is the
+three parameters (a=b, c=d, and e=f) sent in
+<literal>x-www-form-urlencoded</literal> format.</para>
 
-<para>The <option>value</option> option is interpreted as a string of
-parameter values encoded using the 
-<literal>x-www-form-urlencoded</literal> algorithm. It turns each such
-encoded name/value pair into a parameter. The entire set of parameters
-is written (as a <tag>c:param-set</tag>) on the <port>result</port>
-output port.</para>
-
-<para><error code="C0037">It is a
-<glossterm>dynamic error</glossterm> if the <option>value</option> provided
-is not a properly 
-<literal>x-www-form-urlencoded</literal> value.</error>
-<error code="C0061">It is a
-<glossterm>dynamic error</glossterm> if the name of any encoded parameter
-name is not a valid <type>xs:NCName</type>.</error> In other words, this
-step can only decode simple name/value pairs where the names do not contain
-colons or any characters that cannot be used in XML names.
+<para>The <step>p:www-form-urldecode</step> step interprets a URL
+encoded string and returns a <tag>c:param-set</tag> containing the
+parameters.
+This step is the effectively the opposite of
+<step>p:www-form-urlencode</step>.
 </para>
 
 <para>The order of the <tag>c:param</tag> elements in the result is the same
@@ -52,6 +46,15 @@ each instance. However, only one of these will actually be used if the
 parameter set is passed to another step on its <glossterm>parameter
 input port</glossterm>.</para>
 
+<para>One limitation of this step is that it cannot represent a set of
+parameters if the names are not ordinary XML “local names”. Attempting
+to decode the following string, for example, will cause the step to
+fail:</para>
+
+<screen>x::y=value</screen>
+
+<para>The name “<literal>x::y</literal>” cannot be represented in a
+<tag>c:param-set</tag>.</para>
 
 </refsection>
 
@@ -70,18 +73,16 @@ input port</glossterm>.</para>
 <row>
 <entry><error code="C0037"/></entry>
 <entry>Occurs
-It is a
-<glossterm>dynamic error</glossterm> if the <option>value</option> provided
-is not a properly 
+if the <option>value</option> provided
+is not a properly
 <literal>x-www-form-urlencoded</literal> value.
 </entry>
 </row>
 <row>
 <entry><error code="C0061"/></entry>
 <entry>Occurs
-It is a
-<glossterm>dynamic error</glossterm> if the name of any encoded parameter
-name is not a valid <type>xs:NCName</type>.
+if the name of any encoded parameter
+name is not a valid XML name (without a colon).
 </entry>
 </row>
 </tbody>
@@ -92,13 +93,7 @@ name is not a valid <type>xs:NCName</type>.
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/www-form-urldecode-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/www-form-urldecode-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/www-form-urldecode.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 

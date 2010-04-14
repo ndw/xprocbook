@@ -6,7 +6,6 @@
            xml:id="fileutils">
 <title>Standard XProc Steps</title>
 
-<!--
 <xi:include href="add-attribute.xml"/>
 <xi:include href="add-xml-base.xml"/>
 <xi:include href="compare.xml"/>
@@ -40,18 +39,19 @@
 <xi:include href="validate-with-relax-ng.xml"/>
 <xi:include href="validate-with-schematron.xml"/>
 <xi:include href="validate-with-xml-schema.xml"/>
--->
 
-<!--
+<!-- FIXME: the following step needs examples -->
 <xi:include href="wrap-sequence.xml"/>
+
 <xi:include href="wrap.xml"/>
 <xi:include href="www-form-urldecode.xml"/>
 <xi:include href="www-form-urlencode.xml"/>
+
+<!-- FIXME: the following steps need examples -->
 <xi:include href="xinclude.xml"/>
 <xi:include href="xquery.xml"/>
 <xi:include href="xsl-formatter.xml"/>
 <xi:include href="xslt.xml"/>
--->
 
 </reference>
 

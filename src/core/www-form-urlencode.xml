@@ -7,7 +7,7 @@
           xml:id="p.www-form-urlencode">
 <refnamediv>
 <refname><step>p:www-form-urlencode</step></refname>
-<refpurpose></refpurpose>
+<refpurpose>Encodes parameters into URL encoded form data</refpurpose>
 </refnamediv>
 
 <refsynopsisdiv>
@@ -22,17 +22,15 @@
 <refsection>
 <title>Description</title>
 
+<para>The <step>p:www-form-urlencode</step> step encodes a set of parameter
+values as an “<literal>x-www-form-urlencoded</literal>” string and
+injects it into the input document at the location(s) specified by the
+<option>match</option> option.</para>
 
-<para>The <tag>p:www-form-urlencode</tag> step encodes a set of parameter
-values as a <literal>x-www-form-urlencoded</literal> string and
-injects it into the <port>source</port> document.</para>
-
-
-<para>The value of the <option>match</option> option must be an
-XSLTMatchPattern.</para>
-
-<para>The set of parameters is encoded as a single 
-<literal>x-www-form-urlencoded</literal> string of name/value pairs.
+<para>This step is the effectively the opposite of
+<step>p:www-form-urldecode</step>.
+The set of parameters is encoded as a single
+<literal>x-www-form-urlencoded</literal> string of name/value pairs
 When parameters are encoded into name/value pairs,
 <emphasis>only</emphasis> the local name of each parameter is used.
 The namespace name is ignored and no prefix or colon appears in the name.
@@ -44,10 +42,9 @@ second, etc. reading from left to right.</para>
 
 <para>The matched nodes are specified with the match pattern in the
 <option>match</option> option. For each matching node, the encoded
-string is used in the output. Nodes that do not
-match are copied without change.</para>
+string is used in the output.</para>
 
-<para>If the expression given in the <option>match</option> option 
+<para>If the expression given in the <option>match</option> option
 matches an <emphasis>attribute</emphasis>, the encoded
 string is used as the new value of the attribute in the output.
 If the expression matches any other kind of node, the entire
@@ -55,21 +52,10 @@ node (and <emphasis>not</emphasis> just its contents) is replaced by
 the encoded string.</para>
 </refsection>
 
-</tbody>
-</tgroup>
-</informaltable>
-</refsection>
-
 <refsection>
 <title>Examples</title>
 
-<programlisting
-><xi:include href="examples/www-form-urlencode-1.xpl" parse="text"
-/></programlisting>
-
-<programlisting
-><xi:include href="results/www-form-urlencode-1.xml" parse="text"
-/></programlisting>
+<xi:include href="build/www-form-urlencode.xml" xpointer="xpath(/*/*)"/>
 
 </refsection>
 
