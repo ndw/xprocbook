@@ -13,7 +13,8 @@ read one document at a time.</para>
 table.</para>
   </p:documentation>
 
-  <p:pipeinfo>
+  <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions"
+              cx:diff='false'>
     <doc>
       <para>This is a table.</para>
       <table>

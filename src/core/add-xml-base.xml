@@ -22,12 +22,18 @@
 <refsection>
 <title>Description</title>
 
-<para>The <step>p:add-xml-base</step> step exposes the base URIs in the
-document via
-explicit <att>xml:base</att> attributes. The input document from the
-<port>source</port> port is copied to the <port>result</port> port
-with <att>xml:base</att> attributes added to, or corrected on, each
-element as specified by the options on this step.</para>
+<para>The <step>p:add-xml-base</step> step exposes the base URIs in
+the document via explicit <att>xml:base</att> attributes. If that sounds
+a little odd, it's important to realize that the base URI of a node is
+an intrinsic property of that node. What <step>p:add-xml-base</step> does
+is copy that intrinsic value to the explicit value of the <att>xml:base</att>
+attribute.</para>
+
+<para>The input
+document from the <port>source</port> port is copied to the
+<port>result</port> port with <att>xml:base</att> attributes added to,
+or corrected on, each element as specified by the options on this
+step.</para>
 
 <para>XML provides documents, elements, and processing instructions with
 an intrinsic “base URI” property. As documents flow through an XProc
@@ -36,7 +42,7 @@ operations that cannot preserve the intrinsic base URI; examples include
 storing the document to disk or sending it to a remote web service
 via <step>p:http-request</step>.</para>
 
-<para>The <biblioref linkend="xmlbase"/> specification provides for
+<para>The <biblioref linkend="xml-base"/> specification provides for
 an explicit syntax to represent the base URI: the <att>xml:base</att>
 attribute.</para>
 
@@ -98,6 +104,9 @@ if the <option>all</option> and <option>relative</option> options are
 <title>Examples</title>
 
 <xi:include href="build/add-xml-base.xml" xpointer="xpath(/*/*)"/>
+
+<para>FIXME: add an example to show how all=false can <emphasis>remove</emphasis>
+<att>xml:base</att> attributes.</para>
 
 </refsection>
 

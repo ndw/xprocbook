@@ -49,7 +49,7 @@ document stored by the step.</para>
 
 <para>The standard serialization options are provided to control the
 serialization of the XML content when it is stored. These options are
-as specified in <link linkend="serialization-options"/>.</para>
+as specified in <link linkend="serialization"/>.</para>
 </refsection>
 
 <refsection>

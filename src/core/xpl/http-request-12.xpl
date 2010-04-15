@@ -1,9 +1,13 @@
 <p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
             xmlns:c="http://www.w3.org/ns/xproc-step"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
             version="1.0">
 
   <p:documentation xmlns="http://docbook.org/ns/docbook">
-    <para>If you run the preceding example with some sort of “web sniffer”
+    <para>If you have a tool that will allow you to watch HTTP traffic on
+the network,
+such as <link xlink:href="http://www.tuffcode.com/">HTTP Scoop</link>,
+then with it
 enabled, you'll see that the XProc processor and the server perform a little
 dance:</para>
 
@@ -23,10 +27,10 @@ credentials initially and the web server will respond with the representation.
 </para>
 
 <para>This only works for basic authentication. If you use basic
-authentication you really <emphasis>should</emphasis> use <uri
-type="scheme">https:</uri> as passwords are otherwise sent
-unencrypted, visible to anyone with the aforementioned “web
-sniffer”.</para>
+authentication you really <emphasis>should</emphasis> use
+<uri type="scheme">https:</uri> as passwords are otherwise sent
+unencrypted, visible to anyone with traffic monitoring tool as
+described above.</para>
   </p:documentation>
 
   <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions"

@@ -31,8 +31,8 @@ base URI of the element on which it is specified.</para>
 
 <para>The values of the <option>include-filter</option> and
 <option>exclude-filter</option> options are regular expression as
-specified in <biblioref linkend="xpath-functions"/>, section 7.61
-“<literal>Regular Expression Syntax</literal>”.</para>
+specified in <biblioref linkend="xqt-fando"/>, section 7.61
+“<citetitle>Regular Expression Syntax</citetitle>”.</para>
 
 <para>If the <option>include-filter</option> pattern matches the name
 of a filesystem object, that object is included in the output. If the
@@ -139,7 +139,7 @@ XProc:</para>
 
 <para>The slightly convoluted <step>p:choose</step> is a consequence of
 limitations in how <function>p:value-available</function> works;
-see <xref linkend="f.value-available"/>.</para>
+see <xref linkend="p.value-available"/>.</para>
 
 </refsection>
 

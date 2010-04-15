@@ -25,7 +25,7 @@ and delivers them back in a <tag>c:param-set</tag> document.</para>
 
 <para>Each parameter passed to the step is converted into a
 <tag>c:param</tag> element. The step resolves duplicate parameters in
-the normal way (see <xref linkend="parameter-inputs"/>) so at most one
+the normal way (see <xref linkend="parameters"/>) so at most one
 parameter with any given name will appear in the result.
 The resulting <tag>c:param</tag> elements are wrapped in a
 <tag>c:param-set</tag> and the parameter set document is written

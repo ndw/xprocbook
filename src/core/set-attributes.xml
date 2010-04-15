@@ -36,6 +36,12 @@ be copied already exists, the value specified on the
 added or changed, the base URI of the element is amended
 accordingly.</para>
 
+<refsection>
+<title>Related Steps</title>
+<para>The <step>p:set-attributes</step> step uses an input document to
+specify any number of attributes. If you only need to set a single
+attribute, you may find <step>p:add-attribute</step> simpler.</para>
+</refsection>
 </refsection>
 
 <refsection>

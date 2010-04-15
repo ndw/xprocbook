@@ -51,6 +51,14 @@ to a special variable, <varname>p:index</varname>. The value of
 element. On the first match, it will have the value “1”, on the second,
 “2”, etc.</para>
 
+<refsection>
+<title>Related Steps</title>
+<para>The <step>p:label-elements</step> step computes a new value for
+the attribute each time it's inserted. If you only want to add a literal
+value, you might find <step>p:add-attribute</step> simpler. To set
+multiple (literal) values, see <step>p:set-attributes</step>.
+</para>
+</refsection>
 </refsection>
 
 <refsection>
