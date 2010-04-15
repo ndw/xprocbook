@@ -3,7 +3,7 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:p="http://www.w3.org/ns/xproc"
-         version="5.0-xproc" xml:id="serialization">
+         version="5.0-xproc" xml:id="outputs-and-serialization">
 <info>
 <title>Pipeline Outputs and Serialization</title>
 </info>
