@@ -16,4 +16,10 @@ connects the output port of one step to the input port of another. The
 type, name, and number of ports on each type of step is fixed and
 immutable.</para>
 
+<para>FIXME: talk about step failure.</para>
+
+<para>FIXME: talk about what select on p:input means == separate documents</para>
+
+<para>FIXME: IRI vs URI</para>
+
 </chapter>

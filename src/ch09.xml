@@ -3,19 +3,23 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:p="http://www.w3.org/ns/xproc"
-         version="5.0-xproc" xml:id="libraries">
+         version="5.0-xproc" xml:id="ancillary">
 <info>
-<title>Pipeline Libraries</title>
+<title>Ancillary Information</title>
 </info>
 
-<section xml:id="p.library">
-<title>p:library</title>
+<section xml:id="p.documentation">
+<title>p:documentation</title>
 <para>…</para>
 </section>
 
-<section xml:id="p.import">
-<title>p:import</title>
+<section xml:id="p.pipeinfo">
+<title>p:pipeinfo</title>
 <para>…</para>
 </section>
 
+<section xml:id="p.log">
+<title>p:log</title>
+<para>…</para>
+</section>
 </chapter>

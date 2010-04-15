@@ -3,43 +3,55 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:p="http://www.w3.org/ns/xproc"
-         version="5.0-xproc" xml:id="connections">
+         version="5.0-xproc" xml:id="functions">
 <info>
-<title>Pipeline Inputs</title>
+<title>XPath Expressions and XProc Functions</title>
 </info>
+<para>...</para>
 
-<section xml:id="p.input">
-<title>p:input</title>
+<section xml:id="p.system-property">
+<title>p:system-property</title>
 <para>…</para>
 </section>
 
-<section xml:id="p.pipe">
-<title>p:pipe</title>
+<section xml:id="p.step-available">
+<title>p:step-available</title>
 <para>…</para>
 </section>
 
-<section xml:id="p.inline">
-<title>p:inline</title>
-<para>…</para>
-
-<section xml:id="exclude-inline-prefixes">
-<title>Excluding inline prefixes</title>
-<para>…</para>
-</section>
-</section>
-
-<section xml:id="p.document">
-<title>p:document</title>
+<section xml:id="p.value-available">
+<title>p:value-available</title>
 <para>…</para>
 </section>
 
-<section xml:id="p.data">
-<title>p:data</title>
+<section xml:id="p.iteration-position">
+<title>p:iteration-position</title>
 <para>…</para>
 </section>
 
-<section xml:id="p.empty">
-<title>p:empty</title>
+<section xml:id="p.iteration-size">
+<title>p:iteration-size</title>
 <para>…</para>
 </section>
+
+<section xml:id="p.base-uri">
+<title>p:base-uri</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.resolve-uri">
+<title>p:resolve-uri</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.version-available">
+<title>p:version-available</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.xpath-version-available">
+<title>p:xpath-version-available</title>
+<para>…</para>
+</section>
+
 </chapter>

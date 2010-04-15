@@ -3,29 +3,26 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:p="http://www.w3.org/ns/xproc"
-         version="5.0-xproc" xml:id="varsandopts">
+         version="5.0-xproc" xml:id="serialization">
 <info>
-<title>Variables, Options, and Parameters</title>
+<title>Pipeline Outputs and Serialization</title>
 </info>
 
-<section xml:id="p.variable">
-<title>p:variable</title>
+<para>…</para>
+
+<section xml:id="p.output">
+<title>p:output</title>
 <para>…</para>
 </section>
 
-<section xml:id="p.option">
-<title>p:option</title>
+<section xml:id="serialization">
+<title>Serialization</title>
+
+<para>…</para>
+
+<section xml:id="p.serialization">
+<title>p:serialization</title>
 <para>…</para>
 </section>
-
-<section xml:id="p.with-option">
-<title>p:with-option</title>
-<para>…</para>
 </section>
-
-<section xml:id="p.with-param">
-<title>p:with-param</title>
-<para>…</para>
-</section>
-
 </chapter>

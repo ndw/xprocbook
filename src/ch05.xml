@@ -3,26 +3,49 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          xmlns:p="http://www.w3.org/ns/xproc"
-         version="5.0-xproc" xml:id="serialization">
+         version="5.0-xproc" xml:id="connections">
 <info>
-<title>Pipeline Outputs and Serialization</title>
+<title>Pipeline Inputs</title>
 </info>
 
-<para>…</para>
-
-<section xml:id="p.output">
-<title>p:output</title>
+<section xml:id="p.input">
+<title>p:input</title>
 <para>…</para>
 </section>
 
-<section xml:id="serialization">
-<title>Serialization</title>
+<section xml:id="p.pipe">
+<title>p:pipe</title>
+<para>…</para>
+</section>
 
+<section xml:id="p.inline">
+<title>p:inline</title>
 <para>…</para>
 
-<section xml:id="p.serialization">
-<title>p:serialization</title>
+<section xml:id="exclude-inline-prefixes">
+<title>Excluding inline prefixes</title>
 <para>…</para>
 </section>
 </section>
+
+<section xml:id="p.document">
+<title>p:document</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.data">
+<title>p:data</title>
+<para>…</para>
+</section>
+
+<section xml:id="p.empty">
+<title>p:empty</title>
+<para>…</para>
+</section>
+
+<section xml:id="external-docs">
+<title>External documents, step outputs, and caching</title>
+<para>…</para>
+</section>
+
 </chapter>

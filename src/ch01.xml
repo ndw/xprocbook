@@ -301,8 +301,8 @@ performs.</para>
 and parameters, some steps can be nested, variables may be declared,
 etc.</para>
 
-<para>We'll consider the anatomy of pipelines in more detail in
-<xref linkend="pipelines"/>.</para>
+<para>We'll consider the anatomy of pipelines in more detail in the
+following chapters.</para>
 </section>
 
 <section xml:id="running">
