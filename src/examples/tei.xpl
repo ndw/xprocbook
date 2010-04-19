@@ -4,13 +4,13 @@
 
   <p:validate-with-relax-ng>
     <p:input port="schema">
-      <p:document href="docbook.rng"/>
+      <p:document href="tei.rng"/>
     </p:input>
   </p:validate-with-relax-ng>
 
   <p:xslt>
     <p:input port="stylesheet">
-      <p:document href="docbook.xsl"/>
+      <p:document href="tei.xsl"/>
     </p:input>
   </p:xslt>
 </p:pipeline>

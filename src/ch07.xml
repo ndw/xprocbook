@@ -5,29 +5,207 @@
          xmlns:p="http://www.w3.org/ns/xproc"
          version="5.0-xproc" xml:id="varsandopts">
 <info>
-<title>Variables, Options, and Parameters</title>
+<title>Options, Variables, and Parameters</title>
 </info>
 
-<section xml:id="variables">
-<title>Variables</title>
+<para>Options, variables, and parameters are all quite similar in one way:
+they provide a mechanism for the pipeline author to name strings that they
+want to be able to reuse.</para>
 
-<section xml:id="p.variable">
-<title>p:variable</title>
-<para>…</para>
-</section>
-</section>
+<para>Despite their apparent similarity, they each have a different purpose.
+In this chapter, we're going to explore what each is for and how they
+differ.</para>
+
+<para>Options and variables are actually quite similar; parameters are
+something else entirely, so let's look at options and variables first.</para>
 
 <section xml:id="options">
 <title>Options</title>
 
+<para>Steps, and by extension pipelines, are units of processing designed
+to operate on XML documents. A <step>p:xslt</step> step performs XSLT
+processing, a <step>p:validate-with-xml-schema</step> step performs schema
+validation, etc. They accept XML inputs and produce XML outputs.</para>
+
+<para>But what about extra information that a step might need: in
+XSLT, what is the initial mode?; in schema validation, is strict or
+lax validation requested?; etc.</para>
+
+<para>Those aren't XML documents, those are simple flags, switches, or
+strings. Those are <emphasis>options</emphasis>. Consider the “simple”
+pipeline we saw back in <xref linkend="introduction"/>:</para>
+
+<programlisting
+><xi:include href="examples/simple.xpl" parse="text"
+/></programlisting>
+
+<para>It applies XInclude, validates against the DocBook RELAX NG grammar,
+and then styles the result. This works great for DocBook processing. Suppose
+you also want to do TEI processing. You could write another pipeline:</para>
+
+<programlisting
+><xi:include href="examples/tei.xpl" parse="text"
+/></programlisting>
+
+<para>And you could repeat this for each new vocabulary that you want
+to process. Except that now if you decide you need, say, different
+options on the XInclude step, you have to edit all of these different
+pipelines.</para>
+
+<para>Even with only casual inspection, you can see that they're all
+the same, they just use different names for the schemas and the
+stylesheets. Instead of making different copies of this pipeline, you
+could make the schema and stylesheet into
+<emphasis>options</emphasis>:</para>
+
+<example xml:id="simple-opts">
+<title>A simple pipeline with options</title>
+<programlisting
+><xi:include href="examples/simple-options.xpl" parse="text"
+/></programlisting>
+</example>
+
+<para>Admittedly, on the surface, we've made the pipeline more complicated.
+That's because we have to use the <step>p:load</step> step to load the
+schema and the stylesheet. But the benefit of this additional complexity is
+that our new pipeline will work for any RELAX NG grammar and XSLT stylesheet
+combination, we simply pass the URIs for those documents in as options and
+the pipeline does the rest.</para>
+
+<para>As you can see, options can be referenced like variables in
+XPath expressions.</para>
+
+<para>If you run this pipeline with <filename>docbook.rng</filename>
+and <filename>docbook.xsl</filename> for the <option>schema</option>
+and <option>stylesheet</option> options, respectively, you'll get
+DocBook validation and styling. If you use
+<filename>tei.rng</filename> and <filename>tei.xsl</filename>, the
+exact same stylesheet will perform TEI validation and styling.</para>
+
+<para>But what if you don't specify any options?</para>
+
+<para>If you run the pipeline in <xref linkend="simple-opts"/> without
+any options, it will fail badly (the load step will fail with an error
+along the lines of “undeclared variable in XPath expression”). As the
+pipeline author, there are two ways that you can fix this: you can
+make the options required or you can give them default values.</para>
+
+<para>If you make them required, the pipeline will not run without the
+options (and the error will be something more comprehensible like
+“required option not provided”). If you give them default values, then
+those values will be used if the caller doesn't provide a value.</para>
+
+<para>In this case, because we used to get DocBook processing without
+specifying any options, it probably makes sense to make those the
+defaults.</para>
+
+<!--
+<programlisting><![CDATA[<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
+            version='1.0'>
+  <p:option name="schema" select="'docbook.rng'"/>
+  <p:option name="stylesheet" select="'docbook.xsl'"/>
+
+  …]]></programlisting>
+-->
+
+<para>The following sections describe the option elements in more
+detail.</para>
+
+<para>Before we go on, however, we should point out that there's one
+other possibility when dealing with options. Sometimes it makes sense to
+require them, sometimes it makes sense to give them defaults, but sometimes
+you'd like to do something more sophisticated. In those cases, you can use
+the <function>p:value-available</function> function to test whether or not
+values were provided and respond accordingly. For more information about
+<function>p:value-available</function> and other extension functions,
+see <xref linkend="functions"/>.</para>
+
 <section xml:id="p.option">
 <title>p:option</title>
-<para>…</para>
+
+<para>The <tag>p:option</tag> element can occur as a child of
+<step>p:pipeline</step> (or <step>p:declare-step</step>) to
+<emphasis>declare</emphasis> that the pipeline
+<emphasis>has</emphasis> an option. In the simplest case, the
+<tag>p:option</tag> simply specifies the name of the option:</para>
+
+<cx:rng-pattern name="OptionDeclaration"/>
+
+<para>Options are not often placed in a namespace, but they are
+QNames, so you can if you want to. You can not, however, put them in
+the XProc namespace. That's not allowed.</para>
+
+<para>It may also specify that the option is required. If the
+<att>required</att> attribute is not specified, it has the same effect
+as explicitly setting it to <literal>false</literal>.</para>
+
+<para>FIXME: examples</para>
+
+<para>All options in XProc are simple string values, so there's no
+provision for specifying any additional information about the option,
+such as its type.</para>
+
+<para>It's also possible for the <tag>p:option</tag> to specify a
+default value to be used when the caller does not provide a value for
+the option. This is done with the <att>select</att> attribute:</para>
+
+<cx:rng-pattern name="OptionSelect"/>
+
+<para>The default value is an XPath expression. It can refer to
+preceding options but the context node is undefined.</para>
+
+<para>FIXME: examples</para>
+
 </section>
 
 <section xml:id="p.with-option">
 <title>p:with-option</title>
-<para>…</para>
+
+<para>The <tag>p:with-option</tag> element is used when you are
+<emphasis>calling</emphasis> a step to <emphasis>specify</emphasis> a value
+for that option. You must specify the option name and a <att>select</att>
+expression to provide its value. You may also specify an explicit binding
+in order to set the context node.</para>
+
+<cx:rng-pattern name="WithOptionSelect"/>
+
+<para>If you do not specify an explicit binding, the binding comes from
+the default readable port, if there is one. If there's no explicit binding
+and no default readable port, then the context is undefined (and it's an
+error to refer to it).</para>
+
+<para>FIXME: examples</para>
+
+</section>
+</section>
+
+<section xml:id="variables">
+<title>Variables</title>
+
+<para>Variables are very similar to options. The principal difference is
+that variables are entirely local to the pipeline, they're something that
+the pipeline author uses to organize or simplify the pipeline. Callers
+cannot change, or even see, the names or values of variables.</para>
+
+<section xml:id="p.variable">
+<title>p:variable</title>
+
+<para>When you declare a variable, you must specify the variable's name
+and a <att>select</att> expression to provide its value. You may also
+specify an explicit binding in order to set the context node.</para>
+
+<cx:rng-pattern name="VariableSelect"/>
+
+<para>If you do not specify an explicit binding, the binding comes from
+the default readable port, if there is one. If there's no explicit binding
+and no default readable port, then the context is undefined (and it's an
+error to refer to it).</para>
+
+<para>Like options, variables may be in a namespace but may not be in
+the XProc namespace.</para>
+
+<para>FIXME: examples</para>
+
 </section>
 </section>
 
@@ -36,6 +214,17 @@
 
 <section xml:id="p.with-param">
 <title>p:with-param</title>
+<para>…</para>
+</section>
+</section>
+
+<section xml:id="namespaces">
+<title>Controlling in-scope namespaces</title>
+
+<para>…</para>
+
+<section xml:id="p.namespaces">
+<title>p:namespaces</title>
 <para>…</para>
 </section>
 </section>
