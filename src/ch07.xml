@@ -8,13 +8,37 @@
 <title>Options, Variables, and Parameters</title>
 </info>
 
-<para>Options, variables, and parameters are all quite similar in one way:
-they provide a mechanism for the pipeline author to name strings that they
-want to be able to reuse.</para>
+<para>Options, variables, and parameters are all quite similar in one
+way: they provide a mechanism for the pipeline author to name strings
+that can be reused. However, despite their apparent similarity, each
+has a different purpose. In this chapter, we're going to explore
+what each is for and how they're used.</para>
 
-<para>Despite their apparent similarity, they each have a different purpose.
-In this chapter, we're going to explore what each is for and how they
-differ.</para>
+<para>In broad strokes:</para>
+
+<itemizedlist>
+<listitem>
+<para>Options provide a way to communicate additional information, options,
+to a step: processing modes, validation settings, etc. They exist primarily
+to allow pipeline authors and users to pass additional information to steps and
+pipelines.</para>
+</listitem>
+<listitem>
+<para>Variables provide a way to save the results of evaluating XPath
+expressions. They exist primarily to allow pipeline authors to
+organize and simplify their pipelines. Users have no direct access to
+variables.</para>
+</listitem>
+<listitem>
+<para>Parameters provide a way to pass additional information to a
+class of steps (of which XSLT is the canonical example) without
+requiring the pipeline to have any direct knowledge of that
+information. They exist primarily to allow users to communicate with
+steps inside the pipeline. Pipeline authors have no direct access to
+parameters, though there are steps that allow them to obtain access.
+</para>
+</listitem>
+</itemizedlist>
 
 <para>Options and variables are actually quite similar; parameters are
 something else entirely, so let's look at options and variables first.</para>
@@ -22,18 +46,19 @@ something else entirely, so let's look at options and variables first.</para>
 <section xml:id="options">
 <title>Options</title>
 
-<para>Steps, and by extension pipelines, are units of processing designed
+<para>Steps, and pipelines, are units of processing designed
 to operate on XML documents. A <step>p:xslt</step> step performs XSLT
 processing, a <step>p:validate-with-xml-schema</step> step performs schema
-validation, etc. They accept XML inputs and produce XML outputs.</para>
+validation, and so forth. They accept XML inputs and produce XML outputs.</para>
 
 <para>But what about extra information that a step might need: in
 XSLT, what is the initial mode?; in schema validation, is strict or
 lax validation requested?; etc.</para>
 
-<para>Those aren't XML documents, those are simple flags, switches, or
-strings. Those are <emphasis>options</emphasis>. Consider the “simple”
-pipeline we saw back in <xref linkend="introduction"/>:</para>
+<para>Those additional settings aren't XML documents, those are simple
+flags, switches, or strings. Those are <emphasis>options</emphasis>.
+Consider the “simple” pipeline we saw back in <xref
+linkend="introduction"/>:</para>
 
 <programlisting
 ><xi:include href="examples/simple.xpl" parse="text"
@@ -47,10 +72,13 @@ you also want to do TEI processing. You could write another pipeline:</para>
 ><xi:include href="examples/tei.xpl" parse="text"
 /></programlisting>
 
-<para>And you could repeat this for each new vocabulary that you want
-to process. Except that now if you decide you need, say, different
-options on the XInclude step, you have to edit all of these different
-pipelines.</para>
+<para>And you could write another new pipeline for each new vocabulary
+that you want to process. The problem with this approach is that it's
+tedious and results in a lot of redundancy. Suppose after you've got
+pipelines for five or six vocabularies, you discover that you need to pass
+different options to the XInclude step, or that you want to perform some
+other extra-grammatical check on the inputs? You have to edit each of the
+pipelines to add this new functionality.</para>
 
 <para>Even with only casual inspection, you can see that they're all
 the same, they just use different names for the schemas and the
@@ -61,7 +89,7 @@ could make the schema and stylesheet into
 <example xml:id="simple-opts">
 <title>A simple pipeline with options</title>
 <programlisting
-><xi:include href="examples/simple-options.xpl" parse="text"
+><xi:include href="examples/format.xpl" parse="text"
 /></programlisting>
 </example>
 
@@ -70,7 +98,10 @@ That's because we have to use the <step>p:load</step> step to load the
 schema and the stylesheet. But the benefit of this additional complexity is
 that our new pipeline will work for any RELAX NG grammar and XSLT stylesheet
 combination, we simply pass the URIs for those documents in as options and
-the pipeline does the rest.</para>
+the pipeline does the rest<footnote><para>Alternatively, you could make the
+grammar and the stylesheet into pipeline inputs; that's an equally reasonable
+approach, but it doesn't illustrate the point I'm trying to make here.</para>
+</footnote>.</para>
 
 <para>As you can see, options can be referenced like variables in
 XPath expressions.</para>
@@ -78,35 +109,63 @@ XPath expressions.</para>
 <para>If you run this pipeline with <filename>docbook.rng</filename>
 and <filename>docbook.xsl</filename> for the <option>schema</option>
 and <option>stylesheet</option> options, respectively, you'll get
-DocBook validation and styling. If you use
+DocBook validation and styling:</para>
+
+<screen><prompt>$ </prompt><userinput>calabash -isource=dbdoc.xml format.xpl schema=docbook.rng stylesheet=docbook.xsl</userinput></screen>
+
+<para> If you use
 <filename>tei.rng</filename> and <filename>tei.xsl</filename>, the
-exact same stylesheet will perform TEI validation and styling.</para>
+exact same stylesheet will perform TEI validation and styling:</para>
+
+<screen><prompt>$ </prompt><userinput>calabash -isource=teidoc.xml format.xpl schema=tei.rng stylesheet=tei.xsl</userinput></screen>
 
 <para>But what if you don't specify any options?</para>
 
 <para>If you run the pipeline in <xref linkend="simple-opts"/> without
 any options, it will fail badly (the load step will fail with an error
-along the lines of “undeclared variable in XPath expression”). As the
-pipeline author, there are two ways that you can fix this: you can
-make the options required or you can give them default values.</para>
+along the lines of “undeclared variable in XPath expression”):</para>
+
+<screen><prompt>$ </prompt><userinput>calabash -isource=doc.xml format.xpl</userinput>
+<computeroutput>SEVERE: format.xpl:8:30:err:XD0023:Undeclared variable in XPath expression: $schema
+SEVERE: It is a dynamic error if an XPath expression is encountered which cannot be
+evaluated (because it is syntactically incorrect, contains references to unbound
+variables or unknown functions, or for any other reason).</computeroutput></screen>
+
+<para>As the pipeline author, there are two ways that you can fix
+this: you can make the options required or you can give them default
+values.</para>
+
+<para>The <att>required</att> attribute is used to make them required:</para>
+
+<programlisting><![CDATA[<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
+            version='1.0'>
+  <p:option name="schema" required="true"/>
+  <p:option name="stylesheet" required="true"/>
+
+  …]]></programlisting>
 
 <para>If you make them required, the pipeline will not run without the
 options (and the error will be something more comprehensible like
-“required option not provided”). If you give them default values, then
-those values will be used if the caller doesn't provide a value.</para>
+“required option not provided”):</para>
+
+<screen><prompt>$ </prompt><userinput>calabash -isource=doc.xml format.xpl</userinput>
+<computeroutput>SEVERE: format-optreq.xpl:3:44:err:XS0018:No value provided for required option "schema"
+SEVERE: If an option is required, it is a static error to invoke the step without
+specifying a value for that option.</computeroutput></screen>
+
+<para>If you give them default values, then the specified default value
+will be used if the caller doesn't provide a value.</para>
 
 <para>In this case, because we used to get DocBook processing without
 specifying any options, it probably makes sense to make those the
 defaults.</para>
 
-<!--
 <programlisting><![CDATA[<p:pipeline xmlns:p="http://www.w3.org/ns/xproc"
             version='1.0'>
   <p:option name="schema" select="'docbook.rng'"/>
   <p:option name="stylesheet" select="'docbook.xsl'"/>
 
   …]]></programlisting>
--->
 
 <para>The following sections describe the option elements in more
 detail.</para>
@@ -122,6 +181,11 @@ see <xref linkend="functions"/>.</para>
 
 <section xml:id="p.option">
 <title>p:option</title>
+
+<para>The <tag>p:option</tag> element is used when you are
+<emphasis>declaring</emphasis> a step to specify
+<emphasis>what options are allowed</emphasis>, whether or not they are
+required and what default values they have, if any.</para>
 
 <para>The <tag>p:option</tag> element can occur as a child of
 <step>p:pipeline</step> (or <step>p:declare-step</step>) to
@@ -139,11 +203,15 @@ the XProc namespace. That's not allowed.</para>
 <att>required</att> attribute is not specified, it has the same effect
 as explicitly setting it to <literal>false</literal>.</para>
 
-<para>FIXME: examples</para>
-
 <para>All options in XProc are simple string values, so there's no
 provision for specifying any additional information about the option,
 such as its type.</para>
+
+<tip role="extension">
+<para>XML Calabash has an option which enables options, variables,
+and parameters to hold arbitrary values. Using this option makes
+XML Calabash a non-conforming processor.</para>
+</tip>
 
 <para>It's also possible for the <tag>p:option</tag> to specify a
 default value to be used when the caller does not provide a value for
@@ -154,16 +222,64 @@ the option. This is done with the <att>select</att> attribute:</para>
 <para>The default value is an XPath expression. It can refer to
 preceding options but the context node is undefined.</para>
 
-<para>FIXME: examples</para>
+<para>In summary:</para>
 
+<variablelist>
+<varlistentry>
+<term><code>&lt;p:option name=”oname”/&gt;</code></term>
+<listitem>
+<para>Specifies an option named “<literal>oname</literal>”. The option is
+not required and has no default value. If the caller doesn't specify a value,
+it will be an error to attempt to refer to it in the pipeline.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><code>&lt;p:option name=”oname” required=”false”/&gt;</code></term>
+<listitem>
+<para>Specifies an option named “<literal>oname</literal>”. The option is
+not required and has no default value. Just like the preceding example.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><code>&lt;p:option name=”oname”/ required=”true”&gt;</code></term>
+<listitem>
+<para>Specifies an option named “<literal>oname</literal>”. The option is
+required. If the caller does not provide a value, the step will fail at runtime.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><code>&lt;p:option name=”oname” select=”'some default value'/&gt;</code></term>
+<listitem>
+<para>Specifies an option named “<literal>oname</literal>” with the default
+value “<literal>some default value</literal>”. If the caller doesn't specify
+a value, it will be exactly as if they specified the value
+“<literal>some default value</literal>”. (The pipeline cannot tell if an
+option's value was explicitly provided or provided by default.)
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><code>&lt;p:option name=”oname” select=”'some default value'” required=”true”/&gt;</code></term>
+<listitem>
+<para>This is an error. It makes no sense to provide a default value for a
+required option so the specification does not allow it. A pipeline that contains
+this will be statically rejected.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
 </section>
 
 <section xml:id="p.with-option">
 <title>p:with-option</title>
 
 <para>The <tag>p:with-option</tag> element is used when you are
-<emphasis>calling</emphasis> a step to <emphasis>specify</emphasis> a value
+<emphasis>calling</emphasis> a step to specify <emphasis>a value</emphasis>
 for that option. You must specify the option name and a <att>select</att>
+attribute containing an XPath
 expression to provide its value. You may also specify an explicit binding
 in order to set the context node.</para>
 
@@ -174,7 +290,36 @@ the default readable port, if there is one. If there's no explicit binding
 and no default readable port, then the context is undefined (and it's an
 error to refer to it).</para>
 
-<para>FIXME: examples</para>
+<para>This example passes the value “5” to the option “<literal>depth</literal>”:
+</para>
+
+<programlisting>&lt;p:with-option name=”depth” select=”5”/&gt;</programlisting>
+
+<para>This example passes the string value of the <att>version</att>
+attribute on the document element as the value of the
+“<literal>version</literal>” option:</para>
+
+<programlisting>&lt;p:with-option name=”version” select=”/*/@version”/&gt;</programlisting>
+
+<para>In order to evaluate this expression, the processor must have a document
+to use as the context. As specified, the context will come from the default
+readable port. You can specify an alternate context, most often this is
+the output from some other step:</para>
+
+<programlisting>&lt;p:with-option name=”version” select=”/*/@version”&gt;
+  &lt;p:pipe step=”preceding” port=”result”/&gt;
+&lt;/p:with-option/&gt;</programlisting>
+
+<para>Here the context will be the document that appears on the
+<port>result</port> port of the step with the name “<literal>preceding</literal>”.
+</para>
+
+<para>XPath expressions are evaluated in the context of a
+<emphasis>single</emphasis> document. If a sequence of more than one document
+appears in the context of a <tag>p:with-option</tag>, that will raise an
+error. If you need to use a document from a step that generates a sequence
+as the context, you can use <tag>p:split-sequence</tag> to extract exactly
+the document you want to use.</para>
 
 </section>
 </section>
@@ -204,13 +349,152 @@ error to refer to it).</para>
 <para>Like options, variables may be in a namespace but may not be in
 the XProc namespace.</para>
 
-<para>FIXME: examples</para>
+<para>This example specifies the value “5” for the
+variable “<literal>depth</literal>”:
+</para>
 
+<programlisting>&lt;p:variable name=”depth” select=”5”/&gt;</programlisting>
+
+<para>This example computes the “<literal>uri</literal>” value by resolving
+the value of some preceding option or variable named “<literal>href</literal>”
+against the base URI of a particular document:</para>
+
+<programlisting>&lt;p:variable name=”uri” select=”resolve-uri($href, base-uri(/))”/&gt;</programlisting>
+
+<para>In order to evaluate this expression, the processor must have a document
+to use as the context. As specified, the context will come from the default
+readable port. You can specify an alternate context, most often this is
+the output from some other step:</para>
+
+<programlisting>&lt;p:variable name=”uri” select=”resolve-uri($href, base-uri(/))”&gt;
+  &lt;p:pipe step=”preceding” port=”result”/&gt;
+&lt;/p:variable/&gt;</programlisting>
+
+<para>Here the context will be the document that appears on the
+<port>result</port> port of the step with the name “<literal>preceding</literal>”.
+</para>
+
+<para>XPath expressions are evaluated in the context of a
+<emphasis>single</emphasis> document. If a sequence of more than one document
+appears in the context of a <tag>p:variable</tag>, that will raise an
+error. If you need to use a document from a step that generates a sequence
+as the context, you can use <tag>p:split-sequence</tag> to extract exactly
+the document you want to use.</para>
+
+<section xml:id="var-placement">
+<title>Variable placement</title>
+
+<para>There's one oddity about variables: they can only occur at the beginning
+of a compound step. In other words, you <emphasis>can't</emphasis> do this:</para>
+
+<programlisting role="invalid"
+><xi:include href="examples/invalid-vars.xpl" parse="text"
+/></programlisting>
+
+<para>You can't put a variable declaration between two steps. This may seem
+like an odd restriction, but it's motivated by the fact that the order of
+the steps in your pipeline document is not necessarily the order in which
+they will be evaluated.</para>
+
+<para>If variable declarations were allowed between two steps, and the order
+of those steps was changed, the variable declaration might also have to be
+moved. In order to determine where it could go (if the resulting pipeline was
+even valid), the processor would have to examine the content of all the
+XPath expressions used on all the steps in order to find out where the
+variable was used (and consequently which steps it must precede).</para>
+
+<para>No where else in XProc is the processor required to analyze the
+XPath expressions (implementations can simply pass them off to an underlying
+processor, without having to parse them directly). The working group was
+unwilling to impose this additional burden on implementors just to satisfy
+this single case.</para>
+
+<para>Instead, it made two observations:</para>
+
+<orderedlist>
+<listitem>
+<para>If variables are only allowed before the first step, then this
+problem cannot arise.</para>
+</listitem>
+<listitem>
+<para>The pipeline author can always insert a new <tag>p:group</tag>
+if the value of a variable needs to be computed based on the output
+of some step.</para>
+</listitem>
+</orderedlist>
+
+<para>So our earlier invalid pipeline can be written as follows:</para>
+
+<programlisting
+><xi:include href="examples/valid-vars.xpl" parse="text"
+/></programlisting>
+
+<para>This is perfectly valid. There's no question that this is a
+surprising state of affairs, but it doesn't actually impact the kinds
+of processing that XProc can perform.</para>
+</section>
 </section>
 </section>
 
 <section xml:id="parameters">
 <title>Parameters</title>
+
+<para>Parameters suck. They make XProc more complicated, they
+introduce a number of odd defaulting rules that the language would be
+cleaner without, they use an input port in a very odd way, and they're
+bound to cause all sorts of confusion. If the working group could have
+thought of a way to get rid of them, it probably would have.</para>
+
+<para>Parameters exist to solve a particular problem exemplified by
+(but not unique to) XSLT. Consider that pipeline back up in <xref
+linkend="simple-opts"/>. Suppose that it's used to process a document
+with the DocBook XSL Stylesheets. The DocBook stylesheets have
+<emphasis>more than 600 parameters</emphasis>: there are parameters
+for chunking, profiling, table formating, refentry formatting, cross
+reference, bibliography, and glossary styling, and on and on.</para>
+
+<para>These parameters exist to allow users to control aspects of behavior
+without having to edit the stylesheets. Now suppose you want to run
+that pipeline and pass a parameter (or two, or ten) to XSLT? What
+are the options?</para>
+
+<variablelist>
+<varlistentry><term>You can't.</term>
+<listitem>
+<para>It's simple, but it's not very satisfying. Given the success
+and popularity of XSLT, it's likely that a lot of pipelines will use it.
+Preventing any of them from using stylesheet parameters doesn't seem
+like a good idea.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry><term>You have to pass them explicitly on the XSLT step.</term>
+<listitem>
+<para>That means writing a different pipeline for every combination of
+stylesheet options <emphasis>and values</emphasis> that you want to pass
+to XSLT. I guess that's better than not being able to do it at all, but not
+by much.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry><term>Use options.</term>
+<listitem>
+<para>In many ways using options would be the cleanest answer. Except
+that using options means every pipeline that includes XSLT will have
+to provide a <tag>p:option</tag> for every possible parameter for
+every possible stylsheet that it might run. I don't think very many
+pipeline authors are going to want to put thousands of <tag>p:option</tag>
+elements in each pipeline that uses XSLT and then thousands of
+<tag>p:with-option</tag> elements on each call to <tag>p:xslt</tag>.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>Given that none of those alternatives are practical, a new “parameters”
+mechanism was invented. In many ways parameters are like options, except that
+their names are not known in advance to the pipeline author.
+</para>
 
 <section xml:id="p.with-param">
 <title>p:with-param</title>
