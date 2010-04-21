@@ -496,9 +496,151 @@ mechanism was invented. In many ways parameters are like options, except that
 their names are not known in advance to the pipeline author.
 </para>
 
+<para>In the simplest case, it just works. Any parameters passed to the
+pipeline are automatically passed to any step that expects parameters.
+Under the covers there's quite a bit of magic going on. Let's take a closer
+look. The descriptions that follow describe what an XProc processor does
+<emphasis>in principle</emphasis>; an implementation is free to choose
+a more efficient implementation in practice as long as it behaves as
+if it did the steps described here.</para>
+
+<para>Recall that a <tag>p:pipeline</tag> is just syntactic sugar for a
+particular form of <tag>p:declare-step</tag>. <xref linkend="ex.pdecl"/>
+shows the simplest XSLT pipeline using the fully explicit syntax.</para>
+
+<example xml:id="ex.pdecl">
+<title>Explicit parameter pipeline</title>
+<programlisting
+><xi:include href="examples/param-decl.xpl" parse="text"
+/></programlisting>
+</example>
+
+<para>The first thing to observe is that it has a special “parameter”
+input port. XProc's greatest strength is its ability to process XML documents;
+to take advantage of this strength, parameters are mapped onto a special kind
+of input port.</para>
+
+<para>Suppose we run this pipeline as follows:</para>
+
+<screen><prompt>$ </prompt><userinput>calabash -isource=dbdoc.xml -pbody.font.family=sans-serif param-decl.xpl</userinput></screen>
+
+<para>where we've passed the parameter named
+“<parameter>body.font.family</parameter>” to the pipeline with the
+value “<literal>sans-serif</literal>”.</para>
+
+<para>The first thing the server does is create a <tag>c:param-set</tag>
+document containing all the parameters passed to the pipeline:</para>
+
+<programlisting><![CDATA[<c:param-set>
+  <c:param name="body.font.family" value="sans-serif"/>
+</c:param-set>]]></programlisting>
+
+<para>This document is sent to the pipeline on the
+“<port>parameters</port>”
+port.</para>
+
+<para>The <tag>p:xslt</tag> step also has a parameter input port. When I
+said the pipeline in <xref linkend="ex.pdecl"/> was fully explicit, I
+left out a few details. The <emphasis>fully</emphasis> explicit version
+is in <xref linkend="ex.pfdecl"/>.</para>
+
+<example xml:id="ex.pfdecl">
+<title>Fully explicit parameter pipeline</title>
+<programlisting
+><xi:include href="examples/param-fulldecl.xpl" parse="text"
+/></programlisting>
+</example>
+
+<para>This version shows explicitly the ordinarily implicit binding
+from the parameters input port on the <tag>p:xslt</tag> step to the
+parameters input port on the containing pipeline.</para>
+
+<para>Although this binding is most often implicit, it's important to
+remember that it can be explicit. In rare circumstances, it may be
+necessary to have more than one parameter input port. Consider the case,
+for example where you want to run the <tag>p:xslt</tag> step twice in
+a single pipeline but pass entirely separate sets of parameters to each
+instance.</para>
+
+<para>In this case, you can name multiple parameter input ports and
+make the bindings explicit as shown in <xref linkend="ex.mdecl"/>.</para>
+
+<example xml:id="ex.mdecl">
+<title>Multiple parameter inputs</title>
+<programlisting
+><xi:include href="examples/param-mdecl.xpl" parse="text"
+/></programlisting>
+</example>
+
+<para>The important thing to remember is that most of the defaulting
+rules only apply when there's a single parameter input port.</para>
+
 <section xml:id="p.with-param">
 <title>p:with-param</title>
-<para>…</para>
+
+<para>Sometimes you want to construct or specify a parameter value in
+the pipeline. For this purpose, you can use <tag>p:with-param</tag>.
+Like <tag>p:with-option</tag>, it's used when you are
+<emphasis>calling</emphasis> a step to specify <emphasis>a value</emphasis>
+for a particular parameter. (There's no equivalent of <tag>p:option</tag>
+because parameters are by definition not declared in the pipeline.)</para>
+
+<para>You must specify the parameter name and a <att>select</att>
+attribute containing an XPath expression to provide its value. You may
+also specify an explicit binding in order to set the context
+node.</para>
+
+<cx:rng-pattern name="WithParamSelect"/>
+
+<para>If you do not specify an explicit binding, the binding comes from
+the default readable port, if there is one. If there's no explicit binding
+and no default readable port, then the context is undefined (and it's an
+error to refer to it).</para>
+
+<para>This example passes the value “5” to the parameter “<literal>depth</literal>”:
+</para>
+
+<programlisting>&lt;p:with-param name=”depth” select=”5”/&gt;</programlisting>
+
+<para>Because there can be multiple parameter input ports, there is also a
+<att>port</att> attribute. You <emphasis>must</emphasis> specify the port
+attribute if the step has more than one parameter input port. Otherwise,
+the default is for the single parameter input port.</para>
+
+<para>This example passes the string value of the <att>version</att>
+attribute on the document element as the value of the
+“<literal>version</literal>” parameter on the <port>params1</port>:</para>
+
+<programlisting>&lt;p:with-param port=”params1” name=”version” select=”/*/@version”/&gt;</programlisting>
+
+<para>In order to evaluate this expression, the processor must have a document
+to use as the context. As specified, the context will come from the default
+readable port. You can specify an alternate context, most often this is
+the output from some other step:</para>
+
+<programlisting>&lt;p:with-param port=”params1” name=”version” select=”/*/@version”&gt;
+  &lt;p:pipe step=”preceding” port=”result”/&gt;
+&lt;/p:with-param/&gt;</programlisting>
+
+<para>Here the context will be the document that appears on the
+<port>result</port> port of the step with the name “<literal>preceding</literal>”.
+</para>
+
+<para>XPath expressions are evaluated in the context of a
+<emphasis>single</emphasis> document. If a sequence of more than one document
+appears in the context of a <tag>p:with-param</tag>, that will raise an
+error. If you need to use a document from a step that generates a sequence
+as the context, you can use <tag>p:split-sequence</tag> to extract exactly
+the document you want to use.</para>
+
+<para>One important consequence of using <tag>p:with-param</tag> is that it
+constitutes a binding for the parameter input port. If you use a single
+<tag>p:with-param</tag> you must also make any pipe binding for the parameter
+input port explicit.</para>
+
+<para>FIXME: example</para>
+
+
 </section>
 </section>
 
@@ -509,7 +651,9 @@ their names are not known in advance to the pipeline author.
 
 <section xml:id="p.namespaces">
 <title>p:namespaces</title>
-<para>…</para>
+
+<cx:rng-pattern name="Namespaces"/>
+
 </section>
 </section>
 
