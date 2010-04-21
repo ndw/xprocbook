@@ -73,6 +73,21 @@ table.pipelineexample {
   margin-top: "0.5em;"
 }
 
+.exlink {
+  text-align: right;
+  padding-right: 45px;
+  padding-top: 2px;
+  padding-bottom: 4px;
+}
+
+.exlink a,
+.exlink a:visited {
+  color: black;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: small;
+}
+
 /* Pretty printing */
 
 .atteq {

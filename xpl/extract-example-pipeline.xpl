@@ -15,13 +15,14 @@
   <p:import href="/home/ndw/xmlcalabash.com/library/tee.xpl"/>
 
   <p:load name="xpl">
-    <p:with-option name="href" select="concat(exf:cwd(), '/../xpl/', $href)"/>
+    <p:with-option name="href" select="concat(exf:cwd(), '../xpl/', $href)"/>
   </p:load>
 
   <p:delete match="p:documentation[db:*]"/>
   <p:delete match="p:pipeinfo"/>
 
-  <p:exec command="/opt/local/bin/xmllint" args="--format --nsclean -"/>
+  <p:exec name="input-pipeline"
+          command="/opt/local/bin/xmllint" args="--format --nsclean -"/>
 
   <p:exec command="/projects/xproc/bin/prettyprint"
           result-is-xml="true">
@@ -34,7 +35,15 @@
 
   <p:store>
     <p:with-option name="href"
-                   select="concat(exf:cwd(), '/examples/', $href)"/>
+                   select="concat(exf:cwd(), 'examples/', $href)"/>
+  </p:store>
+
+  <p:store indent="true">
+    <p:input port="source" select="/*/*">
+      <p:pipe step="input-pipeline" port="result"/>
+    </p:input>
+    <p:with-option name="href"
+                   select="concat(exf:cwd(), 'xpl/', $href)"/>
   </p:store>
 
   <p:for-each name="for-each">
@@ -158,7 +167,7 @@
 
     <p:store>
       <p:with-option name="href"
-                     select="concat(exf:cwd(), '/diffs/', $basename)"/>
+                     select="concat(exf:cwd(), 'diffs/', $basename)"/>
     </p:store>
   </p:for-each>
 
@@ -173,7 +182,7 @@
 
   <p:store>
     <p:with-option name="href"
-                   select="concat(exf:cwd(), '/', substring-before($href,'.xpl'), '.xml')"/>
+                   select="concat(exf:cwd(), substring-before($href,'.xpl'), '.xml')"/>
   </p:store>
 
 </p:declare-step>

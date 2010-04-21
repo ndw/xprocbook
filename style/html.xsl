@@ -9,8 +9,9 @@
                 exclude-result-prefixes="c db t html deltaxml"
                 version="2.0">
 
-<xsl:import href="/sourceforge/docbook/xsl2/base/html/docbook.xsl"/>
+<xsl:import href="docbook/xsl2/base/html/docbook.xsl"/>
 <xsl:import href="xprocns.xsl"/>
+<xsl:import href="rngsyntax.xsl"/>
 
 <xsl:param name="linenumbering" as="element()*">
 <ln path="literallayout" everyNth="0"/>
@@ -82,6 +83,13 @@
       <xsl:apply-templates mode="prettyprint"/>
     </pre>
   </div>
+  <xsl:if test="matches(base-uri(.), '^.*/examples/.*\.xpl$')">
+    <div class="exlink">
+      <a href="build/xpl/{substring-after(base-uri(.),'examples/')}">
+        <xsl:text>Download pipeline</xsl:text>
+      </a>
+    </div>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="c:line" mode="prettyprint">
@@ -292,14 +300,14 @@
 <!-- ============================================================ -->
 
 <xsl:param name="docbook.css"
-           select="'/projects/xproc/css/docbook.css'"/>
+           select="'../css/docbook.css'"/>
 
 <xsl:template name="css-style">
   <style type="text/css">
     <xsl:copy-of select="unparsed-text($docbook.css, 'us-ascii')"/>
   </style>
   <style type="text/css">
-    <xsl:copy-of select="unparsed-text('/projects/xproc/css/xprocbook.css',
+    <xsl:copy-of select="unparsed-text('../css/xprocbook.css',
                                        'us-ascii')"/>
   </style>
 </xsl:template>

@@ -181,10 +181,10 @@ sub esc {
         my $ent = $2;
         $text = $3;
 
-        if ($ent =~ /^[0-9]+$/) {
-            $esc .= "<tag class='numcharref'>$ent</tag>";
-        } elsif ($ent =~ /^x[0-9a-f]+$/i) {
-            $esc .= "<tag class='numcharref'>$ent</tag>";
+        if ($ent =~ /^\#([0-9]+)$/) {
+            $esc .= "<tag class='numcharref'>$1</tag>";
+        } elsif ($ent =~ /^\#(x[0-9a-f]+)$/i) {
+            $esc .= "<tag class='numcharref'>$1</tag>";
         } else {
             $esc .= "<tag class='genentity'>$ent</tag>";
         }
@@ -222,5 +222,5 @@ sub pcdata {
 
 sub attvalue {
     my $text = shift;
-    return esc($text, "<tag class='attvalue'>", "</tag>");
+    return esc($text, "<phrase role='attvalue'>", "</phrase>");
 }

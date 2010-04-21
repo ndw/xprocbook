@@ -10,7 +10,17 @@
 
   <p:import href="/home/ndw/xmlcalabash.com/library/tee.xpl"/>
 
-  <p:xinclude name="xinclude"/>
+  <p:xinclude name="xinclude" fixup-xml-base="true" fixup-xml-lang="true"/>
+
+<!--
+  <cx:tee href="/tmp/xiout.xml" debug="1"/>
+
+  <p:validate-with-relax-ng>
+    <p:input port="schema">
+      <p:data href="../schemas/xproc.rnc"/>
+    </p:input>
+  </p:validate-with-relax-ng>
+-->
 
   <p:xslt name="patchdb">
     <p:input port="stylesheet">
@@ -18,7 +28,7 @@
     </p:input>
   </p:xslt>
 
-  <cx:tee href="/tmp/out.xml" debug="1"/>
+  <cx:tee href="book-expanded.xml" debug="1"/>
 
   <p:xslt name="style">
     <p:input port="stylesheet">

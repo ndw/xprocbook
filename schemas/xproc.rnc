@@ -8,7 +8,11 @@ namespace s = "http://www.ascc.net/xml/schematron"
 namespace db = "http://docbook.org/ns/docbook"
 namespace html = "http://www.w3.org/1999/xhtml"
 namespace p = "http://www.w3.org/ns/xproc"
-namespace e ="http://www.w3.org/1999/XSL/Spec/ElementSyntax"
+namespace e = "http://www.w3.org/1999/XSL/Spec/ElementSyntax"
+namespace c = "http://www.w3.org/ns/xproc-step"
+namespace deltaxml = "http://www.deltaxml.com/ns/well-formed-delta-v1"
+namespace cx = "http://xmlcalabash.com/ns/extensions"
+
 default namespace = "http://docbook.org/ns/docbook"
 
 include "/home/ndw/docbook.org/xml/5.0/rng/docbookxi.rnc" {
@@ -17,7 +21,7 @@ include "/home/ndw/docbook.org/xml/5.0/rng/docbookxi.rnc" {
    }
 }
 
-db.all.blocks |= p.declare-step
+db.all.blocks |= p.declare-step | cx.rng-pattern #| c.prettyprint
 
 p.declare-step =
    element p:declare-step {
@@ -97,4 +101,34 @@ db.att =
    }
 
 db.markup.inlines |= db.att
+
+# ======================================================================
+
+cx.rng-pattern =
+   element cx:rng-pattern {
+      attribute name { text },
+      empty
+   }
+
+# ======================================================================
+
+#deltaXML.attributes =
+#   attribute deltaxml:deltaV1 { text }?,
+#   attribute deltaxml:deltaV2 { text }?,
+#   attribute deltaxml:version { text }?,
+#   attribute deltaxml:content-type { text }?
+#
+#db.common.attributes &= deltaXML.attributes
+#
+#c.prettyprint =
+#   element c:prettyprint {
+#      db.common.attributes,
+#      c.line+
+#   }
+#
+#c.line =
+#   element c:line {
+#      db.common.attributes,
+#      db.all.inlines*
+#   }
 
