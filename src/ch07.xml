@@ -271,6 +271,10 @@ this will be statically rejected.
 </listitem>
 </varlistentry>
 </variablelist>
+
+<para>It is also an error to attempt to declare more then one option
+with the same name.</para>
+
 </section>
 
 <section xml:id="p.with-option">
@@ -320,6 +324,10 @@ appears in the context of a <tag>p:with-option</tag>, that will raise an
 error. If you need to use a document from a step that generates a sequence
 as the context, you can use <tag>p:split-sequence</tag> to extract exactly
 the document you want to use.</para>
+
+<para>You can only pass one value for an option. It is an error to use
+two or more <tag>p:with-option</tag>s on a single instance of a step if
+they have the same option name.</para>
 
 </section>
 </section>
@@ -433,6 +441,19 @@ of some step.</para>
 surprising state of affairs, but it doesn't actually impact the kinds
 of processing that XProc can perform.</para>
 </section>
+
+<section xml:id="shadowing">
+<title>Variable shadowing</title>
+
+<para>It's an error to have more than one declaration for the same
+variable name at the same level, in other words for their declarations
+to be siblings in the XML sense.</para>
+
+<para>If however, you use the same option name inside nested compound steps,
+the inner values shadow the outer values. In other words, within any given
+compound step, the nearest ancestor declaration is the one that holds.
+</para>
+</section>
 </section>
 </section>
 
@@ -539,6 +560,11 @@ document containing all the parameters passed to the pipeline:</para>
 “<port>parameters</port>”
 port.</para>
 
+<para>It is not an error to specify more than one value for the same
+parameter; if more than one value is provided for the same parameter
+name, the <emphasis>last</emphasis> value provided is used. All earlier
+values are silently ignored.</para>
+
 <para>The <tag>p:xslt</tag> step also has a parameter input port. When I
 said the pipeline in <xref linkend="ex.pdecl"/> was fully explicit, I
 left out a few details. The <emphasis>fully</emphasis> explicit version
@@ -573,7 +599,38 @@ make the bindings explicit as shown in <xref linkend="ex.mdecl"/>.</para>
 </example>
 
 <para>The important thing to remember is that most of the defaulting
-rules only apply when there's a single parameter input port.</para>
+rules only apply when there's a single parameter input port. If you
+specify multiple parameter input ports, you'll have to make your
+intentions explicit.</para>
+
+<para>There are some other wrinkles in the default binding story.</para>
+
+<section xml:id="param-binding">
+<title>Parameter Port Bindings</title>
+
+<para>A parameter input port is like an ordinary, document input port
+in the sense that you can make bindings to it explicitly in the normal
+way. It differs in two ways: it always, and can only, accept a
+sequence of <tag>c:param-set</tag> or <tag>c:param</tag> documents,
+it's an error to pass anything else to it; and if you don't specify a
+binding, the default binding rules are different.</para>
+
+<para>If a step has a primary parameter input port without an explicit
+binding, it will be bound by default to the parameter input port of
+the <emphasis>pipeline</emphasis> that contains it. In other words, it
+binds to the primary parameter input port of its nearest ancestor
+<tag>p:pipeline</tag> or <tag>p:declare-step</tag> step.</para>
+
+<para>It is an error if the pipeline does not have a primary parameter
+input port.</para>
+
+<para>If you want to use a step that has parameters in a pipeline declared
+with <tag>p:declare-step</tag> that does not declare a parameter input port,
+you must provide <emphasis>some</emphasis> explicit binding. That can
+be a pipe binding to <tag>p:empty</tag> or it can be one or more
+<tag>p:with-param</tag> elements.</para>
+
+</section>
 
 <section xml:id="p.with-param">
 <title>p:with-param</title>
@@ -619,11 +676,11 @@ readable port. You can specify an alternate context, most often this is
 the output from some other step:</para>
 
 <programlisting>&lt;p:with-param port=”params1” name=”version” select=”/*/@version”&gt;
-  &lt;p:pipe step=”preceding” port=”result”/&gt;
+  &lt;p:pipe step=”main” port=”altparams”/&gt;
 &lt;/p:with-param/&gt;</programlisting>
 
 <para>Here the context will be the document that appears on the
-<port>result</port> port of the step with the name “<literal>preceding</literal>”.
+<port>altparams</port> port of the step with the name “<literal>main</literal>”.
 </para>
 
 <para>XPath expressions are evaluated in the context of a
@@ -633,28 +690,152 @@ error. If you need to use a document from a step that generates a sequence
 as the context, you can use <tag>p:split-sequence</tag> to extract exactly
 the document you want to use.</para>
 
-<para>One important consequence of using <tag>p:with-param</tag> is that it
-constitutes a binding for the parameter input port. If you use a single
-<tag>p:with-param</tag> you must also make any pipe binding for the parameter
-input port explicit.</para>
-
-<para>FIXME: example</para>
-
-
+<para>One important aspect of <tag>p:with-param</tag> is that it
+constitutes a binding for the parameter input port. So if there is no
+explicit binding for the port, and no default binding is possible, no
+error will occur.</para>
 </section>
+
+<section xml:id="binding-order">
+<title>Order and precedence of parameters</title>
+
+<para>As mentioned earlier, it is not an error to specify a parameter value
+multiple times, all but the last value are simply ignored. This raises
+the question of how the binding to the parameter input port and any
+explicit <tag>p:with-param</tag> elements interact.</para>
+
+<para>The answer is that by default <tag>p:with-param</tag> steps occur
+<emphasis>after</emphasis> the default binding for the parameter input
+port. This means that <tag>p:with-param</tag> values override any values
+specified through the parameter input port.</para>
+
+<para>If you want to reverse this order, if you want your explicit
+<tag>p:with-param</tag> to function as a default that the user can override,
+make the parameter input port binding explicit and put your <tag>p:with-param</tag>
+before it:</para>
+
+<programlisting><![CDATA[...
+<p:xslt>
+  <p:with-param name="list-enumeration" select="'arabic,lower-alpha,roman'"/>
+  <p:input port="parameters">
+    <p:pipe step="main" port="parameters"/>
+  </p:input>
+</p:xslt>
+...]]></programlisting>
+
+<para>Now the stylesheet will see the list enumeration value you specified
+unless the user provides a different value as a parameter to the pipeline.</para>
 </section>
 
 <section xml:id="namespaces">
 <title>Controlling in-scope namespaces</title>
 
-<para>…</para>
+<para>There's one last wrinkle in this story. And if there's going to
+be a last wrinkle in an XML story, you can safely bet that it will
+involve namespaces. And probably QNames-in-content, which is precisely
+the problem here.</para>
+
+<para>Many steps in XProc accept XSLT match patterns and a few accept
+strings which are interpreted by the step as XPath expressions. The problem
+is that the context in which a <tag>p:with-option</tag> is specified
+can be <emphasis>entirely different</emphasis> than the context in which
+the corresponding <tag>p:option</tag> is declared.</para>
+
+<para>Consider a pipeline that includes a <tag>p:rename</tag> step where,
+for some reason, the match pattern and new name are most usefully specified
+as options to the pipeline.</para>
+
+<programlisting
+><xi:include href="examples/do-stuff-and-rename.xpl" parse="text"
+/></programlisting>
+
+<para>The namespace binding for XHTML in this pipeline is
+“<literal>html:</literal>”. Now imagine that you import this pipeline
+into your pipeline, which then wants to call the pipeline shown above:</para>
+
+<programlisting role="invalid"
+><xi:include href="examples/call-rename-invalid.xpl" parse="text"
+/></programlisting>
+
+<para>This pipeline doesn't even <emphasis>declare</emphasis> a
+binding for the XHTML namespace (which is a little odd under the
+circumstances but will help to reinforce a point later). What happens
+when this call is made? From the perspective of this pipeline, there's
+no error because the value of the match attribute is just <emphasis>a
+string</emphasis>. But that string “<literal>h:body/h:p</literal> is
+passed to the <tag>ex:do-stuff-and-rename</tag> step where it is
+eventually passed to <tag>p:rename</tag>.</para>
+
+<para>The <tag>p:rename</tag> step attempts to interpret the string as
+an XSLT match pattern <emphasis>using the namespace bindings in-scope for
+the option</emphasis>. Because there is no binding for the
+“<literal>h:</literal>” prefix in this context, the step will fail.</para>
+
+<para>The <tag>p:namespaces</tag> element allows you to address this problem
+by passing an explicit set of namespace bindings along with the option. These
+bindings will then be used by the steps that interpret the option value:</para>
+
+<programlisting role="invalid"
+><xi:include href="examples/call-rename-valid.xpl" parse="text"
+/></programlisting>
+
+<para>In the interest of making the bindings as explicit as possible, we
+show the namespace declaration on the <tag>p:namespaces</tag> element
+in this example. In practice, the binding would more likely be on the
+<tag>p:pipeline</tag> element and the <tag>p:namespaces</tag> element
+would just be an ordinary, empty element.</para>
+
+</section>
 
 <section xml:id="p.namespaces">
 <title>p:namespaces</title>
 
+<para>The <tag>p:namespaces</tag> element provides three methods for
+establishing namespace bindings.</para>
+
 <cx:rng-pattern name="Namespaces"/>
 
-</section>
-</section>
+<variablelist>
+<varlistentry>
+<term><att>binding</att></term>
+<listitem>
+<para>The <att>binding</att> option can be used to identify the name of another
+in-scope option or variable. The bindings associated with that option or variable
+will be used.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><att>element</att></term>
+<listitem>
+<para>The <att>element</att> option may be used to provide an XPath expression
+that selects a single element. The bindings associated with that element will
+be used. In this case, the context node for the <att>element</att> XPath expression
+is exactly the same as the context node for the XPath expression that specifies
+the value.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>Its own namespace bindings</term>
+<listitem>
+<para>If neither the <att>binding</att> or <att>element</att> attributes
+are present, then the namespace bindings of the <tag>p:namespaces</tag> element
+itself are used. In this case the ordinary, in-scope namespace rules apply.
+</para>
+</listitem>
+</varlistentry>
+</variablelist>
 
+<para>If <att>except-prefixes</att> is used, it specifies a list of namespace
+prefixes (that are in-scope for this <tag>p:namespaces</tag> element) that
+<emphasis>should not</emphasis> be made part of the context.</para>
+
+<para>The <tag>p:namespaces</tag> element is probably something you will
+use very rarely, but it is sometimes necessary. As XProc libraries grow and
+become popular, it may become more common (if those libraries are or are
+treated as read-only).</para>
+
+</section>
+</section>
 </chapter>

@@ -8,18 +8,148 @@
 <title>Pipeline Terminology</title>
 </info>
 
-<para>In this chapter, we'll survey the main syntactic elements of
-an XProc pipeline.</para>
+<para>In this chapter, we'll survey the main syntactic elements of an
+XProc pipeline. By their nature, pipelines describe a series of steps
+and the <emphasis>connections between</emphasis> those steps. As a
+consequence, many of the important parts of a pipeline are directly
+related to other parts. This makes it difficult to describe any part
+of a pipeline without mentioning other, not yet explained, parts.
+We'll do our best. Press on and you'll find all the parts
+explained.</para>
 
-<para>Steps have “ports” into which pipes are connected. A pipe
+<para>A step is a unit of work: it performs an XSLT transformation, or
+validates a document, or issues an HTTP request, or computes an average
+bank balance, or translates French into German.</para>
+
+<para>Most steps accept some input, process it in some way, and produce
+some output. You can think of a step as a black box; XML documents (and
+possibly options and parameters) enter the box, (usually) different
+XML documents come out. Even if you know what happens inside the box,
+other sibling steps, steps from which the inputs came or to which the outputs
+go, do not.</para>
+
+<para>Different kinds of steps are distinguished by their
+<glossterm>type</glossterm>; a <tag>p:xslt</tag>-type step is
+different from a <tag>p:http-request</tag>-type step is different from
+a <tag>my:compute-balance</tag>-type step. Generally, when we're talking
+about steps we talk about them by type and leave out the “-type” part:
+a <tag>p:xslt</tag> step, a <tag>p:http-request</tag>, etc.
+Step types are identified with QNames and are globally unique.</para>
+
+<para>When we need to distinguish a particular instance of a step, we
+can give it a name. Connections between steps are done by name, we
+read the output of the “<literal>style</literal>” step or the output
+of the “<literal>get-form</literal>” step.
+Step names must be XML Names (no colons, no
+spaces, etc.). Names are scoped, but they are not globally unique.
+</para>
+
+<para>Graphically, a step looks something like <xref linkend="fig.step"/>.</para>
+
+<figure xml:id="fig.step">
+<title>A step</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="images/step.png"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>This “<tag>StepType</tag>”-type step named “<literal>Name</literal>”
+has two input ports: <port>source</port> and <port>alternate</port>,
+one output port: <port>result</port>. It has
+two options: <option>Option</option> and <option>Another_option</option>,
+and accepts parameters.</para>
+
+<para>Steps have “ports” into which “pipes” are connected. A pipe
 connects the output port of one step to the input port of another. The
 type, name, and number of ports on each type of step is fixed and
 immutable.</para>
 
-<para>FIXME: talk about step failure.</para>
+<para>The only thing that can flow through a pipe is an XML document.
+Each input and output port indicates if it can accept or produce a
+sequence of documents. If a port does not accept a sequence, then it
+must accept or produce exactly one document.</para>
 
-<para>FIXME: talk about what select on p:input means == separate documents</para>
+<para>Consider the pipeline
+in <xref linkend="fig.pipeline"/>.
+</para>
 
-<para>FIXME: IRI vs URI</para>
+<figure xml:id="fig.pipeline">
+<title>A pipeline</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="images/pipeline.png"/>
+</imageobject>
+</mediaobject>
+</figure>
 
+<para>This pipeline has four steps named: A, B, C, and D. The fact that step
+C is implemented as a pipeline of two additional steps <emphasis>is
+not visible</emphasis> to the steps outside of C.
+In this pipeline, the pipes are A-to-B, B-to-C, C-to-D, and A-to-D.</para>
+
+<para>It would be more precise to say that B reads from A, C reads from B,
+and D reads from A and C. Conceptually, the following two statements
+amount to the same thing: “the <port>result</port> output port of step A
+is connected to the <port>source</port> input port of step B” or
+“the <port>source</port> input port of step B is connected to the <port>result</port>
+output port of step A”. The only difference is perspective, in the former statement,
+the perspective is from step A, connecting one of its outputs to one of the inputs
+of step B; in the latter statement, the perspective is from step B, connecting one
+of its input ports to one of the output ports of step A.</para>
+
+<para>All connections in XProc are written from the perspective of the step with
+the input port: we always, and can only, say that step B reads from step A;
+we can't say that step A writes to step B. This was a somewhat arbitrary, but
+conscious decision. Given two different but equivalent ways to say the same thing,
+XProc requires that only one way be used. This reduces the insignificant variation
+in pipelines and hopefully reduces confusion as well.</para>
+
+<para>As we'll see in <xref linkend="steps"/>, input ports can be connected not
+only to other steps, but also to the outside world through URIs. Well, technically,
+IRIs. XProc adopts the common convention that authors can write IRIs in places
+where we use resource identifiers to point to documents on the web. If all of your
+URIs can be represented in US ASCII, this distinction is irrelevant and can
+be ignored. If you have identifiers that contain characters from a broader
+repertoire, this means you can write them just the way you'd expect.</para>
+
+<section xml:id="errors">
+<title>Errors and Exceptions</title>
+
+<para>Two kinds of errors can occur in an XProc pipeline: static
+errors and dynamic errors. A static error is something that is
+independent of any of the pipeline's inputs and will be detected by
+the processor before it even starts running. Leaving an input port unconnected
+is a static error, so is an attempt to use a step type for which there is
+no declaration. Static errors are like “compile time” errors in traditional
+programming languages, a pipeline with a static error isn't a valid pipeline
+and cannot be run.</para>
+
+<para>Dynamic errors occur when a pipeline encounters an invalid or
+unexpected condition while it's running. If more than one document is written
+to a port that only accepts a single document, that's a dynamic error.
+Many steps can cause a dynamic error to occur; informally we speak of
+steps failing or throwing an exception. It all amounts to the same thing:
+something has gone wrong and the step that caused or detected the error
+will not run or finish running. Steps that fail produce no output, though
+they may have side effects (such as writing to the filesystem or sending an
+HTTP POST).</para>
+
+<para>A pipeline that contains a step that fails will also fail.
+Errors propagate up through any intervening steps until either a
+<tag>p:try</tag> step is encountered or the top level step fails, at
+which point the entire pipeline fails and stops running.</para>
+
+<para>A <tag>p:try</tag> step catches dynamic errors. If a dynamic
+error occurs in a <tag>p:try</tag>, then its <tag>p:catch</tag>
+pipeline is run and the output of the step is whatever the
+<tag>p:catch</tag> produces. Of course, the <tag>p:catch</tag> can
+fail, in which case the “upward cascade” of failure continues to the
+next <tag>p:try</tag> or the collapse of the whole pipeline.</para>
+
+<para>The reference pages for the <tag>p:try</tag> step outline the
+syntax and mechanics of exception catching in more detail.</para>
+
+</section>
 </chapter>
