@@ -3,7 +3,7 @@
            xmlns:xi="http://www.w3.org/2001/XInclude"
            xmlns:xlink="http://www.w3.org/1999/xlink"
            xmlns:p="http://www.w3.org/ns/xproc"
-           xml:id="fileutils">
+           xml:id="compound">
 <title>Standard XProc Compound Steps</title>
 
 <xi:include href="choose.xml"/>

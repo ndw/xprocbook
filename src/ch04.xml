@@ -7,21 +7,153 @@
 <info>
 <title>XPath Expressions and XProc Functions</title>
 </info>
-<para>...</para>
+
+<para>XProc uses XPath expressions to compute the values of variables and options,
+to select the branches of a <tag>p:choose</tag>, to select nodes for processing, etc.
+The XProc specification allows implementors to support either XPath 1.0 or XPath 2.0.
+<citetitle>XML Calabash</citetitle> supports XPath 2.0.</para>
+
+<para>Whether your processor supports XPath 1.0 or XPath 2.0, XProc processors provide
+several additional functions that you can use in XPath expressions. These functions are
+available whereever the XProc processor evaluates an expression.</para>
 
 <section xml:id="p.system-property">
 <title>p:system-property</title>
-<para>…</para>
+
+<para>The <function>p:system-property</function> function returns information about the
+processor.</para>
+
+<synopsis>p:system-property($property as xs:string) as xs:string</synopsis>
+
+<para>The <varname>$property</varname> must have the lexical form of a QName. If a prefix is
+used, it must be in the in-scope namespaces where the expression occurs.</para>
+
+<para>The following system properties are always available:</para>
+
+<variablelist>
+<varlistentry>
+<term><literal>p:episode</literal></term>
+<listitem>
+<para>Returns a unique string that identifies this run of the processor. This string will
+satisfy the constraints of an XML Name so it can easily be used as an identifier, for example,
+in a filename.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:language</literal></term>
+<listitem>
+<para>Returns a string which identifies the current language.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:product-name</literal></term>
+<listitem>
+<para>Returns a string containing the name of the implementation.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:product-version</literal></term>
+<listitem>
+<para>Returns a string identifying the version of the implementation.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:vendor</literal></term>
+<listitem>
+<para>Returns a string which identifies the vendor of the processor.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:vendor-uri</literal></term>
+<listitem>
+<para>Returns a URI which identifies the vendor of the processor. Often, this is the
+URI of the vendor's web site.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:version</literal></term>
+<listitem>
+<para>Returns the version or versions of XProc implemented by the processor
+as a space-separated list. At the time of this writing, only “1.0” is defined.
+</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:xpath-version</literal></term>
+<listitem>
+<para>Returns the version or versions of XPath implemented by the processor for evaluating
+XPath expressions on XProc elements.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>p:psvi-supported</literal></term>
+<listitem>
+<para>Returns “<literal>true</literal>” if the implementation supports
+passing PSVI annotations between steps, “<literal>false</literal>” otherwise.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>Processors may support additional system properties. If an unrecognized property name is
+passed to <function>p:system-property</function>, an empty string is returned.</para>
+
+<para>Using <citetitle>XML Calabash</citetitle> today, this pipeline:</para>
+
+<programlisting><xi:include href="examples/system-properties.xpl" parse="text"/></programlisting>
+
+<para>Produces this result:</para>
+
+<programlisting><xi:include href="results/system-properties.xml" parse="text"/></programlisting>
+
 </section>
 
 <section xml:id="p.step-available">
 <title>p:step-available</title>
-<para>…</para>
+
+<para>The <function>p:step-available</function> function tests whether or not a particular
+step type can be used in this pipeline.</para>
+
+<synopsis>p:step-available($step-type as xs:string) as xs:boolean</synopsis>
+
+<para>The <varname>$step-type</varname> must have the lexical form of a QName. If a prefix is
+used, it must be in the in-scope namespaces where the expression occurs.</para>
+
+<para>If steps of the specified type are supported by the pipeline (that is, if they're supported
+by the processor <emphasis>and</emphasis> declared by this pipeline), the function returns true,
+otherwise it returns false.</para>
+
+<para>Using <citetitle>XML Calabash</citetitle> today, this pipeline:</para>
+
+<programlisting><xi:include href="examples/step-available.xpl" parse="text"/></programlisting>
+
+<para>Produces this result:</para>
+
+<programlisting><xi:include href="results/step-available.xml" parse="text"/></programlisting>
+
 </section>
 
 <section xml:id="p.value-available">
 <title>p:value-available</title>
-<para>…</para>
+
+<para>If a pipeline specifies an option that is neither required nor has a default value,
+then it's possible that the caller has not provided any value for that option. The
+<function>p:value-available</function> function allows you to test for that case.</para>
+
+<synopsis>p:value-available($option-name as xs:string) as xs:boolean</synopsis>
+<synopsis>p:value-available($option-name as xs:string, $fail-if-unknown as xs:boolean) as xs:boolean</synopsis>
+
+<para>The <varname>$option-name</varname> must be the name of an in-scope option. The function
+returns true if it has a value, false otherwise. If <varname>$fail-if-unknown</varname> is provided
+and is true, then the function will raise an error if the value is not provided.</para>
+
+<para>Using <citetitle>XML Calabash</citetitle> today, this pipeline:</para>
+
+<programlisting><xi:include href="examples/value-available.xpl" parse="text"/></programlisting>
+
+<para>Produces this result:</para>
+
+<programlisting><xi:include href="results/value-available.xml" parse="text"/></programlisting>
+
 </section>
 
 <section xml:id="p.iteration-position">

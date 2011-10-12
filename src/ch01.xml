@@ -57,7 +57,8 @@ it will count the lines instead.</para>
 <para>What this pipeline does is print the number of paragraphs in the
 document:</para>
 
-<screen>??FIXME:??</screen>
+<screen>$ cat ch01.xml | grep "&lt;para" | wc -l
+51</screen>
 
 <para>By using a pipeline we've taken three useful utilities and
 composed them together to create a pipeline that will count the
@@ -118,7 +119,8 @@ that counts the number of paragraphs in a document:</para>
 contains the number of DocBook <tag>para</tag> elements in the
 document:</para>
 
-<screen>&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step">??FIXME:??&lt;/c:result></screen>
+<screen>$ calabash -isource=ch01.xml examples/countparas.xpl
+&lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step">51&lt;/c:result></screen>
 
 <para>It's not completely isomorphic to the Unix command line example because
 the abstractions are just a little bit different. Where the command line tools
@@ -291,11 +293,9 @@ streaming.</para>
 element of <tag>p:pipeline</tag> (or possibly
 <tag>p:declare-step</tag>) and contains one or more steps. The steps
 are connected, either implicitly or explicitly, and documents flow
-between steps along those connections. The name of each step
-identifies its type which determines what kind of processing it
+between steps along those connections. The type of each step
+determines what kind of processing it
 performs.</para>
-
-<para>[[NICE GRAPHICAL REPRESENTATION OF A STEP HERE]]</para>
 
 <para>In addition to the connections between them, steps can have options
 and parameters, some steps can be nested, variables may be declared,
@@ -309,15 +309,10 @@ following chapters.</para>
 <title>Running XProc Pipelines</title>
 
 <para>In order to run an XProc pipeline, you need an XProc processor.
-At the time of this writing, there are two complete implementations:
-<link xlink:href="http://xmlcalabash.com/">XML Calabash</link>, written
-by the author, and
-<link xlink:href="https://community.emc.com/community/edn/xmltech">Calumet</link>,
-written by <personname><firstname>Vojtech</firstname>
-<surname>Toman</surname></personname> of EMC.
-By the time you read this, there may be more, see
-<link xlink:href="http://xproc.org/implementations/"/> for an up-to-date
-list.</para>
+At the time of this writing, there are several options listed at
+<link xlink:href="http://xproc.org/implementations/"/>. The author's
+implementation is
+<citetitle xlink:href="http://xmlcalabash.com/">XML Calabash</citetitle>.</para>
 
 <para>All pipelines that conform to
 <link xlink:href="http://www.w3.org/TR/xproc/">XProc: An XML Pipeline Language</link>

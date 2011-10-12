@@ -61,7 +61,7 @@ one output port: <port>result</port>. It has
 two options: <option>Option</option> and <option>Another_option</option>,
 and accepts parameters.</para>
 
-<para>Steps have “ports” into which “pipes” are connected. A pipe
+<para xml:id="p.port">Steps have “ports” into which “pipes” are connected. A pipe
 connects the output port of one step to the input port of another. The
 type, name, and number of ports on each type of step is fixed and
 immutable.</para>
@@ -94,17 +94,19 @@ and D reads from A and C. Conceptually, the following two statements
 amount to the same thing: “the <port>result</port> output port of step A
 is connected to the <port>source</port> input port of step B” or
 “the <port>source</port> input port of step B is connected to the <port>result</port>
-output port of step A”. The only difference is perspective, in the former statement,
+output port of step A”. The only difference is perspective; in the former statement,
 the perspective is from step A, connecting one of its outputs to one of the inputs
 of step B; in the latter statement, the perspective is from step B, connecting one
 of its input ports to one of the output ports of step A.</para>
 
-<para>All connections in XProc are written from the perspective of the step with
-the input port: we always, and can only, say that step B reads from step A;
-we can't say that step A writes to step B. This was a somewhat arbitrary, but
-conscious decision. Given two different but equivalent ways to say the same thing,
-XProc requires that only one way be used. This reduces the insignificant variation
-in pipelines and hopefully reduces confusion as well.</para>
+<para xml:id="connection-direction">All connections in XProc are written
+from the perspective of the port which is accepting input: we always,
+and can only, say that step B reads from step A; we can't say that
+step A writes to step B. This was a somewhat arbitrary, but conscious
+decision. Given two different but equivalent ways to say the same
+thing, XProc requires that only one way be used. This reduces the
+insignificant variation in pipelines and hopefully reduces confusion
+as well.</para>
 
 <para>As we'll see in <xref linkend="steps"/>, input ports can be connected not
 only to other steps, but also to the outside world through URIs. Well, technically,
@@ -113,6 +115,58 @@ where we use resource identifiers to point to documents on the web. If all of yo
 URIs can be represented in US ASCII, this distinction is irrelevant and can
 be ignored. If you have identifiers that contain characters from a broader
 repertoire, this means you can write them just the way you'd expect.</para>
+
+<section xml:id="primary-ports">
+<title>Primary ports</title>
+
+<para>If you think of steps as performing units of work, it's often
+obvious that one input and one output port are “primary”. For example,
+the schema validation steps have two inputs: one for the document to
+be validated and one for the set of schemas to use in validation. The port
+that reads the documents to be validated is, in some sense, the important
+one. Similarly, although the XSLT step produces both primary and secondary
+outputs, the primary output is the important one.</para>
+
+<para>XProc identifies at most one input port and at most one output
+port as “primary”. Default connections always involve at least one
+primary port.</para>
+
+<para>The <tag class="attribute">primary</tag> attribute on a <tag>p:input</tag>
+or <tag>p:output</tag> element in a step declaration marks a port as either
+primary or non-primary. If there is only one input or output port, then it
+is primary unless it is explicitly marked as non-primary. If there is more than
+one input or output port, then only the one explicitly marked as primary
+is primary.</para>
+
+<para>In other words, if there's a single input or output port, then it is
+primary by default. If there's more than one input or output port, then none
+are primary unless one is explicitly identified as primary. It's an error
+if more than one is identified as primary.</para>
+</section>
+
+<section xml:id="default-readable">
+<title>The default readable port</title>
+
+<para>Primary ports come into play when considering default connections.
+In the context of a pipeline, there may be a “default readable port” associated
+with each step. In the ordinary case, if a step has inputs that are not
+explicitly connected, then they will be connected to the default readable
+port associated with that step.</para>
+
+<para>The default readable port for the first step in a subpipline is its
+parent's primary input port. If its parent doesn't have a primary input port,
+then the default readable port is undefined.</para>
+
+<para>The default readable port for each step after the first in a
+subpipeline is the default output port of its preceding
+sibling. If its preceding sibling has no primary output port, then the
+default readable port is undefined.</para>
+
+<para>If there is no default readable port, then no inputs will be connected
+by default and the pipeline author must make explicit connections for all
+the inputs.</para>
+
+</section>
 
 <section xml:id="errors">
 <title>Errors and Exceptions</title>

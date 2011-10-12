@@ -400,11 +400,11 @@ at once.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the match pattern matches anything other than an element.</td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the <tt class="option">attribute-name</tt> contains a colon and you attempt
 to specify either an <tt class="option">attribute-prefix</tt> or
-<tt class="option">attribute-namespace</tt>.</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0059"/><code>err:C0059</code></td><td style="">Occurs
+<tt class="option">attribute-namespace</tt>.</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0059"/><code>err:C0059</code></td><td>Occurs
 if any attempt is made to construct a namespace declaration using the
 <tt class="step">p:add-attribute</tt> step.</td></tr></tbody></table></div></div>
 
@@ -475,7 +475,7 @@ step.</p></div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0058"/><code>err:C0058</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0058"/><code>err:C0058</code></td><td>Occurs
 if the <tt class="option">all</tt> and <tt class="option">relative</tt> options are
 <em>both</em> <tt class="literal">true</tt>.
 </td></tr></tbody></table></div></div>
@@ -494,8 +494,7 @@ if the <tt class="option">all</tt> and <tt class="option">relative</tt> options 
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&amp;ch01;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&amp;ch02;
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>&amp;appa;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/book&gt;
-</pre></div><p>When the parser expands the entities, the base URI of the
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/book&gt;</pre></div><p>When the parser expands the entities, the base URI of the
       parts becomes part of the data model, but it's not reflected in the
       serialized form shown below. This is <em>precisely</em>
       the problem that <tt class="step">p:add-xml-base</tt> is designed to address.
@@ -544,7 +543,7 @@ equal.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0019"/><code>err:C0019</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0019"/><code>err:C0019</code></td><td>Occurs
 if the documents are not equal, and the value
 of the <tt class="option">fail-if-not-equal</tt> option is
 <tt class="literal">true</tt>.
@@ -664,7 +663,7 @@ which it occurred.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0062"/><code>err:C0062</code></td><td style="">
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0062"/><code>err:C0062</code></td><td>
 Occurs if the <tt class="option">match</tt> option matches a namespace
 node.</td></tr></tbody></table></div></div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
@@ -749,11 +748,11 @@ Implementations may include additional attributes.
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0012"/><code>err:C0012</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0012"/><code>err:C0012</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the step cannot read the specified directory due to access restrictions
 or if the environment doesn't support the notion of a hierarchical directory
 structure.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0017"/><code>err:C0017</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0017"/><code>err:C0017</code></td><td>Occurs
 if the absolute <tt class="option">path</tt> does not specify a directory.
 </td></tr></tbody></table></div></div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
@@ -871,8 +870,7 @@ XProc:</p>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:choose&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:viewport&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;</pre></div>
 
 <p>The slightly convoluted <tt class="step">p:choose</tt> is a consequence of
 limitations in how <tt class="function">p:value-available</tt> works;
@@ -905,7 +903,7 @@ nothing will ever appear on its <tt class="port">result</tt> port.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.1"/><code>err:D0034</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.1"/><code>err:D0034</code></td><td>Occurs
 if <tt class="option">code-prefix</tt> or <tt class="option">code-namespace</tt> are
 used when the lexical value of the <tt class="option">code</tt> option contains
 a colon.
@@ -1065,8 +1063,7 @@ by picking a different separator:</p>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>        arg-separator="!"
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>        args='-f!My "report".xml' …&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>…
-<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/p:exec&gt;
-</pre></div>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/p:exec&gt;</pre></div>
 
 <p>This has one unfortunate consequence: if you separate arguments
 with <em>multiple spaces</em>, each space gets interpreted
@@ -1127,7 +1124,7 @@ failure, can be captured with a <tt class="tag-element">p:try</tt>.</p>
 </div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0033"/><code>err:C0033</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs if the command cannot be run.
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0033"/><code>err:C0033</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs if the command cannot be run.
 </td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0034"/><code>err:C0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the current working directory cannot be changed
 to the value of the <tt class="option">cwd</tt> option.
@@ -1145,7 +1142,7 @@ if both
 <tt class="option">result-is-xml</tt> and <tt class="option">wrap-result-lines</tt> or
 <tt class="option">error-is-xml</tt> and <tt class="option">wrap-error-lines</tt>
 are specified
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0064"/><code>err:C0064</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0064"/><code>err:C0064</code></td><td>Occurs
 if the exit code from the command is greater than
 the specified <tt class="option">failure-threshold</tt> value.
 </td></tr></tbody></table></div></div>
@@ -1273,7 +1270,7 @@ is used as the new attribute value, in all other cases, the entire node
 is replaced.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0036"/><code>err:C0036</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0036"/><code>err:C0036</code></td><td>Occurs
 if the requested hash algorithm is not
 one that the processor understands or if the value or parameters are
 not appropriate for that algorithm.
@@ -1324,16 +1321,14 @@ XProc specification from the W3C website:</p>
 <span class="linenumber">  5</span><span class="linenumber-separator"> </span>                   href="http://www.w3.org/TR/xproc/langspec.xml"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;/p:inline&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:http-request&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:http-request&gt;</pre></div>
 
 <p>If most of your web interactions are simple HTTP “GET” requests, it
 may be useful to write a wrapper that provides direct support for those
 simple cases. In the examples below, you'll find a <tt class="step">cx:http-get</tt>
 pipeline that simplifies the above example to a single line:</p>
 
-<div class="programlisting"><pre>&lt;cx:http-get href="http://www.w3.org/TR/xproc/langspec.xml"/&gt;
-</pre></div>
+<div class="programlisting"><pre>&lt;cx:http-get href="http://www.w3.org/TR/xproc/langspec.xml"/&gt;</pre></div>
 
 <p>Now let's look at the step in all it's generality. Everything begins
 with the request. A <tt class="tag-element">c:request</tt> element has the following form:</p>
@@ -1349,19 +1344,18 @@ with the request. A <tt class="tag-element">c:request</tt> element has the follo
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  detailed? = boolean
 <span class="linenumber"> 10</span><span class="linenumber-separator"> </span>  status-only? = boolean&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    (c:header*, (c:body | c:multipart)?)
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:request&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:request&gt;</pre></div>
 
 <p>The <tt class="tag-attribute">method</tt> attribute must be one of the HTTP methods
 (one of the methods supported by the system with which you're
 interacting). The <tt class="tag-attribute">href</tt> attribute identifies the URI that you want to
 interact with. The <tt class="tag-attribute">username</tt>, <tt class="tag-attribute">password</tt>,
 <tt class="tag-attribute">auth-method</tt>, and <tt class="tag-attribute">send-authorization</tt> attributes
-control authentication, see <a href="#http-auth" title="HTTP Authentication">the section called “HTTP Authentication”</a>, below. The
+control authentication, see <a href="#http-auth">the section called “HTTP Authentication”</a>, below. The
 <tt class="tag-attribute">override-content-type</tt> attribute allows you to change the
 interpretation of the result; the <tt class="tag-attribute">detailed</tt> and
 <tt class="tag-attribute">status-only</tt> attributes control how much detail is exposed
-in the result, see <a href="#c.request_response" title="Interpreting the response">the section called “Interpreting the response”</a>, also below.</p>
+in the result, see <a href="#c.request_response">the section called “Interpreting the response”</a>, also below.</p>
 
 <p>The content of the <tt class="tag-element">c:request</tt> consists of any number
 of <tt class="tag-element">c:header</tt> elements, followed optionally by a
@@ -1373,8 +1367,7 @@ headers with the request:</p>
 
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:header
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  name = string
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>  value = string /&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>  value = string /&gt;</pre></div>
 
 <p>The <tt class="tag-attribute">name</tt> and <tt class="tag-attribute">value</tt> attributes specify the name
 and value of the header, respectively. As we'll see below, the
@@ -1403,8 +1396,7 @@ body parts) of the message:</p>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  id? = string
 <span class="linenumber">  5</span><span class="linenumber-separator"> </span>  description? = string&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    <em>any content</em>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:body&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:body&gt;</pre></div>
 
 <p>The <tt class="code">content-type</tt> attribute specifies the media type
 of the body or body part, for example, “<tt class="literal">application/xml</tt>”
@@ -1412,7 +1404,7 @@ of the body or body part, for example, “<tt class="literal">application/xml</t
 HTTP terms, this is the value used for the
 <tt class="literal"><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a></tt>
 header. The <tt class="tag-attribute">encoding</tt> is used for images and other non-text types, see
-<a href="#binary-types" title="Binary content">the section called “Binary content”</a>, below.</p>
+<a href="#binary-types">the section called “Binary content”</a>, below.</p>
 
 <p>In some applications, usually multipart requests, it may be useful or
 necessary to specify a
@@ -1452,8 +1444,7 @@ of the <tt class="tag-element">c:multipart</tt> element:</p>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  content-type = string
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  boundary = string&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    c:body+
-<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/c:multipart&gt;
-</pre></div>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/c:multipart&gt;</pre></div>
 
 <p>The <tt class="tag-attribute">content-type</tt> specified must be a multipart media
 type. If it's not specified, a value of
@@ -1501,8 +1492,7 @@ that it can. The XProc processor provides this in the form of a
 <div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;c:response
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  status? = integer&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    (c:header*, (c:body | c:multipart)?)
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:response&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/c:response&gt;</pre></div>
 
 <p>The response's status code is encoded in the <tt class="code">status</tt>
 attribute and the headers and entity body are returned in
@@ -1637,7 +1627,7 @@ authentication protocol.</p>
 
 
 <p>HTML isn't always (in fact, rarely is) well-formed XML. But it
-can be represented in Unicode, so by the rules in <a href="#c.request_response" title="Interpreting the response">the section called “Interpreting the response”</a>, any content identified as
+can be represented in Unicode, so by the rules in <a href="#c.request_response">the section called “Interpreting the response”</a>, any content identified as
 <tt class="code">text/html</tt> will be encoded as (escaped) text or
 base64-encoded in the <tt class="tag-element">c:body</tt> element.
 </p>
@@ -1648,7 +1638,7 @@ step.</p>
 </div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0040"/><code>err:C0040</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0040"/><code>err:C0040</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the document element of the document that arrives on the
 <tt class="port">source</tt> port is not <tt class="tag-element">c:request</tt>.
 </td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0006"/><code>err:C0006</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
@@ -1671,7 +1661,7 @@ the requested
 <tt class="option">auth-method</tt> isn't supported, or the authentication
 challenge contains an authentication method that isn't
 supported.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0020"/><code>err:C0020</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0020"/><code>err:C0020</code></td><td>Occurs
 if the the user specifies a value
 or values that are inconsistent with each other or with the requirements
 of the step or protocol.
@@ -2033,10 +2023,10 @@ it is an error if the matched node is not an element (because the other kinds
 of nodes don't have children).</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023.1"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023.1"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the pattern matches
 anything other than element, text, processing-instruction, or comment nodes.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0025"/><code>err:C0025</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0025"/><code>err:C0025</code></td><td>Occurs
 if the match pattern matches anything other than an element node and
 the value of the <tt class="option">position</tt> option is
 “<tt class="literal">first-child</tt>” or
@@ -2147,11 +2137,11 @@ multiple (literal) values, see <tt class="step">p:set-attributes</tt>.
 </div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034.2"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034.2"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the lexical value of the specified name contains a
 colon and either the <tt class="option">attribute-prefix</tt> or
 <tt class="option">attribute-namespace</tt> options are specified.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.2"/><code>err:C0023</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.2"/><code>err:C0023</code></td><td>Occurs
 if the <tt class="option">match</tt> pattern expression matches
 anything other than an element node.
 </td></tr></tbody></table></div></div>
@@ -2193,7 +2183,7 @@ steps, respectively.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0027"/><code>err:C0027</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0027"/><code>err:C0027</code></td><td>Occurs
 if the
 document is not valid or the step doesn't support DTD
 validation.
@@ -2218,8 +2208,7 @@ validation.
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>]&gt;
 <span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;doc&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;p&gt;I'm valid!&lt;/p&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/doc&gt;
-</pre></div><p>This document is valid.</p><div class="programlisting"><pre>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/doc&gt;</pre></div><p>This document is valid.</p><div class="programlisting"><pre>
 <span class="line"><span class="linenumber">  1</span><span class="linenumber-separator"> </span><span><span class="mso">&lt;</span><tt class="tag-prefix">p</tt><span class="colon">:</span><tt class="tag-localname">pipeline</tt><span class="pcdata"> </span><span class="nsdecl"><tt class="tag-attribute">xmlns:p</tt><span class="atteq">=</span><span class="attq">"</span><span class="attvalue">http://www.w3.org/ns/xproc</span><span class="attq">"</span></span></span></span>
 <span class="line"><span class="linenumber">   </span><span class="linenumber-separator"> </span><span><span class="pcdata">            </span><tt class="tag-attribute">version</tt><span class="atteq">=</span><span class="attq">"</span><span class="attvalue">1.0</span><span class="attq">"</span><span class="msc">&gt;</span></span></span>
 <span class="line"><span class="linenumber">   </span><span class="linenumber-separator"> </span><span/></span>
@@ -2239,8 +2228,7 @@ can tell, presumably).</p><p>This document also includes a DTD:</p><div class="p
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>]&gt;
 <span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;doc&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;para&gt;I'm not valid!&lt;/para&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/doc&gt;
-</pre></div><p>But it is not valid. (a <tt class="tag-element">para</tt> appears where a
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/doc&gt;</pre></div><p>But it is not valid. (a <tt class="tag-element">para</tt> appears where a
 <tt class="tag-element">p</tt> is expected.)</p><div class="programlisting"><pre>
 <span class="line"><span class="linenumber">  1</span><span class="linenumber-separator"> </span><span><span class="mso">&lt;</span><tt class="tag-prefix">p</tt><span class="colon">:</span><tt class="tag-localname">pipeline</tt><span class="pcdata"> </span><span class="nsdecl"><tt class="tag-attribute">xmlns:p</tt><span class="atteq">=</span><span class="attq">"</span><span class="attvalue">http://www.w3.org/ns/xproc</span><span class="attq">"</span></span></span></span>
 <span class="line"><span class="linenumber">   </span><span class="linenumber-separator"> </span><span><span class="pcdata">            </span><tt class="tag-attribute">version</tt><span class="atteq">=</span><span class="attq">"</span><span class="attvalue">1.0</span><span class="attq">"</span><span class="msc">&gt;</span></span></span>
@@ -2287,7 +2275,7 @@ the results are
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.3"/><code>err:C0023</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.3"/><code>err:C0023</code></td><td>Occurs
 if
 the pattern matches anything other than element or attribute
 nodes.
@@ -2352,7 +2340,7 @@ XPath expressions, may end up with no appropriate namespace binding.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0014"/><code>err:C0014</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0014"/><code>err:C0014</code></td><td>Occurs
 if the XML namespace (<tt class="uri">http://www.w3.org/XML/1998/namespace</tt>)
 or the XMLNS namespace (<tt class="uri">http://www.w3.org/2000/xmlns/</tt>) is
 the value of either the <tt class="option">from</tt> option or the
@@ -2399,7 +2387,7 @@ occur between them may have come from either of the input documents;
 this step does not attempt to distinguish which one.</p></div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.3"/><code>err:D0034</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.3"/><code>err:D0034</code></td><td>Occurs
 if you specify a new namespace or prefix when the lexical value of the specified
 name contains a colon.
 </td></tr></tbody></table></div></div>
@@ -2567,7 +2555,7 @@ if the new name specifies a namespace.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023.4"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0023.4"/><code>err:C0023</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the pattern matches anything other than element,
 attribute or processing instruction nodes.
 </td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034.4"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
@@ -2575,7 +2563,7 @@ It is a
 <em class="glossterm">dynamic error</em> to specify a new namespace or
 prefix if the lexical value of the specified name contains a
 colon.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0013"/><code>err:C0013</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0013"/><code>err:C0013</code></td><td>Occurs
 if the pattern matches
 a processing instruction and the new name has a non-null namespace.
 </td></tr></tbody></table></div></div>
@@ -2616,7 +2604,7 @@ with the content of the <tt class="port">replacement</tt> document.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.5"/><code>err:C0023</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.5"/><code>err:C0023</code></td><td>Occurs
 if the <tt class="option">match</tt> pattern matches
 anything other than element, text, processing-instruction, or comment
 nodes.
@@ -2696,7 +2684,7 @@ attribute, you may find <tt class="step">p:add-attribute</tt> simpler.</p>
 </div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.6"/><code>err:C0023</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.6"/><code>err:C0023</code></td><td>Occurs
 if the <tt class="option">match</tt> pattern matches anything other than
 element nodes.
 </td></tr></tbody></table></div></div>
@@ -2849,7 +2837,7 @@ serialization of the XML content when it is stored. These options are
 as specified in <span class="formatting-error">???</span>.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0050"/><code>err:C0050</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0050"/><code>err:C0050</code></td><td>Occurs
 if the URI scheme is not supported or the step cannot store to the
 specified location.
 </td></tr></tbody></table></div></div>
@@ -2928,8 +2916,7 @@ expect.</p>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:with-option name="replace" select="$new-class"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>
-<span class="linenumber"> 15</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
-</pre></div>
+<span class="linenumber"> 15</span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;</pre></div>
 
 <p>On the surface, this pipeline appears to replace the value of
 the <tt class="tag-attribute">class</tt> attribute with the value passed to the pipeline
@@ -2941,8 +2928,7 @@ effectively the same as this one:
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
-<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
-</pre></div>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;</pre></div>
 
 <p>Here we can see that the value of the <tt class="option">replace</tt> option
 is a bare name. Recall that <tt class="step">p:string-replace</tt> treats the value
@@ -2961,8 +2947,7 @@ value that will be used for the <tt class="tag-attribute">class</tt> attribute.<
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;p:input port="source"&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>      &lt;p:inline&gt;&lt;p class="old-value"&gt;Some text.&lt;/p&gt;&lt;/p:inline&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>    &lt;/p:input&gt;
-<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
-</pre></div>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;</pre></div>
 
 <p>That can be achieved in the following way:</p>
 
@@ -2981,8 +2966,7 @@ value that will be used for the <tt class="tag-attribute">class</tt> attribute.<
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>                   select="concat(&amp;quot;'&amp;quot;,$new-class,&amp;quot;'&amp;quot;)"/&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>  &lt;/p:string-replace&gt;
 <span class="linenumber"> 15</span><span class="linenumber-separator"> </span>
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;
-</pre></div>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/p:declare-step&gt;</pre></div>
 
 <p>Which is undeniably pretty ugly.</p>
 
@@ -3100,14 +3084,14 @@ character set must be specified.
 is ignored, irrespective of where it was specified.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0051"/><code>err:C0051</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0051"/><code>err:C0051</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the content-type specified is not supported by
 the implementation.
 </td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0052"/><code>err:C0052</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the
 encoding specified is not supported by the
 implementation.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0010"/><code>err:C0010</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0010"/><code>err:C0010</code></td><td>Occurs
 if an encoding of <tt class="literal">base64</tt> is specified and
 the character set is not specified or if the specified
 character set is not supported by the implementation.
@@ -3154,7 +3138,7 @@ its children, effectively “unwrapping” the children from their parent.
 unwrapped, the result might not be well-formed XML.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.7"/><code>err:C0023</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.7"/><code>err:C0023</code></td><td>Occurs
 if the <tt class="option">match</tt> pattern matches anything other than element
  nodes.
 </td></tr></tbody></table></div></div>
@@ -3210,7 +3194,7 @@ is replaced.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0060"/><code>err:C0060</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0060"/><code>err:C0060</code></td><td>Occurs
 if the processor does not support the specified
 <tt class="option">version</tt> of the UUID algorithm.
 </td></tr></tbody></table></div></div>
@@ -3263,7 +3247,7 @@ Support for this feature is <em class="glossterm">implementation defined</em>.
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0053"/><code>err:C0053</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0053"/><code>err:C0053</code></td><td>Occurs
 if the <tt class="option">assert-valid</tt> option is <tt class="literal">true</tt>
 and the input document is not valid.
 </td></tr></tbody></table></div></div>
@@ -3383,7 +3367,7 @@ input. Schematron assertions and reports, if any, appear on the
 (SVRL).</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0054"/><code>err:C0054</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0054"/><code>err:C0054</code></td><td>Occurs
 if the <tt class="option">assert-valid</tt> option is <tt class="literal">true</tt>
 and any Schematron assertions fail.
 </td></tr></tbody></table></div></div>
@@ -3404,8 +3388,7 @@ elements:</p><div class="programlisting"><pre><span class="linenumber">  1</span
 <span class="linenumber">  5</span><span class="linenumber-separator"> </span>              = 'http://docbook.org/ns/docbook'"&gt;@linkend on biblioref must point
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>to a bibliography entry.&lt;/s:assert&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>   &lt;/s:rule&gt;
-<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/s:pattern&gt;
-</pre></div><p>This rule asserts that when a <tt class="tag-element">bibloref</tt> element has a
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/s:pattern&gt;</pre></div><p>This rule asserts that when a <tt class="tag-element">bibloref</tt> element has a
 <tt class="tag-attribute">linkend</tt> attribute, that attribute's value must be the
 <tt class="tag-attribute">xml:id</tt> value of a <tt class="tag-element">bibliomixed</tt> element in the
 DocBook namespace. (A slight simplification of
@@ -3517,10 +3500,10 @@ with any defaulting of attributes and elements performed as specified
 by the XML Schema recommendation.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0053.1"/><code>err:C0053</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0053.1"/><code>err:C0053</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the <tt class="option">assert-valid</tt> option is <tt class="literal">true</tt>
 and the input document is not valid.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0055"/><code>err:C0055</code></td><td style="">Occurs if a <tt class="option">mode</tt> is specified and
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0055"/><code>err:C0055</code></td><td>Occurs if a <tt class="option">mode</tt> is specified and
 the implementation does not support the specified mode.
 </td></tr></tbody></table></div></div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
@@ -3624,7 +3607,7 @@ sequence.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.5"/><code>err:D0034</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.D0034.5"/><code>err:D0034</code></td><td>Occurs
 if either <tt class="option">wrapper-namespace</tt> or
 <tt class="option">wrapper-prefix</tt> are specified when the
 <tt class="option">wrapper</tt> name contains a colon.
@@ -3664,11 +3647,11 @@ intervening, non-matching nodes are whitespace text, comment, or processing
 instruction nodes.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034.6"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.D0034.6"/><code>err:D0034</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if either <tt class="option">wrapper-namespace</tt> or
 <tt class="option">wrapper-prefix</tt> are specified when the
 <tt class="option">wrapper</tt> name contains a colon.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.8"/><code>err:C0023</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0023.8"/><code>err:C0023</code></td><td>Occurs
 if the <tt class="option">match</tt> pattern matches
 anything other than document, element, text, processing instruction, and comment
 nodes.
@@ -3745,8 +3728,7 @@ first paragraphs.</p><div class="programlisting"><pre>
 is with an encoding called “<tt class="literal">x-www-form-urlencoded</tt>”.
 You've all seen it:</p>
 
-<div class="screen"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>http://example.org/service?a=b&amp;c=d&amp;e=&amp;f
-</pre></div>
+<div class="screen"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>http://example.org/service?a=b&amp;c=d&amp;e=&amp;f</pre></div>
 
 <p>The “<tt class="literal">a=b&amp;c=d&amp;e=&amp;f</tt>” part is the
 three parameters (a=b, c=d, and e=f) sent in
@@ -3773,19 +3755,18 @@ parameters if the names are not ordinary XML “local names”. Attempting
 to decode the following string, for example, will cause the step to
 fail:</p>
 
-<div class="screen"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>x::y=value
-</pre></div>
+<div class="screen"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>x::y=value</pre></div>
 
 <p>The name “<tt class="literal">x::y</tt>” cannot be represented in a
 <tt class="tag-element">c:param-set</tt>.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0037"/><code>err:C0037</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0037"/><code>err:C0037</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the <tt class="option">value</tt> provided
 is not a properly
 <tt class="literal">x-www-form-urlencoded</tt> value.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0061"/><code>err:C0061</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0061"/><code>err:C0061</code></td><td>Occurs
 if the name of any encoded parameter
 name is not a valid XML name (without a colon).
 </td></tr></tbody></table></div></div>
@@ -3888,7 +3869,7 @@ output of preceding steps can be incorporated via XInclude is
 <em class="glossterm">implementation-defined</em>.</p>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0029"/><code>err:C0029</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0029"/><code>err:C0029</code></td><td>Occurs
 if an XInclude error occurs during processing.
 </td></tr></tbody></table></div></div>
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Examples</h3></div>
@@ -3941,14 +3922,13 @@ document element.</p>
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;c:query&gt;
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>declare namespace atom="http://www.w3.org/2005/Atom";
 <span class="linenumber">   </span><span class="linenumber-separator"> </span>/atom:feed/atom:entry
-<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/c:query&gt;
-</pre></div>
+<span class="linenumber">  5</span><span class="linenumber-separator"> </span>&lt;/c:query&gt;</pre></div>
 
 <p>The output of this step may include PSVI annotations.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0057.1"/><code>err:C0057</code></td><td style="">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0057.1"/><code>err:C0057</code></td><td>Occurs
 if the sequence that results from evaluating the XQuery contains
 items other than documents and elements.
 </td></tr></tbody></table></div></div>
@@ -4047,14 +4027,14 @@ annotations.</p>
 
 </div><div class="refsection"><div class="refsection-titlepage"><h3>Errors</h3></div>
 
-<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="14.29%"/><col width="85.71%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th style="">Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0038"/><code>err:C0038</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
+<div class="informaltable-wrapper"><div class="informaltable"><table border="0" style="border-collapse: collapse;border-top: 0.5pt solid ; border-bottom: 0.5pt solid ; border-left: 0.5pt solid ; border-right: 0.5pt solid ; "><colgroup><col width="16.67%"/><col width="83.33%"/></colgroup><thead><tr><th style="border-right: 0.5pt solid ; ">Error</th><th>Description</th></tr></thead><tbody><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0038"/><code>err:C0038</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if the specified version of XSLT
 is not available.
 </td></tr><tr><td style="border-right: 0.5pt solid ; border-bottom: 0.5pt solid ; "><a name="err.inline.C0039"/><code>err:C0039</code></td><td style="border-bottom: 0.5pt solid ; ">Occurs
 if a sequence of documents (including
 an empty sequence) is provided
 to an XSLT 1.0 step.
-</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0056"/><code>err:C0056</code></td><td style="">Occurs
+</td></tr><tr><td style="border-right: 0.5pt solid ; "><a name="err.inline.C0056"/><code>err:C0056</code></td><td>Occurs
 if the specified initial mode
 or named template cannot be applied to the specified stylesheet.
 </td></tr></tbody></table></div></div>

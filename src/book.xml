@@ -1,3 +1,4 @@
+<?dbhtml pygments="true"?>
 <book xmlns="http://docbook.org/ns/docbook"
       xmlns:cx="http://xmlcalabash.com/ns/extensions"
       xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -21,8 +22,8 @@
 <publisher>
 <publishername>XML Press</publishername>
 </publisher>
-<copyright><year>2010</year><holder>Norman Walsh</holder></copyright>
-<pubdate>2010-04-15</pubdate>
+<copyright><year>2010</year><year>2011</year><holder>Norman Walsh</holder></copyright>
+<pubdate>2011-10-12</pubdate>
 </info>
 
 <part xml:id="parti">

@@ -7,6 +7,243 @@
 <info>
 <title>Steps and Connections</title>
 </info>
-<para>...</para>
-<para>FIXME: talk about what select on p:input means == separate documents</para>
+
+<para>Steps perform units of work. How those steps are connected together
+determines the overall result of a pipeline. As
+<link linkend="connection-direction">we said</link> in
+<xref linkend="terminology"/>, connections in XProc are always written
+from the perspective of the step with the input port.</para>
+
+<para>Inputs can be connected, or “bound”, in four different ways. An
+input can be connected to:</para>
+
+<orderedlist>
+<listitem>
+<para>A <link linkend="p.document">document</link> identified by a
+URI. “Read from <uri>http://example.com/document.xml</uri>.”</para>
+</listitem>
+<listitem>
+<para>An output <link linkend="p.port">port</link> on another step
+in the pipeline.
+“Read the output of the <port>result</port> port on that
+<tag>p:xslt</tag> step.”</para>
+</listitem>
+<listitem>
+<para>A <link linkend="p.inline">literal document</link> specified
+inline in the pipeline. “Take this XML from the pipeline,
+create a document out of it, and use it as the input.”</para>
+</listitem>
+<listitem>
+<para>An <link linkend="p.empty">explicitly empty</link> sequence.
+“Read nothing.”</para>
+</listitem>
+</orderedlist>
+
+<para>If an input port accepts a sequence of documents, then more than
+one input binding can be specified and the various kinds of connections
+can be mixed arbitrarily.</para>
+
+<para>If an input port has no explicit connections, then it will
+automatically be connected to the
+<link linkend="default-readable">default readable port</link>, if
+there is one. It's an error to leave an input port unconnected, so if there
+is neither an explicit connection nor a default readable port, the pipeline
+is not valid.</para>
+
+<section xml:id="input.connections">
+<title>Input Connections</title>
+
+<para>The most common kind of input is a <tag>p:input</tag>, an input
+to an atomic step, but several other kinds of inputs exist. Each is
+conceptually an input, but they were given their own names because
+they exhibit some differences from a standard input:</para>
+
+<itemizedlist>
+<listitem>
+<para><tag>p:iteration-source</tag> on <tag>p:for-each</tag>. The
+<tag>p:for-each</tag> has only a single input and it doesn't have a name.
+It functions as the input to the <tag>p:for-each</tag> step.</para>
+</listitem>
+<listitem>
+<para><tag>p:viewport-source</tag> on <tag>p:viewport</tag>. Like
+<tag>p:for-each</tag>, the
+<tag>p:viewport</tag> has only a single input and it doesn't have a name.
+It functions as the input to the <tag>p:viewport</tag> step.</para>
+</listitem>
+<listitem>
+<para><tag>p:xpath-context</tag> on <tag>p:choose</tag> and <tag>p:when</tag>.
+The XPath context in a <tag>p:choose</tag> is also an input. It has no name
+and special defaulting rules apply. It establishes the document that
+is the context node for evaluating the test expressions.</para>
+</listitem>
+<listitem>
+<para><tag>p:variable</tag> in a compound step. The value of a variable is
+determined by evaluating an XPath expression; the binding for that
+<tag>p:variable</tag> establishes the document that is the context node
+for the expression.</para>
+</listitem>
+<listitem>
+<para><tag>p:with-option</tag> and <tag>p:with-param</tag> on steps.
+Like variables, the values of options and parameters are
+determined by evaluating an XPath expression; the bindings for them
+establish the document that is the context node
+for their expressions.</para>
+</listitem>
+</itemizedlist>
+
+<para>You can think of each of these items as being “bindable”, capable of having
+a document (or documents) bound to them. As we'll see in
+<xref linkend="dependencies"/>, all of these bindings may be relevant in
+determining the order in which steps are evaluated.</para>
+</section>
+
+<section xml:id="input.select">
+<title>Selecting parts of a document</title>
+
+<para>Ordinary <tag>p:input</tag> connections and <tag>p:iteration-source</tag>
+inputs can include a <tag class="attribute">select</tag> expression. If a select
+expression is specified, then all of the elements in each input document that
+match the specified expression are used as the input. In this case, each matching
+node is converted into a document in its own right <emphasis>and</emphasis> the
+parts of the document that did not match the select expression are effectively
+ignored.</para>
+
+<para>It's important to remember that the input to a step is a
+document or a sequence of documents. When a select expression is used,
+all the elements selected are effectively extracted from their
+original documents and turned into documents in their own right. (This
+may have an impact on ID/IDREF links, if there are any.)</para>
+
+<para>Consider the following input statement:</para>
+
+<programlisting><![CDATA[<p:input port="source">
+  <p:document href="homepage.xhtm"/>
+</p:input>]]></programlisting>
+
+<para>What this input does is provide, for the step on which it occurs,
+a sequence of documents on the “<port>source</port>” input port. That sequence
+of documents consists of the single XHTML document identified by the URI
+“<uri>homepage.xhtm</uri>”. (In this and many other cases, the
+sequence will be exactly one document, but that is not necessarily the
+case for a <tag>p:input</tag>.)</para>
+
+<para>In contrast, consider this input statement:</para>
+
+<programlisting><![CDATA[<p:input xmlns:h="http://www.w3.org/1999/xhtml"
+         port="source" select="/h:html/h:body/h:div">
+  <p:document href="homepage.xhtm"/>
+</p:input>]]></programlisting>
+
+<para>This input provides a sequence of documents on the
+“<port>source</port>” input port as well. In this case, that sequence consists
+of one document for every top level <tag>h:div</tag> that occurs in
+the document identified by the URI “<uri>homepage.xhtm</uri>”.</para>
+
+<para>(If the select expression had been instead “<code>//h:div</code>”, then
+there would have been one document for every <tag>h:div</tag> in the
+document. In the case of nested divisions, this would have resulted in (copies
+of) the
+same nodes appearing in more than one document.)</para>
+
+<para>When you use a select expression, you may change the number of documents
+that appear on the port. You can reduce a sequence of documents to a single
+document, or produce a sequence of documents from a single document. The step
+on which the input occurs will only know about the result after applying the
+select expression. This means, for example, that you could send 1,000 documents
+to an input that didn't accept a sequence if you also provided a select expression
+that would select only a single element from all those documents.</para>
+</section>
+
+<section xml:id="dependencies">
+<title>Dependencies and the Order of Execution</title>
+
+<para>Most of the pipelines you write will probably be pretty
+straightforward. Even as your experience with XProc grows and you
+tackle more and more complex problems with it, you're not likely to
+write pipelines that are intentionally obfuscated: if step “A”
+produces output that step “B” consumes, you'll probably put the “A”
+step before the “B” step in your pipeline document.</para>
+
+<para>You'll probably take advantage of the
+<link linkend="default-readable">default readable port</link> to simplify
+your pipelines. This will naturally lead to a “top to bottom” flow
+in your pipelines.</para>
+
+<para>Unfortunately, a pipeline processor can't rely on the organization
+that you'll probably use. The processor has to analyze your pipeline and
+determine a specific order in which to run the steps.</para>
+
+<para>The processor uses two rules to determine the order in which to
+run steps:</para>
+
+<orderedlist>
+<listitem>
+<para>Any step “Y” that consumes the output of another step “X” (i.e., has an
+input binding to some output port of “X”) <emphasis>must</emphasis> run
+<emphasis>after</emphasis> step “X”.</para>
+</listitem>
+<listitem>
+<para>It is an error if any step consumes its own output, either directly
+or indirectly.</para>
+</listitem>
+</orderedlist>
+
+<para>The second rule means that you can't form a loop of dependencies. Such a
+pipeline isn't valid and can't be run. In the terms of our “flowing water”
+analogy, this is the equivalent of connecting the output of some box to the
+input of some box that's “above” it. Water just doesn't flow that way.</para>
+
+<para>If there are no loops in a pipeline, then there is at least
+one way to arrange all the steps pipeline such that every step
+is run after every step on which it depends.</para>
+
+<para>Technically, this is a
+<emphasis xlink:href="http://en.wikipedia.org/wiki/Partially_ordered_set">partial
+order</emphasis>. Consider the pipeline in <xref linkend="fig.depends"/>.</para>
+
+<figure xml:id="fig.depends">
+<title>A dependency graph</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="images/depends.png"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>If we enforce the constraint that every step must run
+<emphasis>after</emphasis> every step that it depends on, one possible
+way to run this pipeline is to run the steps in this order: A, B, C,
+D, E, F. But that constraint is equally satisfied by this order: A, D, B,
+C, E, F. Or A, B, D, E, C, F.</para>
+
+<para>The situation is even more obvious in <xref linkend="fig.parallel"/>.
+</para>
+
+<figure xml:id="fig.parallel">
+<title>Indendent pipelines</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="images/parallel.png"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>Here we have a pipeline with four steps, but the A/B and C/D pipelines
+are entirely independent. Any order that preserves the constraint that B runs
+after A and D runs after C is acceptable.</para>
+
+<para>The point I'm trying to make is that you can't rely on a processor
+running steps in any order that isn't determined by the connections between
+the steps.</para>
+
+<tip role="extension">
+<para>XML Calabash has an extension attribute that allows you to assert
+additional dependencies. You can use the attribute
+<tag class="attribute">cx:depends-on</tag> on any step. The value of the
+attribute is the name of a step that you want to make sure the processor
+runs before it runs the step on which you've placed the extension
+attribute.</para>
+</tip>
+</section>
+
 </chapter>

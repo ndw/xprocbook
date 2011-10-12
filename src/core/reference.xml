@@ -3,7 +3,7 @@
            xmlns:xi="http://www.w3.org/2001/XInclude"
            xmlns:xlink="http://www.w3.org/1999/xlink"
            xmlns:p="http://www.w3.org/ns/xproc"
-           xml:id="fileutils">
+           xml:id="core">
 <title>Standard XProc Steps</title>
 
 <xi:include href="add-attribute.xml"/>
