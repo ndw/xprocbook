@@ -1,0 +1,21 @@
+
+      <system-properties>
+        <standard-properties>
+          <episode>CBf230ed433607d3fa8a67413e22cd9</episode>
+          <language>en-US</language>
+          <product-name>XML Calabash</product-name>
+          <product-version>0.9.37</product-version>
+          <vendor>Norman Walsh</vendor>
+          <vendor-uri>http://xmlcalabash.com/</vendor-uri>
+          <version>1.0</version>
+          <xpath-version>2.0</xpath-version>
+          <psvi-supported>false</psvi-supported>
+        </standard-properties>
+        <calabash-properties>
+          <general-values>false</general-values>
+          <xpointer-on-text>true</xpointer-on-text>
+          <transparent-json>false</transparent-json>
+        </calabash-properties>
+        <unknown-property/>
+      </system-properties>
+    

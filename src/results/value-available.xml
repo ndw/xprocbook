@@ -1,0 +1,9 @@
+
+          <available>
+            <opt1 available="true">always true, because the caller is required to provide a value</opt1>
+            <opt2 available="true">always true, because the pipeline provides a default</opt2>
+            <opt3 available="true">true only if the caller provides a value</opt3>
+            <opt4 available="false">true only if the caller provides a value</opt4>
+            <var available="true">always true, because variables must have values</var>
+          </available>
+        
