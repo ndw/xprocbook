@@ -9,9 +9,11 @@
                 exclude-result-prefixes="c db t html deltaxml"
                 version="2.0">
 
-<xsl:import href="docbook/xsl2/base/html/docbook.xsl"/>
+<xsl:import href="/projects/docbook/xslt20/xslt/base/html/docbook.xsl"/>
 <xsl:import href="xprocns.xsl"/>
 <xsl:import href="rngsyntax.xsl"/>
+
+<xsl:param name="resource.root" select="'../'"/>
 
 <xsl:param name="linenumbering" as="element()*">
 <ln path="literallayout" everyNth="0"/>
@@ -63,12 +65,16 @@
 		and ($anchorterm = 'static error' or $anchorterm = 'dynamic error')">
     <xsl:variable name="code" select="ancestor::db:error[1]/@code"/>
     <xsl:text>&#160;(</xsl:text>
+<!--
     <a href="#err.{$code}">
+-->
       <code class="errqname">
 	<xsl:text>err:X</xsl:text>
 	<xsl:value-of select="ancestor::db:error[1]/@code"/>
       </code>
+<!--
     </a>
+-->
     <xsl:text>)</xsl:text>
   </xsl:if>
 </xsl:template>
@@ -299,17 +305,10 @@
 
 <!-- ============================================================ -->
 
-<xsl:param name="docbook.css"
-           select="'../css/docbook.css'"/>
-
-<xsl:template name="css-style">
-  <style type="text/css">
-    <xsl:copy-of select="unparsed-text($docbook.css, 'us-ascii')"/>
-  </style>
-  <style type="text/css">
-    <xsl:copy-of select="unparsed-text('../css/xprocbook.css',
-                                       'us-ascii')"/>
-  </style>
+<xsl:template name="t:css">
+  <link rel="stylesheet" type="text/css" href="../css/docbook.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/pygments.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/xprocbook.css"/>
 </xsl:template>
 
 <xsl:template name="linenumber">

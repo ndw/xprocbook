@@ -7,6 +7,7 @@
   <p:input port="source"/>
   <p:input port="parameters" kind="parameter"/>
   <p:output port="result"/>
+  <p:serialization port="result" method="xhtml" indent="false"/>
 
   <p:import href="/home/ndw/xmlcalabash.com/library/tee.xpl"/>
 
@@ -28,7 +29,7 @@
     </p:input>
   </p:xslt>
 
-  <cx:tee href="book-expanded.xml" debug="1"/>
+  <cx:tee href="book-expanded.xml" debug="0"/>
 
   <p:xslt name="style">
     <p:input port="stylesheet">

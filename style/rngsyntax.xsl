@@ -1,16 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:t="http://docbook.org/xslt/ns/template"
                 xmlns:sa="http://xproc.org/ns/syntax-annotations"
                 xmlns:ss="http://xproc.org/ns/syntax-summary"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:e="http://xmlcalabash.com/ns/extensions"
-                exclude-result-prefixes="sa xs e rng ss" version="2.0">
+                exclude-result-prefixes="sa xs e rng ss t" version="2.0">
 
 <xsl:strip-space elements="rng:*"/>
 
 <xsl:variable name="rngfile" select="'/projects/xproc/schemas/xproc.rng'"/>
+<xsl:variable name="rngschema" select="document($rngfile)/*"/>
 
 <!-- ============================================================ -->
 
@@ -30,23 +32,24 @@
 
   <xsl:variable name="pattern" select="@name"/>
 
-  <xsl:variable name="theschema" as="document-node()">
+  <xsl:variable name="theschema" as="element()?">
     <xsl:choose>
       <xsl:when test="$schema">
-	<xsl:sequence select="$schema"/>
+	<xsl:sequence select="$schema/*"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:sequence select="document($rngfile)"/>
+	<xsl:sequence select="$rngschema"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
 
-  <xsl:variable name="rngpat" select="$theschema/rng:grammar/rng:define[@name=$pattern]"/>
+  <xsl:variable name="rngpat" select="$theschema//rng:define[@name=$pattern]"/>
 
   <xsl:if test="not($rngpat) or not($rngpat/rng:element)">
     <xsl:message>
-      <xsl:text>Warning: Can't make syntax summary for </xsl:text>
+      <xsl:text>Warning: Can't make syntax summary for "</xsl:text>
       <xsl:value-of select="$pattern"/>
+      <xsl:text>"</xsl:text>
     </xsl:message>
   </xsl:if>
 
@@ -152,7 +155,7 @@
   <xsl:param name="schema" tunnel="yes"/>
 
   <xsl:variable name="pattern" select="@name"/>
-  <xsl:variable name="rngpat" select="$schema/rng:grammar/rng:define[@name=$pattern]"/>
+  <xsl:variable name="rngpat" select="$schema//rng:define[@name=$pattern]"/>
 
   <xsl:choose>
     <xsl:when test="$rngpat/@sa:ignore = 'yes'">
@@ -231,7 +234,7 @@
 	</xsl:when>
 	<xsl:when test="rng:ref">
 	  <xsl:variable name="pattern" select="rng:ref/@name"/>
-	  <xsl:variable name="rngpat" select="$schema/rng:grammar/rng:define[@name=$pattern]"/>
+	  <xsl:variable name="rngpat" select="$schema//rng:define[@name=$pattern]"/>
 	  <xsl:choose>
 	    <xsl:when test="$rngpat/@sa:model">
 	      <xsl:value-of select="$rngpat/@sa:model"/>
@@ -307,7 +310,7 @@
 	<xsl:value-of select="@class"/>
       </xsl:if>
     </xsl:attribute>
-   <xsl:call-template name="id"/>
+   <xsl:call-template name="t:id"/>
     <code>
       <xsl:text>&lt;</xsl:text>
 
