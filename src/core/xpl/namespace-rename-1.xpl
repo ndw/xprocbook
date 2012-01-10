@@ -6,7 +6,7 @@
 is (or isn't) in a namespace into (or out of) a namespace.</para>
   </p:documentation>
 
-  <p:pipeinfo>
+  <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions" cx:diff="false">
     <html>
       <head>
         <title>My Title</title>

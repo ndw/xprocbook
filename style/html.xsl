@@ -9,7 +9,7 @@
                 exclude-result-prefixes="c db t html deltaxml"
                 version="2.0">
 
-<xsl:import href="/projects/docbook/xslt20/xslt/base/html/docbook.xsl"/>
+<xsl:import href="/Volumes/Data/docbook/xslt20/xslt/base/html/docbook.xsl"/>
 <xsl:import href="xprocns.xsl"/>
 <xsl:import href="rngsyntax.xsl"/>
 

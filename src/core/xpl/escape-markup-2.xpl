@@ -7,7 +7,8 @@ The easiest way to do that is with <step>p:wrap-sequence</step>.</para>
   </p:documentation>
 
   <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions"
-              cx:href="../docs/document.xml"/>
+              cx:href="../docs/document.xml"
+              cx:diff="false"/>
 
   <p:documentation xmlns="http://docbook.org/ns/docbook">
     <para>Then in subsequent steps, such as <step>p:http-request</step>, you

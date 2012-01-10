@@ -22,9 +22,9 @@
   <p:delete match="p:pipeinfo"/>
 
   <p:exec name="input-pipeline"
-          command="/opt/local/bin/xmllint" args="--format --nsclean -"/>
+          command="/usr/bin/xmllint" args="--format --nsclean -"/>
 
-  <p:exec command="/projects/xproc/bin/prettyprint"
+  <p:exec command="/Volumes/Data/github/xprocbook/bin/prettyprint"
           result-is-xml="true">
     <p:input port="source" select="/*/*"/>
   </p:exec>
@@ -46,6 +46,20 @@
                    select="concat(exf:cwd(), 'xpl/', $href)"/>
   </p:store>
 
+  <p:xslt>
+    <p:input port="source">
+      <p:pipe step="xpl" port="result"/>
+    </p:input>
+    <p:input port="stylesheet">
+      <p:document href="../style/extract-example-xml.xsl"/>
+    </p:input>
+  </p:xslt>
+
+  <p:store>
+    <p:with-option name="href"
+                   select="concat(exf:cwd(), substring-before($href,'.xpl'), '.xml')"/>
+  </p:store>
+
   <p:for-each name="for-each">
     <p:iteration-source select="//p:pipeinfo[not(@cx:parameters='true')]">
       <p:pipe step="xpl" port="result"/>
@@ -53,6 +67,12 @@
 
     <p:variable name="basename"
                 select="concat($href,'-',p:iteration-position(),'.xml')"/>
+
+<!--
+    <cx:message>
+      <p:with-option name="message" select="concat('b: ', $basename)"/>
+    </cx:message>
+-->
 
     <p:choose name="load">
       <p:when test="/*/@cx:href">
@@ -72,9 +92,9 @@
     <cx:namespace-delete prefixes="p h cx"
                          xmlns:h="http://www.w3.org/1999/xhtml"/>
 
-    <p:exec command="/opt/local/bin/xmllint" args="--format --nsclean -"/>
+    <p:exec command="/usr/bin/xmllint" args="--format --nsclean -"/>
 
-    <p:exec command="/projects/xproc/bin/prettyprint"
+    <p:exec command="/Volumes/Data/github/xprocbook/bin/prettyprint"
             result-is-xml="true">
       <p:input port="source" select="/*/*"/>
     </p:exec>
@@ -89,7 +109,7 @@
       </p:input>
     </p:identity>
 
-     <cx:eval name="runpipe">
+    <cx:eval name="runpipe">
       <p:input port="source">
         <p:pipe step="load" port="result"/>
       </p:input>
@@ -107,9 +127,9 @@
     <cx:namespace-delete prefixes="p h cx"
                          xmlns:h="http://www.w3.org/1999/xhtml"/>
 
-    <p:exec command="/opt/local/bin/xmllint" args="--format --nsclean -"/>
+    <p:exec command="/usr/bin/xmllint" args="--format --nsclean -"/>
 
-    <p:exec command="/projects/xproc/bin/prettyprint"
+    <p:exec command="/Volumes/Data/github/xprocbook/bin/prettyprint"
             result-is-xml="true">
       <p:input port="source" select="/*/*"/>
     </p:exec>
@@ -131,7 +151,6 @@
         </p:identity>
 
         <p:wrap-sequence wrapper="c:suppress-source"/>
-
       </p:when>
 
       <p:when test="/*/@cx:diff = 'false'">
@@ -147,7 +166,6 @@
         </p:identity>
 
         <p:wrap-sequence wrapper="c:suppress-diff"/>
-
       </p:when>
 
       <p:otherwise>
@@ -170,19 +188,5 @@
                      select="concat(exf:cwd(), 'diffs/', $basename)"/>
     </p:store>
   </p:for-each>
-
-  <p:xslt>
-    <p:input port="source">
-      <p:pipe step="xpl" port="result"/>
-    </p:input>
-    <p:input port="stylesheet">
-      <p:document href="../style/extract-example-xml.xsl"/>
-    </p:input>
-  </p:xslt>
-
-  <p:store>
-    <p:with-option name="href"
-                   select="concat(exf:cwd(), substring-before($href,'.xpl'), '.xml')"/>
-  </p:store>
 
 </p:declare-step>

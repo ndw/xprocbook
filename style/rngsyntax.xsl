@@ -11,7 +11,7 @@
 
 <xsl:strip-space elements="rng:*"/>
 
-<xsl:variable name="rngfile" select="'/projects/xproc/schemas/xproc.rng'"/>
+<xsl:variable name="rngfile" select="'/Volumes/Data/github/xprocbook/schemas/xproc.rng'"/>
 <xsl:variable name="rngschema" select="document($rngfile)/*"/>
 
 <!-- ============================================================ -->

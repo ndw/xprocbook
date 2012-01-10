@@ -9,13 +9,17 @@
   <p:output port="result"/>
   <p:serialization port="result" method="xhtml" indent="false"/>
 
-  <p:import href="/home/ndw/xmlcalabash.com/library/tee.xpl"/>
+  <p:declare-step type="cx:message">
+    <p:input port="source" sequence="true"/>
+    <p:output port="result" sequence="true"/>
+    <p:option name="message" required="true"/>
+  </p:declare-step>
 
-  <p:xinclude name="xinclude" fixup-xml-base="true" fixup-xml-lang="true"/>
+  <p:xinclude name="xinclude" fixup-xml-base="true" fixup-xml-lang="true">
+    <p:log port="result" href="/tmp/xinclude.xml"/>
+  </p:xinclude>
 
 <!--
-  <cx:tee href="/tmp/xiout.xml" debug="1"/>
-
   <p:validate-with-relax-ng>
     <p:input port="schema">
       <p:data href="../schemas/xproc.rnc"/>
@@ -29,12 +33,37 @@
     </p:input>
   </p:xslt>
 
-  <cx:tee href="book-expanded.xml" debug="0"/>
-
   <p:xslt name="style">
     <p:input port="stylesheet">
       <p:document href="../style/html.xsl"/>
     </p:input>
   </p:xslt>
+
+  <p:xslt name="chunk">
+    <p:input port="stylesheet">
+      <p:document href="../style/hchunk.xsl"/>
+    </p:input>
+  </p:xslt>
+
+  <p:sink/>
+
+  <p:for-each>
+    <p:iteration-source>
+      <p:pipe step="chunk" port="secondary"/>
+    </p:iteration-source>
+    <p:output port="result">
+      <p:pipe step="store" port="result"/>
+    </p:output>
+
+    <cx:message>
+      <p:with-option name="message" select="base-uri(/)"/>
+    </cx:message>
+
+    <p:store name="store" method="xhtml">
+      <p:with-option name="href" select="base-uri(/)"/>
+    </p:store>
+  </p:for-each>
+
+  <p:count/>
 
 </p:declare-step>

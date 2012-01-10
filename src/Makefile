@@ -5,7 +5,9 @@ all: book.html
 
 book.html: $(wildcard *.xml) \
            reference
-	calabash -isource=book.xml -oresult=$@ ../xpl/format.xpl
+	calabash -isource=book.xml ../xpl/format.xpl
+
+chunks: book.html
 	rm -f chunked/*
 	cd chunked && saxon ../book.html ../../style/hchunk.xsl
 

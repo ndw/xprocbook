@@ -7,7 +7,7 @@
     </para>
   </p:documentation>
 
-  <p:pipeinfo>
+  <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions" cx:diff="false">
     <doc>
       <p xml:id="one">One</p>
       <p xml:id="two">Two</p>

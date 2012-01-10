@@ -7,7 +7,7 @@
 <step>c:request</step> document:</para>
   </p:documentation>
 
-  <p:pipeinfo>
+  <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions" cx:diff="false">
     <doc>
       <p>This is what gets sent.</p>
     </doc>

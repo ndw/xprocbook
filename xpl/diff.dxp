@@ -1,4 +1,5 @@
-<!-- * nxml * -->
+<!DOCTYPE comparatorPipeline SYSTEM "/usr/local/DeltaXMLCore-5_3_7/samples/dxp/dxp.dtd">
+<!-- $Id: compare-delta.dxp 4594 2008-07-24 14:14:30Z chrisc $ -->
 <comparatorPipeline description="XML Compare, output XML delta" id="delta">
   <fullDescription>
 This configuration is used to produce an XML delta file representing changes in the input xml.

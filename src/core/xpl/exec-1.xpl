@@ -6,9 +6,11 @@
     </para>
   </p:documentation>
 
-  <p:pipeinfo><doc>
+  <p:pipeinfo xmlns:cx="http://xmlcalabash.com/ns/extensions"
+              xmlns:c="http://www.w3.org/ns/xproc-step"
+              cx:diff="true"><c:result><doc>
   <p>Some text.</p>
-</doc></p:pipeinfo>
+</doc></c:result></p:pipeinfo>
 
   <p:exec command="/bin/cat" result-is-xml="true"/>
 
