@@ -196,7 +196,7 @@ required and what default values they have, if any.</para>
 <cx:rng-pattern name="OptionDeclaration"/>
 
 <para>Options are not often placed in a namespace, but they are
-QNames, so you can if you want to. You can not, however, put them in
+QNames, so you can if you want to. You cannot, however, put them in
 the XProc namespace. That’s not allowed.</para>
 
 <para>It may also specify that the option is required. If the
