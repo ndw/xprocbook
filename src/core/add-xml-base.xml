@@ -24,7 +24,7 @@
 
 <para>The <step>p:add-xml-base</step> step exposes the base URIs in
 the document via explicit <att>xml:base</att> attributes. If that sounds
-a little odd, it's important to realize that the base URI of a node is
+a little odd, it’s important to realize that the base URI of a node is
 an intrinsic property of that node. What <step>p:add-xml-base</step> does
 is copy that intrinsic value to the explicit value of the <att>xml:base</att>
 attribute.</para>
@@ -64,7 +64,7 @@ an <att>xml:base</att> attribute is added to the element.
 
 <para>If the <option>relative</option> option is <literal>true</literal>,
 then the value of the <att>xml:base</att> attribute is an appropriate
-relative URI, otherwise it's an absolute URI.</para>
+relative URI, otherwise it’s an absolute URI.</para>
 
 <note>
 <para>If the <option>all</option> option is <literal>false</literal>, then

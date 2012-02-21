@@ -11,8 +11,8 @@
 <para>Options, variables, and parameters are all quite similar in one
 way: they provide a mechanism for the pipeline author to name strings
 that can be reused. However, despite their apparent similarity, each
-has a different purpose. In this chapter, we're going to explore
-what each is for and how they're used.</para>
+has a different purpose. In this chapter, we’re going to explore
+what each is for and how they’re used.</para>
 
 <para>In broad strokes:</para>
 
@@ -41,7 +41,7 @@ parameters, though there are steps that allow them to obtain access.
 </itemizedlist>
 
 <para>Options and variables are actually quite similar; parameters are
-something else entirely, so let's look at options and variables first.</para>
+something else entirely, so let’s look at options and variables first.</para>
 
 <section xml:id="options">
 <title>Options</title>
@@ -55,7 +55,7 @@ validation, and so forth. They accept XML inputs and produce XML outputs.</para>
 XSLT, what is the initial mode?; in schema validation, is strict or
 lax validation requested?; etc.</para>
 
-<para>Those additional settings aren't XML documents, those are simple
+<para>Those additional settings aren’t XML documents, those are simple
 flags, switches, or strings. Those are <emphasis>options</emphasis>.
 Consider the “simple” pipeline we saw back in <xref
 linkend="introduction"/>:</para>
@@ -73,14 +73,14 @@ you also want to do TEI processing. You could write another pipeline:</para>
 /></programlisting>
 
 <para>And you could write another new pipeline for each new vocabulary
-that you want to process. The problem with this approach is that it's
-tedious and results in a lot of redundancy. Suppose after you've got
+that you want to process. The problem with this approach is that it’s
+tedious and results in a lot of redundancy. Suppose after you’ve got
 pipelines for five or six vocabularies, you discover that you need to pass
 different options to the XInclude step, or that you want to perform some
 other extra-grammatical check on the inputs? You have to edit each of the
 pipelines to add this new functionality.</para>
 
-<para>Even with only casual inspection, you can see that they're all
+<para>Even with only casual inspection, you can see that they’re all
 the same, they just use different names for the schemas and the
 stylesheets. Instead of making different copies of this pipeline, you
 could make the schema and stylesheet into
@@ -93,14 +93,14 @@ could make the schema and stylesheet into
 /></programlisting>
 </example>
 
-<para>Admittedly, on the surface, we've made the pipeline more complicated.
-That's because we have to use the <step>p:load</step> step to load the
+<para>Admittedly, on the surface, we’ve made the pipeline more complicated.
+That’s because we have to use the <step>p:load</step> step to load the
 schema and the stylesheet. But the benefit of this additional complexity is
 that our new pipeline will work for any RELAX NG grammar and XSLT stylesheet
 combination, we simply pass the URIs for those documents in as options and
 the pipeline does the rest<footnote><para>Alternatively, you could make the
-grammar and the stylesheet into pipeline inputs; that's an equally reasonable
-approach, but it doesn't illustrate the point I'm trying to make here.</para>
+grammar and the stylesheet into pipeline inputs; that’s an equally reasonable
+approach, but it doesn’t illustrate the point I’m trying to make here.</para>
 </footnote>.</para>
 
 <para>As you can see, options can be referenced like variables in
@@ -108,7 +108,7 @@ XPath expressions.</para>
 
 <para>If you run this pipeline with <filename>docbook.rng</filename>
 and <filename>docbook.xsl</filename> for the <option>schema</option>
-and <option>stylesheet</option> options, respectively, you'll get
+and <option>stylesheet</option> options, respectively, you’ll get
 DocBook validation and styling:</para>
 
 <screen><prompt>$ </prompt><userinput>calabash -isource=dbdoc.xml format.xpl schema=docbook.rng stylesheet=docbook.xsl</userinput></screen>
@@ -119,7 +119,7 @@ exact same stylesheet will perform TEI validation and styling:</para>
 
 <screen><prompt>$ </prompt><userinput>calabash -isource=teidoc.xml format.xpl schema=tei.rng stylesheet=tei.xsl</userinput></screen>
 
-<para>But what if you don't specify any options?</para>
+<para>But what if you don’t specify any options?</para>
 
 <para>If you run the pipeline in <xref linkend="simple-opts"/> without
 any options, it will fail badly (the load step will fail with an error
@@ -154,7 +154,7 @@ SEVERE: If an option is required, it is a static error to invoke the step withou
 specifying a value for that option.</computeroutput></screen>
 
 <para>If you give them default values, then the specified default value
-will be used if the caller doesn't provide a value.</para>
+will be used if the caller doesn’t provide a value.</para>
 
 <para>In this case, because we used to get DocBook processing without
 specifying any options, it probably makes sense to make those the
@@ -170,10 +170,10 @@ defaults.</para>
 <para>The following sections describe the option elements in more
 detail.</para>
 
-<para>Before we go on, however, we should point out that there's one
+<para>Before we go on, however, we should point out that there’s one
 other possibility when dealing with options. Sometimes it makes sense to
 require them, sometimes it makes sense to give them defaults, but sometimes
-you'd like to do something more sophisticated. In those cases, you can use
+you’d like to do something more sophisticated. In those cases, you can use
 the <function>p:value-available</function> function to test whether or not
 values were provided and respond accordingly. For more information about
 <function>p:value-available</function> and other extension functions,
@@ -197,13 +197,13 @@ required and what default values they have, if any.</para>
 
 <para>Options are not often placed in a namespace, but they are
 QNames, so you can if you want to. You can not, however, put them in
-the XProc namespace. That's not allowed.</para>
+the XProc namespace. That’s not allowed.</para>
 
 <para>It may also specify that the option is required. If the
 <att>required</att> attribute is not specified, it has the same effect
 as explicitly setting it to <literal>false</literal>.</para>
 
-<para>All options in XProc are simple string values, so there's no
+<para>All options in XProc are simple string values, so there’s no
 provision for specifying any additional information about the option,
 such as its type.</para>
 
@@ -213,7 +213,7 @@ and parameters to hold arbitrary values. Using this option makes
 XML Calabash a non-conforming processor.</para>
 </tip>
 
-<para>It's also possible for the <tag>p:option</tag> to specify a
+<para>It’s also possible for the <tag>p:option</tag> to specify a
 default value to be used when the caller does not provide a value for
 the option. This is done with the <att>select</att> attribute:</para>
 
@@ -229,7 +229,7 @@ preceding options but the context node is undefined.</para>
 <term><code>&lt;p:option name=”oname”/&gt;</code></term>
 <listitem>
 <para>Specifies an option named “<literal>oname</literal>”. The option is
-not required and has no default value. If the caller doesn't specify a value,
+not required and has no default value. If the caller doesn’t specify a value,
 it will be an error to attempt to refer to it in the pipeline.
 </para>
 </listitem>
@@ -254,10 +254,10 @@ required. If the caller does not provide a value, the step will fail at runtime.
 <term><code>&lt;p:option name=”oname” select=”'some default value'/&gt;</code></term>
 <listitem>
 <para>Specifies an option named “<literal>oname</literal>” with the default
-value “<literal>some default value</literal>”. If the caller doesn't specify
+value “<literal>some default value</literal>”. If the caller doesn’t specify
 a value, it will be exactly as if they specified the value
 “<literal>some default value</literal>”. (The pipeline cannot tell if an
-option's value was explicitly provided or provided by default.)
+option’s value was explicitly provided or provided by default.)
 </para>
 </listitem>
 </varlistentry>
@@ -290,28 +290,28 @@ in order to set the context node.</para>
 <cx:rng-pattern name="WithOptionSelect"/>
 
 <para>If you do not specify an explicit binding, the binding comes from
-the default readable port, if there is one. If there's no explicit binding
-and no default readable port, then the context is undefined (and it's an
+the default readable port, if there is one. If there’s no explicit binding
+and no default readable port, then the context is undefined (and it’s an
 error to refer to it).</para>
 
 <para>This example passes the value “5” to the option “<literal>depth</literal>”:
 </para>
 
-<programlisting>&lt;p:with-option name=”depth” select=”5”/&gt;</programlisting>
+<programlisting>&lt;p:with-option name="depth" select="5"/&gt;</programlisting>
 
 <para>This example passes the string value of the <att>version</att>
 attribute on the document element as the value of the
 “<literal>version</literal>” option:</para>
 
-<programlisting>&lt;p:with-option name=”version” select=”/*/@version”/&gt;</programlisting>
+<programlisting>&lt;p:with-option name="version" select="/*/@version"/&gt;</programlisting>
 
 <para>In order to evaluate this expression, the processor must have a document
 to use as the context. As specified, the context will come from the default
 readable port. You can specify an alternate context, most often this is
 the output from some other step:</para>
 
-<programlisting>&lt;p:with-option name=”version” select=”/*/@version”&gt;
-  &lt;p:pipe step=”preceding” port=”result”/&gt;
+<programlisting>&lt;p:with-option name="version" select="/*/@version"&gt;
+  &lt;p:pipe step="preceding" port="result"/&gt;
 &lt;/p:with-option/&gt;</programlisting>
 
 <para>Here the context will be the document that appears on the
@@ -336,22 +336,22 @@ they have the same option name.</para>
 <title>Variables</title>
 
 <para>Variables are very similar to options. The principal difference is
-that variables are entirely local to the pipeline, they're something that
+that variables are entirely local to the pipeline, they’re something that
 the pipeline author uses to organize or simplify the pipeline. Callers
 cannot change, or even see, the names or values of variables.</para>
 
 <section xml:id="p.variable">
 <title>p:variable</title>
 
-<para>When you declare a variable, you must specify the variable's name
+<para>When you declare a variable, you must specify the variable’s name
 and a <att>select</att> expression to provide its value. You may also
 specify an explicit binding in order to set the context node.</para>
 
 <cx:rng-pattern name="VariableSelect"/>
 
 <para>If you do not specify an explicit binding, the binding comes from
-the default readable port, if there is one. If there's no explicit binding
-and no default readable port, then the context is undefined (and it's an
+the default readable port, if there is one. If there’s no explicit binding
+and no default readable port, then the context is undefined (and it’s an
 error to refer to it).</para>
 
 <para>Like options, variables may be in a namespace but may not be in
@@ -361,21 +361,21 @@ the XProc namespace.</para>
 variable “<literal>depth</literal>”:
 </para>
 
-<programlisting>&lt;p:variable name=”depth” select=”5”/&gt;</programlisting>
+<programlisting>&lt;p:variable name="depth" select="5"/&gt;</programlisting>
 
 <para>This example computes the “<literal>uri</literal>” value by resolving
 the value of some preceding option or variable named “<literal>href</literal>”
 against the base URI of a particular document:</para>
 
-<programlisting>&lt;p:variable name=”uri” select=”resolve-uri($href, base-uri(/))”/&gt;</programlisting>
+<programlisting>&lt;p:variable name="uri" select="resolve-uri($href, base-uri(/))"/&gt;</programlisting>
 
 <para>In order to evaluate this expression, the processor must have a document
 to use as the context. As specified, the context will come from the default
 readable port. You can specify an alternate context, most often this is
 the output from some other step:</para>
 
-<programlisting>&lt;p:variable name=”uri” select=”resolve-uri($href, base-uri(/))”&gt;
-  &lt;p:pipe step=”preceding” port=”result”/&gt;
+<programlisting>&lt;p:variable name="uri" select="resolve-uri($href, base-uri(/))"&gt;
+  &lt;p:pipe step="preceding" port="result"/&gt;
 &lt;/p:variable/&gt;</programlisting>
 
 <para>Here the context will be the document that appears on the
@@ -392,15 +392,15 @@ the document you want to use.</para>
 <section xml:id="var-placement">
 <title>Variable placement</title>
 
-<para>There's one oddity about variables: they can only occur at the beginning
-of a compound step. In other words, you <emphasis>can't</emphasis> do this:</para>
+<para>There’s one oddity about variables: they can only occur at the beginning
+of a compound step. In other words, you <emphasis>can’t</emphasis> do this:</para>
 
 <programlisting role="invalid"
 ><xi:include href="examples/invalid-vars.xpl" parse="text"
 /></programlisting>
 
-<para>You can't put a variable declaration between two steps. This may seem
-like an odd restriction, but it's motivated by the fact that the order of
+<para>You can’t put a variable declaration between two steps. This may seem
+like an odd restriction, but it’s motivated by the fact that the order of
 the steps in your pipeline document is not necessarily the order in which
 they will be evaluated.</para>
 
@@ -437,15 +437,15 @@ of some step.</para>
 ><xi:include href="examples/valid-vars.xpl" parse="text"
 /></programlisting>
 
-<para>This is perfectly valid. There's no question that this is a
-surprising state of affairs, but it doesn't actually impact the kinds
+<para>This is perfectly valid. There’s no question that this is a
+surprising state of affairs, but it doesn’t actually impact the kinds
 of processing that XProc can perform.</para>
 </section>
 
 <section xml:id="shadowing">
 <title>Variable shadowing</title>
 
-<para>It's an error to have more than one declaration for the same
+<para>It’s an error to have more than one declaration for the same
 variable name at the same level, in other words for their declarations
 to be siblings in the XML sense.</para>
 
@@ -462,13 +462,13 @@ compound step, the nearest ancestor declaration is the one that holds.
 
 <para>Parameters suck. They make XProc more complicated, they
 introduce a number of odd defaulting rules that the language would be
-cleaner without, they use an input port in a very odd way, and they're
+cleaner without, they use an input port in a very odd way, and they’re
 bound to cause all sorts of confusion. If the working group could have
 thought of a way to get rid of them, it probably would have.</para>
 
 <para>Parameters exist to solve a particular problem exemplified by
 (but not unique to) XSLT. Consider that pipeline back up in <xref
-linkend="simple-opts"/>. Suppose that it's used to process a document
+linkend="simple-opts"/>. Suppose that it’s used to process a document
 with the DocBook XSL Stylesheets. The DocBook stylesheets have
 <emphasis>more than 600 parameters</emphasis>: there are parameters
 for chunking, profiling, table formating, refentry formatting, cross
@@ -480,11 +480,11 @@ that pipeline and pass a parameter (or two, or ten) to XSLT? What
 are the options?</para>
 
 <variablelist>
-<varlistentry><term>You can't.</term>
+<varlistentry><term>You can’t.</term>
 <listitem>
-<para>It's simple, but it's not very satisfying. Given the success
-and popularity of XSLT, it's likely that a lot of pipelines will use it.
-Preventing any of them from using stylesheet parameters doesn't seem
+<para>It’s simple, but it’s not very satisfying. Given the success
+and popularity of XSLT, it’s likely that a lot of pipelines will use it.
+Preventing any of them from using stylesheet parameters doesn’t seem
 like a good idea.
 </para>
 </listitem>
@@ -493,7 +493,7 @@ like a good idea.
 <listitem>
 <para>That means writing a different pipeline for every combination of
 stylesheet options <emphasis>and values</emphasis> that you want to pass
-to XSLT. I guess that's better than not being able to do it at all, but not
+to XSLT. I guess that’s better than not being able to do it at all, but not
 by much.
 </para>
 </listitem>
@@ -503,7 +503,7 @@ by much.
 <para>In many ways using options would be the cleanest answer. Except
 that using options means every pipeline that includes XSLT will have
 to provide a <tag>p:option</tag> for every possible parameter for
-every possible stylsheet that it might run. I don't think very many
+every possible stylsheet that it might run. I don’t think very many
 pipeline authors are going to want to put thousands of <tag>p:option</tag>
 elements in each pipeline that uses XSLT and then thousands of
 <tag>p:with-option</tag> elements on each call to <tag>p:xslt</tag>.
@@ -519,7 +519,7 @@ their names are not known in advance to the pipeline author.
 
 <para>In the simplest case, it just works. Any parameters passed to the
 pipeline are automatically passed to any step that expects parameters.
-Under the covers there's quite a bit of magic going on. Let's take a closer
+Under the covers there’s quite a bit of magic going on. Let’s take a closer
 look. The descriptions that follow describe what an XProc processor does
 <emphasis>in principle</emphasis>; an implementation is free to choose
 a more efficient implementation in practice as long as it behaves as
@@ -537,7 +537,7 @@ shows the simplest XSLT pipeline using the fully explicit syntax.</para>
 </example>
 
 <para>The first thing to observe is that it has a special “parameter”
-input port. XProc's greatest strength is its ability to process XML documents;
+input port. XProc’s greatest strength is its ability to process XML documents;
 to take advantage of this strength, parameters are mapped onto a special kind
 of input port.</para>
 
@@ -545,7 +545,7 @@ of input port.</para>
 
 <screen><prompt>$ </prompt><userinput>calabash -isource=dbdoc.xml -pbody.font.family=sans-serif param-decl.xpl</userinput></screen>
 
-<para>where we've passed the parameter named
+<para>where we’ve passed the parameter named
 “<parameter>body.font.family</parameter>” to the pipeline with the
 value “<literal>sans-serif</literal>”.</para>
 
@@ -581,7 +581,7 @@ is in <xref linkend="ex.pfdecl"/>.</para>
 from the parameters input port on the <tag>p:xslt</tag> step to the
 parameters input port on the containing pipeline.</para>
 
-<para>Although this binding is most often implicit, it's important to
+<para>Although this binding is most often implicit, it’s important to
 remember that it can be explicit. In rare circumstances, it may be
 necessary to have more than one parameter input port. Consider the case,
 for example where you want to run the <tag>p:xslt</tag> step twice in
@@ -599,8 +599,8 @@ make the bindings explicit as shown in <xref linkend="ex.mdecl"/>.</para>
 </example>
 
 <para>The important thing to remember is that most of the defaulting
-rules only apply when there's a single parameter input port. If you
-specify multiple parameter input ports, you'll have to make your
+rules only apply when there’s a single parameter input port. If you
+specify multiple parameter input ports, you’ll have to make your
 intentions explicit.</para>
 
 <para>There are some other wrinkles in the default binding story.</para>
@@ -612,7 +612,7 @@ intentions explicit.</para>
 in the sense that you can make bindings to it explicitly in the normal
 way. It differs in two ways: it always, and can only, accept a
 sequence of <tag>c:param-set</tag> or <tag>c:param</tag> documents,
-it's an error to pass anything else to it; and if you don't specify a
+it’s an error to pass anything else to it; and if you don’t specify a
 binding, the default binding rules are different.</para>
 
 <para>If a step has a primary parameter input port without an explicit
@@ -637,9 +637,9 @@ be a pipe binding to <tag>p:empty</tag> or it can be one or more
 
 <para>Sometimes you want to construct or specify a parameter value in
 the pipeline. For this purpose, you can use <tag>p:with-param</tag>.
-Like <tag>p:with-option</tag>, it's used when you are
+Like <tag>p:with-option</tag>, it’s used when you are
 <emphasis>calling</emphasis> a step to specify <emphasis>a value</emphasis>
-for a particular parameter. (There's no equivalent of <tag>p:option</tag>
+for a particular parameter. (There’s no equivalent of <tag>p:option</tag>
 because parameters are by definition not declared in the pipeline.)</para>
 
 <para>You must specify the parameter name and a <att>select</att>
@@ -650,14 +650,14 @@ node.</para>
 <cx:rng-pattern name="WithParamSelect"/>
 
 <para>If you do not specify an explicit binding, the binding comes from
-the default readable port, if there is one. If there's no explicit binding
-and no default readable port, then the context is undefined (and it's an
+the default readable port, if there is one. If there’s no explicit binding
+and no default readable port, then the context is undefined (and it’s an
 error to refer to it).</para>
 
 <para>This example passes the value “5” to the parameter “<literal>depth</literal>”:
 </para>
 
-<programlisting>&lt;p:with-param name=”depth” select=”5”/&gt;</programlisting>
+<programlisting>&lt;p:with-param name="depth" select="5"/&gt;</programlisting>
 
 <para>Because there can be multiple parameter input ports, there is also a
 <att>port</att> attribute. You <emphasis>must</emphasis> specify the port
@@ -668,15 +668,15 @@ the default is for the single parameter input port.</para>
 attribute on the document element as the value of the
 “<literal>version</literal>” parameter on the <port>params1</port>:</para>
 
-<programlisting>&lt;p:with-param port=”params1” name=”version” select=”/*/@version”/&gt;</programlisting>
+<programlisting>&lt;p:with-param port="params1" name="version" select="/*/@version"/&gt;</programlisting>
 
 <para>In order to evaluate this expression, the processor must have a document
 to use as the context. As specified, the context will come from the default
 readable port. You can specify an alternate context, most often this is
 the output from some other step:</para>
 
-<programlisting>&lt;p:with-param port=”params1” name=”version” select=”/*/@version”&gt;
-  &lt;p:pipe step=”main” port=”altparams”/&gt;
+<programlisting>&lt;p:with-param port="params1" name="version" select="/*/@version"&gt;
+  &lt;p:pipe step="main" port="altparams"/&gt;
 &lt;/p:with-param/&gt;</programlisting>
 
 <para>Here the context will be the document that appears on the
@@ -730,7 +730,7 @@ unless the user provides a different value as a parameter to the pipeline.</para
 <section xml:id="namespaces">
 <title>Controlling in-scope namespaces</title>
 
-<para>There's one last wrinkle in this story. And if there's going to
+<para>There’s one last wrinkle in this story. And if there’s going to
 be a last wrinkle in an XML story, you can safely bet that it will
 involve namespaces. And probably QNames-in-content, which is precisely
 the problem here.</para>
@@ -757,10 +757,10 @@ into your pipeline, which then wants to call the pipeline shown above:</para>
 ><xi:include href="examples/call-rename-invalid.xpl" parse="text"
 /></programlisting>
 
-<para>This pipeline doesn't even <emphasis>declare</emphasis> a
+<para>This pipeline doesn’t even <emphasis>declare</emphasis> a
 binding for the XHTML namespace (which is a little odd under the
 circumstances but will help to reinforce a point later). What happens
-when this call is made? From the perspective of this pipeline, there's
+when this call is made? From the perspective of this pipeline, there’s
 no error because the value of the match attribute is just <emphasis>a
 string</emphasis>. But that string “<literal>h:body/h:p</literal> is
 passed to the <tag>ex:do-stuff-and-rename</tag> step where it is

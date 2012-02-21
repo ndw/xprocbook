@@ -62,7 +62,7 @@ accordingly.</para>
 <title>Related Steps</title>
 <para>The <step>p:add-attribute</step> step uses the same attribute
 value everywhere that it inserts an attribute. If you need to vary the
-value depending on where it's inserted, <step>p:label-elements</step>
+value depending on where it’s inserted, <step>p:label-elements</step>
 may provide the flexibility that you need.</para>
 
 <para>If you want to set multiple attributes on the same element (or

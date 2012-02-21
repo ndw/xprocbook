@@ -27,7 +27,7 @@
 associated with a namespace declaration is a small, local operation.
 In an XPath data model, changing the URI associated with a namespace
 binding effects not just the element on which the changes is made, but
-potentially all of it's descendants.</para>
+potentially all of it’s descendants.</para>
 
 <para>The <step>p:namespace-rename</step> step exists to accomplish this
 task. It changes the URI associated with a namespace binding for an entire
@@ -97,7 +97,7 @@ and its value is not the empty string, for every namespace attribute in the
 input whose value is the same as the value of the <option>from</option> option, in the output</para>
    <itemizedlist>
     <listitem>
-     <para>the namespace attribute's value is replaced with the value of the <option>to</option>
+     <para>the namespace attribute’s value is replaced with the value of the <option>to</option>
 option, provided it is present and not the empty string;</para>
     </listitem>
     <listitem>

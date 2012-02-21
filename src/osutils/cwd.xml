@@ -25,7 +25,7 @@ concept of a working directory, this step returns the empty sequence.
 </para>
 
 <para>(This step is exactly duplicates the <att>cwd</att> attribute on
-the <tag>c:result</tag> from <step>cxo:info</step>; it's just for
+the <tag>c:result</tag> from <step>cxo:info</step>; it’s just for
 convenience.)</para>
 
 </refsection>

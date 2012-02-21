@@ -55,7 +55,7 @@ process. A value of “-1” specifies an unbounded depth.</para>
 <entry><error code="C0012"/></entry>
 <entry>Occurs
 if the step cannot read the specified directory due to access restrictions
-or if the environment doesn't support the notion of a hierarchical directory
+or if the environment doesn’t support the notion of a hierarchical directory
 structure.
 </entry>
 </row>

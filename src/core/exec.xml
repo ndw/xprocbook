@@ -53,7 +53,7 @@
 
 <para>The <step>p:exec</step> step runs an external command. It can pass
 a document to the “standard input” of the command and it can return both
-the command's “standard output” and “standard error” as XML documents.</para>
+the command’s “standard output” and “standard error” as XML documents.</para>
 
 <para>The <step>p:exec</step> step executes the command passed on
 <option>command</option> with the arguments passed on
@@ -75,9 +75,9 @@ cross-platform issues: path and argument separators.</para>
 of a path, for example <filename>/usr/bin/ls</filename>. On
 Windows-based systems, the backward slash is used, for example:
 <filename>\usr\bin\ls</filename>. Assuming that you want to run a
-<step>p:exec</step> step on both kinds of systems, and you've already
+<step>p:exec</step> step on both kinds of systems, and you’ve already
 arranged for the actual path name of the command to be the same on
-both systems, you couldn't easily write the <step>p:exec</step> step
+both systems, you couldn’t easily write the <step>p:exec</step> step
 because no matter which character you chose, it would only work on one
 of the systems.</para>
 
@@ -86,13 +86,13 @@ This option, which must be exactly one character, will be replaced in
 <option>command</option> and <option>args</option> options with the
 appropriate, platform-specific path separator character.</para>
 
-<para>A similar problem exists for the command line arguments. It's
+<para>A similar problem exists for the command line arguments. It’s
 common to separate arguments with spaces. For example,
 “<literal>a b c</literal>” is usually interpreted as three distinct
 arguments, “<literal>a</literal>”, “<literal>b</literal>”, and
 “<literal>c</literal>”.</para>
 
-<para>A the same time, it's become quite common for filenames to contain
+<para>A the same time, it’s become quite common for filenames to contain
 spaces. This leads to a dilemma. Given a file named
 “<filename>My Report.xml</filename>”, how do I pass it to a command without
 having it interpreted as two arguments: “<literal>My</literal>” and
@@ -109,9 +109,9 @@ processed).</para>
 escaping mechanism for them, not a mechanism that can reasonably be
 extended to cover this case. Adding <emphasis>another</emphasis>
 mechanism for escaping characters in this context would have been
-confusing. What's more, XProc doesn't really give the pipeline author
+confusing. What’s more, XProc doesn’t really give the pipeline author
 a convenient way to analyze the arguments, select an appropriate,
-escaping mechanism, and use it. That's just not the sort of thing it's
+escaping mechanism, and use it. That’s just not the sort of thing it’s
 made to do.</para>
 
 <para>XProc attacks the problem a different way, it provides an
@@ -143,7 +143,7 @@ the source to be an empty sequence. If an empty sequence appears on the
 <port>source</port> port, nothing is passed to standard input. It is an
 error to send more than one document to the <port>source</port> port.</para>
 
-<para>There's no standard API for passing XML documents to external
+<para>There’s no standard API for passing XML documents to external
 commands, so they are sent as text. If the
 <option>source-is-xml</option> option is “<literal>true</literal>”,
 then the source document is serialized with the serialization options

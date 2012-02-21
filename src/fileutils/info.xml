@@ -29,7 +29,7 @@ kinds of filesystem objects. Implementations may also
 return more specific types, for example <tag>c:device</tag>, so anything
 other than <tag>c:directory</tag> or <tag>c:file</tag> must be
 interpreted as “other”.
-If the document doesn't exist, an empty sequence is returned.</para>
+If the document doesn’t exist, an empty sequence is returned.</para>
 
 <para>The document element of the result, if there is one, will have
 the following attributes:</para>
@@ -75,7 +75,7 @@ the following attributes:</para>
 
 <para>If the value of a particular attribute is unknown or inapplicable
 for the particular kind of object, or in the case
-of boolean attributes, if it's false, then the attribute is not present.
+of boolean attributes, if it’s false, then the attribute is not present.
 Additional implementation-defined attributes may be present, but they must
 be in a namespace.</para>
 

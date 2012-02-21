@@ -48,8 +48,8 @@ and without authentication, and to handle sending and receiving both
 single and multipart message bodies that may or may not be
 XML.</para>
 
-<para>Don't let the all of the possible complexity persuade you into thinking
-that it has to be complex. Here's a simple example that retrieves the
+<para>Don’t let the all of the possible complexity persuade you into thinking
+that it has to be complex. Here’s a simple example that retrieves the
 XProc specification from the W3C website:</para>
 
 <programlisting><![CDATA[  <p:http-request>
@@ -63,12 +63,12 @@ XProc specification from the W3C website:</para>
 
 <para>If most of your web interactions are simple HTTP “GET” requests, it
 may be useful to write a wrapper that provides direct support for those
-simple cases. In the examples below, you'll find a <step>cx:http-get</step>
+simple cases. In the examples below, you’ll find a <step>cx:http-get</step>
 pipeline that simplifies the above example to a single line:</para>
 
 <programlisting>&lt;cx:http-get href="http://www.w3.org/TR/xproc/langspec.xml"/></programlisting>
 
-<para>Now let's look at the step in all it's generality. Everything begins
+<para>Now let’s look at the step in all it’s generality. Everything begins
 with the request. A <tag>c:request</tag> element has the following form:</para>
 
 <programlisting>&lt;c:request
@@ -85,7 +85,7 @@ with the request. A <tag>c:request</tag> element has the following form:</para>
 &lt;/c:request></programlisting>
 
 <para>The <att>method</att> attribute must be one of the HTTP methods
-(one of the methods supported by the system with which you're
+(one of the methods supported by the system with which you’re
 interacting). The <att>href</att> attribute identifies the URI that you want to
 interact with. The <att>username</att>, <att>password</att>,
 <att>auth-method</att>, and <att>send-authorization</att> attributes
@@ -108,11 +108,11 @@ headers with the request:</para>
   value = string /></programlisting>
 
 <para>The <att>name</att> and <att>value</att> attributes specify the name
-and value of the header, respectively. As we'll see below, the
+and value of the header, respectively. As we’ll see below, the
 <tag>c:header</tag> element is also used to present the headers that
 the server sends back.</para>
 
-<para>If you're doing an HTTP “GET”, then you don't send any content to the
+<para>If you’re doing an HTTP “GET”, then you don’t send any content to the
 server, but for HTTP “POST” or “PUT” requests (among others), data is sent
 to the server using a <tag>c:body</tag> or <tag>c:multipart</tag>
 elements.</para>
@@ -162,7 +162,7 @@ specified.</para>
 is serialized using the options specified on the
 <step>p:http-request</step> and the resulting serialized form is sent
 to the server. In other words, if the body is XML, the processor does
-what you'd expect to send the XML over the wire.</para>
+what you’d expect to send the XML over the wire.</para>
 </listitem>
 <listitem>
 <para>If the content type does not specify an XML media type, or if an
@@ -192,13 +192,13 @@ of the <tag>c:multipart</tag> element:</para>
 &lt;/c:multipart></programlisting>
 
 <para>The <att>content-type</att> specified must be a multipart media
-type. If it's not specified, a value of
+type. If it’s not specified, a value of
 “<literal>multipart/mixed</literal>” is used.</para>
 
 <para>In the request sent to the server, all of the parts are sent in
 a single stream. The boundaries between each part are identified with
-a boundary string. It's your responsibility to specify the
-<att>boundary</att> string and it's critically important that you
+a boundary string. It’s your responsibility to specify the
+<att>boundary</att> string and it’s critically important that you
 specify a value that <emphasis>will not</emphasis> occur in the
 (possibly encoded) representations of any of the parts.</para>
 
@@ -239,14 +239,14 @@ that it can. The XProc processor provides this in the form of a
     (c:header*, (c:body | c:multipart)?)
 &lt;/c:response></programlisting>
 
-<para>The response's status code is encoded in the <code>status</code>
+<para>The response’s status code is encoded in the <code>status</code>
 attribute and the headers and entity body are returned in
 <tag>c:header</tag> and <tag>c:multipart</tag> or <tag>c:body</tag>
 content.</para>
 
-<para>But often, you know that you're going to get back, for example,
+<para>But often, you know that you’re going to get back, for example,
 a single XML document. If you expect the step to succeed and you just
-want the document back, it's tedious to have to remember to unpack it
+want the document back, it’s tedious to have to remember to unpack it
 from inside the <tag>c:response</tag> wrapper every time. To alleviate
 this tedium, the <tag>c:request</tag> allows you to specify whether or
 not you want a “detailed” response:</para>
@@ -270,14 +270,14 @@ the server sends back in its response.</para>
 
 <para>The output of a <step>p:http-request</step> must be XML, so the
 body (or each of the bodies) has to be converted into an XML
-representation. For media types (images, binaries, etc.) that can't be
+representation. For media types (images, binaries, etc.) that can’t be
 represented as a sequence of Unicode characters, the response is
 <literal>base64</literal> encoded and then returned in a
 <tag>c:body</tag> element. If the content is base64-encoded, the
 <tag class="attribute">encoding</tag> attribute on <tag>c:body</tag> will
 be set to “<literal>base64</literal>”.</para>
 
-<para>If the media type isn't XML but can be represented as a sequence
+<para>If the media type isn’t XML but can be represented as a sequence
 of Unicode characters, the content of the
 <tag>c:body</tag> element will be those characters. In this case,
 there will be no <att>encoding</att> attribute on the <tag>c:body</tag>.</para>
@@ -291,7 +291,7 @@ is not well-formed, the step fails.</para>
 constructing a <tag>c:body</tag> element for each body part
 encountered.</para>
 
-<para>There's one more special case. If the <att>status-only</att>
+<para>There’s one more special case. If the <att>status-only</att>
 attribute on the <tag>c:request</tag> is “<literal>true</literal>”,
 the result document will always be a <tag>c:response</tag> containing
 only header information. The response will not be processed to produce
@@ -321,7 +321,7 @@ meaning is <glossterm>implementation-defined</glossterm>.</para>
 <para>Authentication generally requires several messages sent back and forth
 between the client and the server. The client requests access, the server
 responds with a challenge, the client replies with appropriate credentials,
-and then the server sends back the actual response. If you're using
+and then the server sends back the actual response. If you’re using
 basic authentication, you can avoid one round trip by setting
 <att>send-authentication</att> to “<literal>true</literal>”. If you do,
 the credentials are sent on the first request. This only works for
@@ -347,7 +347,7 @@ scheme.</para>
 through an XProc pipeline. The <att>encoding</att> attribute controls
 the decoding of the element content for formulating the request.</para>
 
-<para>A value of “<literal>base64</literal>” indicates the element's
+<para>A value of “<literal>base64</literal>” indicates the element’s
 content is a base64 encoded string whose byte stream should be sent as
 the message body. An implementation may support encodings other than
 <literal>base64</literal> but these encodings and their names are
@@ -378,7 +378,7 @@ authentication protocol.</para>
 <refsection xml:id="html">
 <title>HTML content</title>
 
-<para>HTML isn't always (in fact, rarely is) well-formed XML. But it
+<para>HTML isn’t always (in fact, rarely is) well-formed XML. But it
 can be represented in Unicode, so by the rules in <xref
 linkend="c.request_response"/>, any content identified as
 <code>text/html</code> will be encoded as (escaped) text or
@@ -441,8 +441,8 @@ if a <option>username</option>
 or <option>password</option> is specified without specifying an
 <option>auth-method</option>, if
 the requested
-<option>auth-method</option> isn't supported, or the authentication
-challenge contains an authentication method that isn't
+<option>auth-method</option> isn’t supported, or the authentication
+challenge contains an authentication method that isn’t
 supported.
 </entry>
 </row>

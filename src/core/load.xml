@@ -50,7 +50,7 @@ steps, respectively.</para>
 <entry><error code="C0027"/></entry>
 <entry>Occurs
 if the
-document is not valid or the step doesn't support DTD
+document is not valid or the step doesn’t support DTD
 validation.
 </entry>
 </row>

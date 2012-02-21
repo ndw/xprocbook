@@ -22,7 +22,7 @@
 
 <para>The most common way for browsers to send parameters to a web service
 is with an encoding called “<literal>x-www-form-urlencoded</literal>”.
-You've all seen it:</para>
+You’ve all seen it:</para>
 
 <screen>http://example.org/service?a=b&amp;c=d&amp;e=&amp;f</screen>
 

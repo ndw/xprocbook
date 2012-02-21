@@ -3,5 +3,5 @@
 <!ELEMENT p (#PCDATA)*>
 ]>
 <doc>
-<para>I'm not valid!</para>
+<para>I’m not valid!</para>
 </doc>

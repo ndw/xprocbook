@@ -39,7 +39,7 @@
 <para>The <tag>p:store</tag> step serializes its input document and stores
 it at the specified URI.</para>
 
-<para>If the <option>href</option> option is relative, it's made
+<para>If the <option>href</option> option is relative, it’s made
 absolute against the base URI of the element on which it is specified
 in the pipeline.</para>
 

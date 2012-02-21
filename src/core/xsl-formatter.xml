@@ -39,7 +39,7 @@ parameters on the <option>content-type</option> option is
 <glossterm>implementation-defined</glossterm>.</para>
 
 <para>A formatter may take any number of optional rendering
-parameters via the step's parameters; such parameters are defined by
+parameters via the step’s parameters; such parameters are defined by
 the XSL implementation used and are
 <glossterm>implementation-defined</glossterm>.</para>
 
