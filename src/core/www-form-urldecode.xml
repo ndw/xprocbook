@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -22,7 +25,7 @@
 
 <para>The most common way for browsers to send parameters to a web service
 is with an encoding called “<literal>x-www-form-urlencoded</literal>”.
-You've all seen it:</para>
+You’ve all seen it:</para>
 
 <screen>http://example.org/service?a=b&amp;c=d&amp;e=&amp;f</screen>
 

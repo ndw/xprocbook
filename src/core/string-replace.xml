@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -51,7 +54,7 @@ node).</para>
 </listitem>
 <listitem>
 <para>If the match pattern does not match the node, then the string replace
-operation is performed on each of the node's attributes (if it is an element)
+operation is performed on each of the node’s attributes (if it is an element)
 and its children. The resulting, transformed node is copied to the output.
 </para>
 </listitem>
@@ -64,8 +67,8 @@ option. What you must always bear in mind is that the value of the
 <emphasis>by the step</emphasis>.</para>
 
 <para>Often, this is what you want. Unfortunately, in one of the most
-common cases, where you'd like to replace an attribute value with some
-computed value, the obvious approach does not do what you'd
+common cases, where you’d like to replace an attribute value with some
+computed value, the obvious approach does not do what you’d
 expect.</para>
 
 <para>Consider this pipeline:</para>
@@ -93,8 +96,8 @@ A bare name in XPath selects child elements with that name. So, as written,
 what this string replace step does is replace the value of the <att>class</att>
 attribute with the string value of its <tag>new-value</tag> element children.</para>
 
-<para>Of course, attributes don't have element children, so the result of
-evaluating that XPath expression is always the empty string and that's the
+<para>Of course, attributes don’t have element children, so the result of
+evaluating that XPath expression is always the empty string and that’s the
 value that will be used for the <att>class</att> attribute.</para>
 
 <para>The step that we need to evaluate effectively is this one:</para>

@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <chapter xmlns="http://docbook.org/ns/docbook"
          xmlns:cx="http://xmlcalabash.com/ns/extensions"
          xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -8,13 +11,13 @@
 <title>Pipeline Terminology</title>
 </info>
 
-<para>In this chapter, we'll survey the main syntactic elements of an
+<para>In this chapter, we’ll survey the main syntactic elements of an
 XProc pipeline. By their nature, pipelines describe a series of steps
 and the <emphasis>connections between</emphasis> those steps. As a
 consequence, many of the important parts of a pipeline are directly
 related to other parts. This makes it difficult to describe any part
 of a pipeline without mentioning other, not yet explained, parts.
-We'll do our best. Press on and you'll find all the parts
+We’ll do our best. Press on and you’ll find all the parts
 explained.</para>
 
 <para>A step is a unit of work: it performs an XSLT transformation, or
@@ -31,7 +34,7 @@ go, do not.</para>
 <para>Different kinds of steps are distinguished by their
 <glossterm>type</glossterm>; a <tag>p:xslt</tag>-type step is
 different from a <tag>p:http-request</tag>-type step is different from
-a <tag>my:compute-balance</tag>-type step. Generally, when we're talking
+a <tag>my:compute-balance</tag>-type step. Generally, when we’re talking
 about steps we talk about them by type and leave out the “-type” part:
 a <tag>p:xslt</tag> step, a <tag>p:http-request</tag>, etc.
 Step types are identified with QNames and are globally unique.</para>
@@ -101,25 +104,25 @@ of its input ports to one of the output ports of step A.</para>
 
 <para xml:id="connection-direction">All connections in XProc are written
 from the perspective of the port which is accepting input: we always,
-and can only, say that step B reads from step A; we can't say that
+and can only, say that step B reads from step A; we can’t say that
 step A writes to step B. This was a somewhat arbitrary, but conscious
 decision. Given two different but equivalent ways to say the same
 thing, XProc requires that only one way be used. This reduces the
 insignificant variation in pipelines and hopefully reduces confusion
 as well.</para>
 
-<para>As we'll see in <xref linkend="steps"/>, input ports can be connected not
+<para>As we’ll see in <xref linkend="steps"/>, input ports can be connected not
 only to other steps, but also to the outside world through URIs. Well, technically,
 IRIs. XProc adopts the common convention that authors can write IRIs in places
 where we use resource identifiers to point to documents on the web. If all of your
 URIs can be represented in US ASCII, this distinction is irrelevant and can
 be ignored. If you have identifiers that contain characters from a broader
-repertoire, this means you can write them just the way you'd expect.</para>
+repertoire, this means you can write them just the way you’d expect.</para>
 
 <section xml:id="primary-ports">
 <title>Primary ports</title>
 
-<para>If you think of steps as performing units of work, it's often
+<para>If you think of steps as performing units of work, it’s often
 obvious that one input and one output port are “primary”. For example,
 the schema validation steps have two inputs: one for the document to
 be validated and one for the set of schemas to use in validation. The port
@@ -138,9 +141,9 @@ is primary unless it is explicitly marked as non-primary. If there is more than
 one input or output port, then only the one explicitly marked as primary
 is primary.</para>
 
-<para>In other words, if there's a single input or output port, then it is
-primary by default. If there's more than one input or output port, then none
-are primary unless one is explicitly identified as primary. It's an error
+<para>In other words, if there’s a single input or output port, then it is
+primary by default. If there’s more than one input or output port, then none
+are primary unless one is explicitly identified as primary. It’s an error
 if more than one is identified as primary.</para>
 </section>
 
@@ -154,7 +157,7 @@ explicitly connected, then they will be connected to the default readable
 port associated with that step.</para>
 
 <para>The default readable port for the first step in a subpipline is its
-parent's primary input port. If its parent doesn't have a primary input port,
+parent’s primary input port. If its parent doesn’t have a primary input port,
 then the default readable port is undefined.</para>
 
 <para>The default readable port for each step after the first in a
@@ -173,16 +176,16 @@ the inputs.</para>
 
 <para>Two kinds of errors can occur in an XProc pipeline: static
 errors and dynamic errors. A static error is something that is
-independent of any of the pipeline's inputs and will be detected by
+independent of any of the pipeline’s inputs and will be detected by
 the processor before it even starts running. Leaving an input port unconnected
 is a static error, so is an attempt to use a step type for which there is
 no declaration. Static errors are like “compile time” errors in traditional
-programming languages, a pipeline with a static error isn't a valid pipeline
+programming languages, a pipeline with a static error isn’t a valid pipeline
 and cannot be run.</para>
 
 <para>Dynamic errors occur when a pipeline encounters an invalid or
-unexpected condition while it's running. If more than one document is written
-to a port that only accepts a single document, that's a dynamic error.
+unexpected condition while it’s running. If more than one document is written
+to a port that only accepts a single document, that’s a dynamic error.
 Many steps can cause a dynamic error to occur; informally we speak of
 steps failing or throwing an exception. It all amounts to the same thing:
 something has gone wrong and the step that caused or detected the error

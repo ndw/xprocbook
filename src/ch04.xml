@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <chapter xmlns="http://docbook.org/ns/docbook"
          xmlns:cx="http://xmlcalabash.com/ns/extensions"
          xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -67,7 +70,7 @@ in a filename.</para>
 <term><literal>p:vendor-uri</literal></term>
 <listitem>
 <para>Returns a URI which identifies the vendor of the processor. Often, this is the
-URI of the vendor's web site.</para>
+URI of the vendor’s web site.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -118,7 +121,7 @@ step type can be used in this pipeline.</para>
 <para>The <varname>$step-type</varname> must have the lexical form of a QName. If a prefix is
 used, it must be in the in-scope namespaces where the expression occurs.</para>
 
-<para>If steps of the specified type are supported by the pipeline (that is, if they're supported
+<para>If steps of the specified type are supported by the pipeline (that is, if they’re supported
 by the processor <emphasis>and</emphasis> declared by this pipeline), the function returns true,
 otherwise it returns false.</para>
 
@@ -136,7 +139,7 @@ otherwise it returns false.</para>
 <title>p:value-available</title>
 
 <para>If a pipeline specifies an option that is neither required nor has a default value,
-then it's possible that the caller has not provided any value for that option. The
+then it’s possible that the caller has not provided any value for that option. The
 <function>p:value-available</function> function allows you to test for that case.</para>
 
 <synopsis>p:value-available($option-name as xs:string) as xs:boolean</synopsis>

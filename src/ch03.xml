@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <chapter xmlns="http://docbook.org/ns/docbook"
          xmlns:cx="http://xmlcalabash.com/ns/extensions"
          xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -46,7 +49,7 @@ can be mixed arbitrarily.</para>
 <para>If an input port has no explicit connections, then it will
 automatically be connected to the
 <link linkend="default-readable">default readable port</link>, if
-there is one. It's an error to leave an input port unconnected, so if there
+there is one. It’s an error to leave an input port unconnected, so if there
 is neither an explicit connection nor a default readable port, the pipeline
 is not valid.</para>
 
@@ -61,13 +64,13 @@ they exhibit some differences from a standard input:</para>
 <itemizedlist>
 <listitem>
 <para><tag>p:iteration-source</tag> on <tag>p:for-each</tag>. The
-<tag>p:for-each</tag> has only a single input and it doesn't have a name.
+<tag>p:for-each</tag> has only a single input and it doesn’t have a name.
 It functions as the input to the <tag>p:for-each</tag> step.</para>
 </listitem>
 <listitem>
 <para><tag>p:viewport-source</tag> on <tag>p:viewport</tag>. Like
 <tag>p:for-each</tag>, the
-<tag>p:viewport</tag> has only a single input and it doesn't have a name.
+<tag>p:viewport</tag> has only a single input and it doesn’t have a name.
 It functions as the input to the <tag>p:viewport</tag> step.</para>
 </listitem>
 <listitem>
@@ -92,7 +95,7 @@ for their expressions.</para>
 </itemizedlist>
 
 <para>You can think of each of these items as being “bindable”, capable of having
-a document (or documents) bound to them. As we'll see in
+a document (or documents) bound to them. As we’ll see in
 <xref linkend="dependencies"/>, all of these bindings may be relevant in
 determining the order in which steps are evaluated.</para>
 </section>
@@ -108,7 +111,7 @@ node is converted into a document in its own right <emphasis>and</emphasis> the
 parts of the document that did not match the select expression are effectively
 ignored.</para>
 
-<para>It's important to remember that the input to a step is a
+<para>It’s important to remember that the input to a step is a
 document or a sequence of documents. When a select expression is used,
 all the elements selected are effectively extracted from their
 original documents and turned into documents in their own right. (This
@@ -150,7 +153,7 @@ that appear on the port. You can reduce a sequence of documents to a single
 document, or produce a sequence of documents from a single document. The step
 on which the input occurs will only know about the result after applying the
 select expression. This means, for example, that you could send 1,000 documents
-to an input that didn't accept a sequence if you also provided a select expression
+to an input that didn’t accept a sequence if you also provided a select expression
 that would select only a single element from all those documents.</para>
 </section>
 
@@ -159,18 +162,18 @@ that would select only a single element from all those documents.</para>
 
 <para>Most of the pipelines you write will probably be pretty
 straightforward. Even as your experience with XProc grows and you
-tackle more and more complex problems with it, you're not likely to
+tackle more and more complex problems with it, you’re not likely to
 write pipelines that are intentionally obfuscated: if step “A”
-produces output that step “B” consumes, you'll probably put the “A”
+produces output that step “B” consumes, you’ll probably put the “A”
 step before the “B” step in your pipeline document.</para>
 
-<para>You'll probably take advantage of the
+<para>You’ll probably take advantage of the
 <link linkend="default-readable">default readable port</link> to simplify
 your pipelines. This will naturally lead to a “top to bottom” flow
 in your pipelines.</para>
 
-<para>Unfortunately, a pipeline processor can't rely on the organization
-that you'll probably use. The processor has to analyze your pipeline and
+<para>Unfortunately, a pipeline processor can’t rely on the organization
+that you’ll probably use. The processor has to analyze your pipeline and
 determine a specific order in which to run the steps.</para>
 
 <para>The processor uses two rules to determine the order in which to
@@ -188,10 +191,10 @@ or indirectly.</para>
 </listitem>
 </orderedlist>
 
-<para>The second rule means that you can't form a loop of dependencies. Such a
-pipeline isn't valid and can't be run. In the terms of our “flowing water”
+<para>The second rule means that you can’t form a loop of dependencies. Such a
+pipeline isn’t valid and can’t be run. In the terms of our “flowing water”
 analogy, this is the equivalent of connecting the output of some box to the
-input of some box that's “above” it. Water just doesn't flow that way.</para>
+input of some box that’s “above” it. Water just doesn’t flow that way.</para>
 
 <para>If there are no loops in a pipeline, then there is at least
 one way to arrange all the steps pipeline such that every step
@@ -232,8 +235,8 @@ C, E, F. Or A, B, D, E, C, F.</para>
 are entirely independent. Any order that preserves the constraint that B runs
 after A and D runs after C is acceptable.</para>
 
-<para>The point I'm trying to make is that you can't rely on a processor
-running steps in any order that isn't determined by the connections between
+<para>The point I’m trying to make is that you can’t rely on a processor
+running steps in any order that isn’t determined by the connections between
 the steps.</para>
 
 <tip role="extension">
@@ -241,7 +244,7 @@ the steps.</para>
 additional dependencies. You can use the attribute
 <tag class="attribute">cx:depends-on</tag> on any step. The value of the
 attribute is the name of a step that you want to make sure the processor
-runs before it runs the step on which you've placed the extension
+runs before it runs the step on which you’ve placed the extension
 attribute.</para>
 </tip>
 </section>

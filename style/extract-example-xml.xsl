@@ -3,7 +3,7 @@
                 xmlns:p="http://www.w3.org/ns/xproc"
                 xmlns:db="http://docbook.org/ns/docbook"
                 xmlns:xi="http://www.w3.org/2001/XInclude"
-		xmlns:cx="http://xmlcalabash.com/ns/extensions"
+                xmlns:cx="http://xmlcalabash.com/ns/extensions"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 xmlns="http://docbook.org/ns/docbook"
                 exclude-result-prefixes="db p"

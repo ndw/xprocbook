@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -67,7 +70,7 @@ determines how the insertionis performed:</para>
 
 <para>In the case of <literal>first-child</literal> and <literal>last-child</literal>,
 it is an error if the matched node is not an element (because the other kinds
-of nodes don't have children).</para>
+of nodes don’t have children).</para>
 </refsection>
 
 <refsection>
