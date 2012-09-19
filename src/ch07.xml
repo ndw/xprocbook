@@ -229,7 +229,7 @@ preceding options but the context node is undefined.</para>
 
 <variablelist>
 <varlistentry>
-<term><code>&lt;p:option name=”oname”/&gt;</code></term>
+<term><code>&lt;p:option name="oname"/&gt;</code></term>
 <listitem>
 <para>Specifies an option named “<literal>oname</literal>”. The option is
 not required and has no default value. If the caller doesn’t specify a value,
@@ -238,7 +238,7 @@ it will be an error to attempt to refer to it in the pipeline.
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><code>&lt;p:option name=”oname” required=”false”/&gt;</code></term>
+<term><code>&lt;p:option name="oname" required="false"/&gt;</code></term>
 <listitem>
 <para>Specifies an option named “<literal>oname</literal>”. The option is
 not required and has no default value. Just like the preceding example.
@@ -246,7 +246,7 @@ not required and has no default value. Just like the preceding example.
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><code>&lt;p:option name=”oname”/ required=”true”&gt;</code></term>
+<term><code>&lt;p:option name="oname"/ required="true"&gt;</code></term>
 <listitem>
 <para>Specifies an option named “<literal>oname</literal>”. The option is
 required. If the caller does not provide a value, the step will fail at runtime.
@@ -254,7 +254,7 @@ required. If the caller does not provide a value, the step will fail at runtime.
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><code>&lt;p:option name=”oname” select=”'some default value'/&gt;</code></term>
+<term><code>&lt;p:option name="oname" select="'some default value'"/&gt;</code></term>
 <listitem>
 <para>Specifies an option named “<literal>oname</literal>” with the default
 value “<literal>some default value</literal>”. If the caller doesn’t specify
@@ -265,7 +265,7 @@ option’s value was explicitly provided or provided by default.)
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><code>&lt;p:option name=”oname” select=”'some default value'” required=”true”/&gt;</code></term>
+<term><code>&lt;p:option name="oname" select="'some default value'" required="true"/&gt;</code></term>
 <listitem>
 <para>This is an error. It makes no sense to provide a default value for a
 required option so the specification does not allow it. A pipeline that contains
