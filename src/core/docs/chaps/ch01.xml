@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <chapter>
 <title>First chapter</title>
 <para>Some text</para>
