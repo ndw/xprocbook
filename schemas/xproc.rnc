@@ -15,6 +15,15 @@ namespace cx = "http://xmlcalabash.com/ns/extensions"
 
 default namespace = "http://docbook.org/ns/docbook"
 
+
+#   Edit the following included path to point to a local 
+#   copy of the docbookxi.rnc schema.
+#
+#   Developers using Oxygen can find it in:
+#
+#   <oxygen-directory>/frameworks/docbook/5.0/rng/docbookxi.rng
+
+#   include "/path/to/your/local/docbookxi.rnc" {
 include "/home/ndw/docbook.org/xml/5.0/rng/docbookxi.rnc" {
    db._any = element * - (db:* | html:* | p:*) {
       (db._any.attribute | text | db._any)*
