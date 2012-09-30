@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -30,14 +33,14 @@ validation to its input document. If <option>assert-valid</option> is true,
 the step fails if the document is invalid, otherwise a copy of the input
 appears on the output.</para>
 
-<para>While there's no technical reason that the output couldn't be decorated
-with type assignments, in practice there aren't any RELAX NG validators that do
+<para>While there’s no technical reason that the output couldn’t be decorated
+with type assignments, in practice there aren’t any RELAX NG validators that do
 that at this time.</para>
 
 <para>If the <option>dtd-attribute-values</option> option is
 <literal>true</literal>, then the attribute value defaulting conventions of
 <biblioref linkend="relaxng-dtd-compat"/> are also applied. In practice,
-there aren't any RELAX NG validators that do that at this time either.</para>
+there aren’t any RELAX NG validators that do that at this time either.</para>
 
 <para>If the <option>dtd-id-idref-warnings</option> option is
 <literal>true</literal>, then the validator should

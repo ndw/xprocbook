@@ -1,7 +1,7 @@
 
         <available>
           <mytype available="true">true, s:mytype is declared above</mytype>
-          <notype available="false">false, there's no declaration for s:notype</notype>
+          <notype available="false">false, there’s no declaration for s:notype</notype>
           <identity available="true">always true, all processors support p:identity</identity>
           <template available="true">true only if the p:template step is supported</template>
         </available>

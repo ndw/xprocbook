@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -30,8 +33,8 @@ temporary file is guaranteed not to already exist when
 
 <para>The file is created in the directory specified by the
 <option>href</option> option. If <option>prefix</option> is specified,
-the file's name will begin with that prefix. If
-<option>suffix</option> is specified, the file's name will end with
+the file’s name will begin with that prefix. If
+<option>suffix</option> is specified, the file’s name will end with
 that suffix.</para>
 
 <para>The step returns a <tag>c:result</tag> element containing the

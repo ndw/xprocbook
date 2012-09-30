@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -86,7 +89,7 @@ if either <option>wrapper-namespace</option> or
 <refsection>
 <title>Examples</title>
 
-<para>FIXME: TBD. (The harness that runs examples for the book doesn't
+<para>FIXME: TBD. (The harness that runs examples for the book doesn’t
 have any way of taking in a sequence of documents.)</para>
 
 </refsection>

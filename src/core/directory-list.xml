@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -102,7 +105,7 @@ Implementations may include additional attributes.
 <entry><error code="C0012"/></entry>
 <entry>Occurs
 if the step cannot read the specified directory due to access restrictions
-or if the environment doesn't support the notion of a hierarchical directory
+or if the environment doesn’t support the notion of a hierarchical directory
 structure.
 </entry>
 </row>
@@ -129,7 +132,7 @@ if the absolute <option>path</option> does not specify a directory.
 
 <para>The standard <step>p:directory-list</step> step does not build
 an entire tree, it only returns the contents of a single directory.
-But it's easy to write your own recursive processor directly in
+But it’s easy to write your own recursive processor directly in
 XProc:</para>
 
 <programlisting

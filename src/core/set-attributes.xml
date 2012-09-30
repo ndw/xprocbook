@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -30,7 +33,7 @@ matching elements in the source document.</para>
 
 <para>If an attribute with the same name as one of the attributes to
 be copied already exists, the value specified on the
-<port>attribute</port> port's document is used.</para>
+<port>attribute</port> port’s document is used.</para>
 
 <para>If an attribute named <tag class="attribute">xml:base</tag> is
 added or changed, the base URI of the element is amended

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -55,7 +58,7 @@ process. A value of “-1” specifies an unbounded depth.</para>
 <entry><error code="C0012"/></entry>
 <entry>Occurs
 if the step cannot read the specified directory due to access restrictions
-or if the environment doesn't support the notion of a hierarchical directory
+or if the environment doesn’t support the notion of a hierarchical directory
 structure.
 </entry>
 </row>

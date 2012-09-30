@@ -70,10 +70,10 @@ options that set the initial mode and/or named template in the XSLT
 transformation where processing begins.
 </para>
 
-<para>The <option>output-base-uri</option> option sets the context's
+<para>The <option>output-base-uri</option> option sets the context’s
 output base URI per the XSLT 2.0 specification, otherwise the base URI
 of the <port>result</port> document is the base URI of the first
-document in the <code>source</code> port's sequence. If the value of
+document in the <code>source</code> port’s sequence. If the value of
 the <option>output-base-uri</option> option is not absolute, it will
 be resolved using the base URI of its <tag>p:option</tag>
 element. An XSLT 1.0 step should use the value of the

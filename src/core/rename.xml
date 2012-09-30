@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -25,8 +28,8 @@
 <title>Description</title>
 
 <para>The <code>p:rename</code> step renames matching elements,
-attributes, or processing-instructions in the document. It doesn't
-make any sense to match comment or text nodes, they don't have
+attributes, or processing-instructions in the document. It doesn’t
+make any sense to match comment or text nodes, they don’t have
 names.</para>
 
 <para>If the <option>new-name</option> value contains a colon, then
@@ -56,7 +59,7 @@ an attribute is renamed <emphasis>from</emphasis> something else
 the element is updated accordingly.</para>
 
 <para>If the pattern matches processing instructions, then it is the
-processing instruction target that is renamed. In this case, it's an error
+processing instruction target that is renamed. In this case, it’s an error
 if the new name specifies a namespace.</para>
 
 </refsection>

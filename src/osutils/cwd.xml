@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -25,7 +28,7 @@ concept of a working directory, this step returns the empty sequence.
 </para>
 
 <para>(This step is exactly duplicates the <att>cwd</att> attribute on
-the <tag>c:result</tag> from <step>cxo:info</step>; it's just for
+the <tag>c:result</tag> from <step>cxo:info</step>; it’s just for
 convenience.)</para>
 
 </refsection>

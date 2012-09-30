@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <refentry xmlns="http://docbook.org/ns/docbook"
           xmlns:cx="http://xmlcalabash.com/ns/extensions"
           xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -54,7 +57,7 @@ element. On the first match, it will have the value “1”, on the second,
 <refsection>
 <title>Related Steps</title>
 <para>The <step>p:label-elements</step> step computes a new value for
-the attribute each time it's inserted. If you only want to add a literal
+the attribute each time it’s inserted. If you only want to add a literal
 value, you might find <step>p:add-attribute</step> simpler. To set
 multiple (literal) values, see <step>p:set-attributes</step>.
 </para>

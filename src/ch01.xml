@@ -1,3 +1,6 @@
+<?xml-model title="DocBook customization for the XProc book"
+            href="../schemas/xproc.rnc" 
+            type="application/relax-ng-compact-syntax" ?>
 <chapter xmlns="http://docbook.org/ns/docbook"
          xmlns:cx="http://xmlcalabash.com/ns/extensions"
          xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -8,20 +11,20 @@
 <title>Introduction</title>
 </info>
 
-<para>In this chapter, we'll fill in some background about pipelines
+<para>In this chapter, we’ll fill in some background about pipelines
 and get you up to speed on the concepts before we dive into the actual
-features of XProc. We're going to assume that you're familiar with
-XML: you're comfortable the vocabulary of tags and attributes, parsing
-and validation, and that you've used an XML application or two: XSLT,
+features of XProc. We’re going to assume that you’re familiar with
+XML: you’re comfortable the vocabulary of tags and attributes, parsing
+and validation, and that you’ve used an XML application or two: XSLT,
 for example.</para>
 
 <section xml:id="whatis">
-<title>What's a pipeline?</title>
+<title>What’s a pipeline?</title>
 
 <para>At a high level of abstraction, a pipeline is what you get
 whenever the output of one process feeds into the input of another.
-If you work with XML, you've probably already used pipelines
-even if you didn't think about them in those terms. If you validate
+If you work with XML, you’ve probably already used pipelines
+even if you didn’t think about them in those terms. If you validate
 a document and then transform it, or if you apply XInclude and then
 validate, or if you use XSLT to run two differen transformations,
 those are all simple “pipeline” operations.</para>
@@ -60,12 +63,12 @@ document:</para>
 <screen>$ cat ch01.xml | grep "&lt;para" | wc -l
 51</screen>
 
-<para>By using a pipeline we've taken three useful utilities and
+<para>By using a pipeline we’ve taken three useful utilities and
 composed them together to create a pipeline that will count the
-approximate number of paragraphs we've used in all the XML documents
+approximate number of paragraphs we’ve used in all the XML documents
 in the current directory. I say approximately because those are all line-based
-commands and XML isn't really line based. Our XML editor might have saved
-our XML files with great big long lines so that there's more than one
+commands and XML isn’t really line based. Our XML editor might have saved
+our XML files with great big long lines so that there’s more than one
 “<literal>&lt;para>…&lt;/para></literal>” per line which would throw off
 the counts.</para>
 
@@ -74,10 +77,10 @@ large and useful vocabulary of focused commands and a mechnanism for easily
 composing them. By the same token, the XML technology stack provides a
 large and useful vocabulary of “commands”: parsing, validation,
 transformation, XInclude, XML Base, escaping and unescaping markup,
-document comparison, etc. What's historically been missing is a standard,
+document comparison, etc. What’s historically been missing is a standard,
 easy to use composition mechnaism.</para>
 
-<para>Which isn't meant to suggest that XProc invented the notion of
+<para>Which isn’t meant to suggest that XProc invented the notion of
 XML pipelines. Far from it, in fact. For as long as there have been
 APIs for processing XML, there have been mechanisms for constructing
 pipelines. One of the explicit goals of the XProc development exercise
@@ -92,7 +95,7 @@ framework should also run on my command line and the pipelines that
 run on my command line should also run in your XML editor.</para>
 
 <para>The ease of use goal is met, we hope, by providing an XML
-vocabulary for describing pipelines. That's what XProc really is. We
+vocabulary for describing pipelines. That’s what XProc really is. We
 hope that an analogy with XSLT is apt. Before XSLT, it was obviously
 possible for programmers to transform XML documents. What XSLT
 provided was an XML-based model that opened transformation up to a
@@ -108,7 +111,7 @@ The fact that many projects developed their own vocabularies for exactly
 this purpose makes us optimistic that having a standard mechanism will
 be widely successful.</para>
 
-<para>So what does an XML pipeline look like? Here's an XProc pipeline
+<para>So what does an XML pipeline look like? Here’s an XProc pipeline
 that counts the number of paragraphs in a document:</para>
 
 <programlisting
@@ -122,18 +125,18 @@ document:</para>
 <screen>$ calabash -isource=ch01.xml examples/countparas.xpl
 &lt;c:result xmlns:c="http://www.w3.org/ns/xproc-step">51&lt;/c:result></screen>
 
-<para>It's not completely isomorphic to the Unix command line example because
+<para>It’s not completely isomorphic to the Unix command line example because
 the abstractions are just a little bit different. Where the command line tools
 work with lines, XProc uses documents, where the command line tools use
 regular expressions, XProc uses XPath.</para>
 
-<para>We'll cover all the
-details in subsequent chapters, but here's a short summary of how this
+<para>We’ll cover all the
+details in subsequent chapters, but here’s a short summary of how this
 pipeline works:</para>
 
 <orderedlist>
 <listitem>
-<para>There's nothing equivalent to the <command>cat</command> command because
+<para>There’s nothing equivalent to the <command>cat</command> command because
 the pipeline expects the processor to pass it the document(s) to process.
 </para>
 </listitem>
@@ -154,8 +157,8 @@ number of documents it saw.
 </listitem>
 </orderedlist>
 
-<para>In fairness, that's not a very useful pipeline. It was chosen for
-its similarity to the preceding Unix example. Here's a more realistic
+<para>In fairness, that’s not a very useful pipeline. It was chosen for
+its similarity to the preceding Unix example. Here’s a more realistic
 XProc pipeline:</para>
 
 <programlisting
@@ -163,7 +166,7 @@ XProc pipeline:</para>
 /></programlisting>
 
 <para>That pipeline performs XInclude, RELAX NG validation, then
-transformation. These pipelines are all quite simple. As we'll see,
+transformation. These pipelines are all quite simple. As we’ll see,
 pipelines can be very sophisticated: they can interact with web services,
 make choices, iterate over sequences, recover from errors, and be
 extended in a variety of ways.</para>
@@ -187,7 +190,7 @@ you to control a very limited pipeline within the product.</para>
 
 <para>But equally, there are many use cases where the order and
 interaction between these process is not simply less obvious, it
-doesn't exist:</para>
+doesn’t exist:</para>
 
 <itemizedlist>
 <listitem>
@@ -203,7 +206,7 @@ of the composed document.</para>
 before and after a transformation.</para>
 </listitem>
 <listitem>
-<para>If a document can't be processed by some part of a pipeline, you
+<para>If a document can’t be processed by some part of a pipeline, you
 might want to recover in application-specific ways.</para>
 </listitem>
 <listitem>
@@ -218,7 +221,7 @@ steps has no single, predefined, correct order.</para>
 
 <para>Decomposing a complex “business process” (to use the vernacular)
 into a sequence of simpler steps, operations on XML documents in our
-case, is a natural and powerful abstraction. What's needed to achieve
+case, is a natural and powerful abstraction. What’s needed to achieve
 this vision is some “glue language” that allows us to express the nature
 and order of operations that comprise our application: we need a pipeline
 language.</para>
@@ -257,7 +260,7 @@ states until some step concludes that the work is done. They are flexible
 and powerful, but can be tricky to understand.</para>
 
 <para>XProc pipelines follow the “flowing water” model. This model was
-selected because it's sufficiently powerful to address many real use
+selected because it’s sufficiently powerful to address many real use
 cases and also conceptually quite easy to explain and
 understand.</para>
 
@@ -268,7 +271,7 @@ understand.</para>
 
 <para>The discussion of a processing model raises the question of
 streaming. Streaming is difficult to define succinctly. For our
-purposes it's sufficient to say that a streaming process differs from
+purposes it’s sufficient to say that a streaming process differs from
 a non-streaming one if it can process an arbitrarily large document,
 or arbitrarily many documens, without running out of memory.</para>
 
@@ -279,7 +282,7 @@ to stream. A step that adds an attribute to the document element
 if the document contains an odd number of elements with no attributes
 appears impossible to stream.</para>
 
-<para>XProc tries very hard to be neutral about streaming. There's no
+<para>XProc tries very hard to be neutral about streaming. There’s no
 requirement that an implementation be able to stream, but the language
 attempts to avoid imposing semantics that would prevent it from
 streaming.</para>
@@ -301,7 +304,7 @@ performs.</para>
 and parameters, some steps can be nested, variables may be declared,
 etc.</para>
 
-<para>We'll consider the anatomy of pipelines in more detail in the
+<para>We’ll consider the anatomy of pipelines in more detail in the
 following chapters.</para>
 </section>
 
@@ -310,14 +313,14 @@ following chapters.</para>
 
 <para>In order to run an XProc pipeline, you need an XProc processor.
 At the time of this writing, there are several options listed at
-<link xlink:href="http://xproc.org/implementations/"/>. The author's
+<link xlink:href="http://xproc.org/implementations/"/>. The author’s
 implementation is
 <citetitle xlink:href="http://xmlcalabash.com/">XML Calabash</citetitle>.</para>
 
 <para>All pipelines that conform to
 <link xlink:href="http://www.w3.org/TR/xproc/">XProc: An XML Pipeline Language</link>
 should produce the same results if run by any conformant processor.
-Not surprisingly, we're going to use
+Not surprisingly, we’re going to use
 <link xlink:href="http://xmlcalabash.com/">XML Calabash</link> for most of our
 examples in this book.</para>
 
@@ -346,11 +349,11 @@ they contain.</para>
 
 <para>Implementations may also support the creation of extension steps
 directly using whatever APIs their underlying programming language supports.
-In <xref linkend="xcalabash"/>, we'll examine how you can write your own
+In <xref linkend="xcalabash"/>, we’ll examine how you can write your own
 XML Calabash extensions in Java. Such steps are only going to work in the
 implementation for which they were written.</para>
 
-<para>There's one last wrinkle in this story. The
+<para>There’s one last wrinkle in this story. The
 <link xlink:href="http://exproc.org/"/> website is attempting to collect
 a set of community-supported extension steps. With luck, the vocabulary
 of extensions defined at EXProc.org will also be portable across different
